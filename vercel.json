@@ -2,12 +2,9 @@
   "version": 2,
   "builds": [
     {
-      "src": "src",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build",
-        "cache": false
-      }
+      "src": "src/next.config.mjs",
+      "use": "@vercel/next"
     }
-  ]
+  ],
+  "routes": [{ "src": "/(.*)", "dest": "/" }]
 }
