@@ -2,12 +2,15 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/**/*",
+      "src": "src",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist",
+        "distDir": "build",
         "cache": false
       }
     }
-  ]
+  ],
+  "next": {
+    "enabled": true
+  }
 }
