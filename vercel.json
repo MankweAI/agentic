@@ -9,8 +9,5 @@
         "cache": false
       }
     }
-  ],
-  "next": {
-    "enabled": true
-  }
+  ]
 }
