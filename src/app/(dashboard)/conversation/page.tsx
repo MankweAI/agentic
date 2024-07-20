@@ -4,6 +4,8 @@ import Messenger from '@/components/conversations/messenger'
 import InfoBar from '@/components/infobar'
 import { Separator } from '@/components/ui/separator'
 import React from 'react'
+export const dynamic = "force-dynamic";
+// 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
 type Props = {}
 
