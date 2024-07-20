@@ -58,20 +58,21 @@ const Page = async (props: Props) => {
                 A detailed overview of your metrics, leads and more
               </p>
             </div>
-            {/* <PlanUsage
+            <PlanUsage
               plan={plan?.plan!}
               credits={plan?.credits || 0}
               domains={plan?.domains || 0}
               clients={clients || 0}
-            /> */}
+            />
           </div>
           <div className="flex flex-col">
             <div className="w-full flex justify-between items-start mb-5">
-              {/* <div className="flex gap-3 items-center">
+              <div className="flex gap-3 items-center">
                 <TransactionsIcon />
                 <p className="font-bold">Recent Transactions</p>
-              </div> */}
-              {/* <p className="text-sm">See more</p> */}
+              </div>
+              <p className="text-sm">See more</p>
+              
             </div>
             <Separator orientation="horizontal" />
             {transactions &&

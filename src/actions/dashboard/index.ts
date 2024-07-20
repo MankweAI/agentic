@@ -4,6 +4,7 @@ import { client } from '@/lib/prisma'
 import { currentUser } from '@clerk/nextjs'
 import Stripe from 'stripe'
 
+
 const stripe = new Stripe(process.env.STRIPE_SECRET!, {
   typescript: true,
 
@@ -27,7 +28,7 @@ export const getUserClients = async () => {
       }
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 
@@ -59,7 +60,7 @@ export const getUserBalance = async () => {
       }
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 
@@ -94,7 +95,7 @@ export const getUserPlanInfo = async () => {
       }
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 
@@ -124,7 +125,7 @@ export const getUserTotalProductPrices = async () => {
       }
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 
@@ -151,6 +152,6 @@ export const getUserTransactions = async () => {
       }
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
