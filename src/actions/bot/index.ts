@@ -16,6 +16,10 @@ export const onStoreConversations = async (
   message: string,
   role: 'assistant' | 'user'
 ) => {
+  console.log(
+    "login user------------------------------------------------------------------------------"
+  );
+
   await client.chatRoom.update({
     where: {
       id,
@@ -33,8 +37,10 @@ export const onStoreConversations = async (
 }
 
 export const onGetCurrentChatBot = async (id: string) => {
-  console.log("id---------------------------------", id);
-  
+  console.log(
+    "login user------------------------------------------------------------------------------"
+  );
+
   try {
     const chatbot = await client.domain.findUnique({
       where: {
@@ -73,6 +79,9 @@ export const onAiChatBotAssistant = async (
   author: 'user',
   message: string
 ) => {
+  console.log(
+    "login user------------------------------------------------------------------------------"
+  );
 
   try {
     const chatBotDomain = await client.domain.findUnique({

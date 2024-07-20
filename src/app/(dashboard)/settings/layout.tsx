@@ -2,6 +2,7 @@ import { onLoginUser } from '@/actions/auth'
 import SideBar from '@/components/sidebar'
 import { ChatProvider } from '@/context/user-chat-context'
 import React from 'react'
+export const dynamic = "force-dynamic";
 
 type Props = {
   children: React.ReactNode
