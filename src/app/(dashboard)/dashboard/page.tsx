@@ -16,6 +16,8 @@ import PersonIcon from '@/icons/person-icon'
 import { TransactionsIcon } from '@/icons/transactions-icon'
 import { Users } from "lucide-react";
 import React from 'react'
+export const dynamic = "force-dynamic";
+// 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
 type Props = {}
 

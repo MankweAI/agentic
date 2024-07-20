@@ -7,6 +7,8 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { currentUser } from '@clerk/nextjs'
 import React from 'react'
+export const dynamic = "force-dynamic";
+// 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
 type Props = {}
 
