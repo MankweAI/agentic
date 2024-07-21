@@ -39,8 +39,7 @@ const PortalForm = ({
   bookings,
   products,
   email,
-  amount,
-  stripeId,
+  amount
 }: PortalFormProps) => {
   const {
     step,
@@ -83,7 +82,7 @@ const PortalForm = ({
         products={products}
         onBack={onPrev}
         amount={amount}
-        stripeId={stripeId}
+        stripeId={"stripeId"}
       />
       {(step == 1 || step == 2) && (
         <div className="w-full flex justify-center">

@@ -26,7 +26,6 @@ const CustomerPaymentPage = async ({
       domainid={params.domainid}
       customerId={params.customerid}
       questions={questions.questions}
-      stripeId={products?.stripeId!}
       type="Payment"
     />
   )
