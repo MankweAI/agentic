@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 type Props = {}
 
 const ConversationPage = async (props: Props) => {
-  // const domains = await onGetAllAccountDomains()
+  const domains = await onGetAllAccountDomains()
   return (
     <div className="w-full h-full flex">
       {/* <ConversationMenu domains={domains?.domains} /> */}
