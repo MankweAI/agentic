@@ -9,13 +9,13 @@ type StripeConnectProps = {
 }
 
 export const StripeConnect = ({ connected }: StripeConnectProps) => {
-  const { onStripeConnect, onStripeAccountPending } = useStripe()
+  // const { onStripeConnect, onStripeAccountPending } = useStripe()
   return (
     <Button
       disabled={connected}
-      onClick={onStripeConnect}
+      // onClick={onStripeConnect}
     >
-      <Loader loading={onStripeAccountPending}>
+      <Loader loading={false}>
         {connected ? 'Connected' : 'Connect to stripe'}
       </Loader>
     </Button>
