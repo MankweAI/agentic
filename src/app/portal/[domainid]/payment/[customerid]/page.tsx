@@ -11,24 +11,25 @@ const CustomerPaymentPage = async ({
 }: {
   params: { domainid: string; customerid: string }
 }) => {
-  const questions = await onDomainCustomerResponses(params.customerid)
-  const products = await onGetDomainProductsAndConnectedAccountId(
-    params.domainid
-  )
+  // const questions = await onDomainCustomerResponses(params.customerid)
+  // const products = await onGetDomainProductsAndConnectedAccountId(
+  //   params.domainid
+  // )
 
-  if (!questions) return null
+  // if (!questions) return null
 
   return (
-    <PortalForm
-      email={questions.email!}
-      products={products?.products}
-      amount={products?.amount}
-      domainid={params.domainid}
-      customerId={params.customerid}
-      questions={questions.questions}
-      stripeId={products?.stripeId!}
-      type="Payment"
-    />
+    <></>
+    // <PortalForm
+    //   email={questions.email!}
+    //   products={products?.products}
+    //   amount={products?.amount}
+    //   domainid={params.domainid}
+    //   customerId={params.customerid}
+    //   questions={questions.questions}
+    //   stripeId={products?.stripeId!}
+    //   type="Payment"
+    // />
   )
 }
 
