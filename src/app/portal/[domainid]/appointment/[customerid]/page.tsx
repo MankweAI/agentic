@@ -11,6 +11,9 @@ const CustomerSignUpForm = async ({ params }: Props) => {
   const questions = await onDomainCustomerResponses(params.customerid)
   const bookings = await onGetAllDomainBookings(params.domainid)
 
+  console.log("parameters........................", params.customerid, params.domainid);
+  
+
   if (!questions) return null
 
   return (
