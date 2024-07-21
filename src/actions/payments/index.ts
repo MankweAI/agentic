@@ -11,7 +11,7 @@ export const onGetDomainProductsAndConnectedAccountId = async (id: string) => {
       select: {
         User: {
           select: {
-            stripeId: true,
+            stripeId: false,
           },
         },
       },
@@ -34,8 +34,7 @@ export const onGetDomainProductsAndConnectedAccountId = async (id: string) => {
       }, 0)
       return {
         products: products,
-        amount: totalAmount,
-        stripeId: connectedAccount?.User?.stripeId,
+        amount: totalAmount
       }
     }
   } catch (error) {
