@@ -4,11 +4,6 @@ import IntegrationsList from '@/components/integrations'
 export const dynamic = "force-dynamic";
 
 const IntegrationsPage = async () => {
-  const payment = await onGetPaymentConnected()
-
-  const connections = {
-    stripe: payment ? true : false,
-  }
 
   return (
     <>
