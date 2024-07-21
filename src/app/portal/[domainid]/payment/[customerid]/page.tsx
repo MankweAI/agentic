@@ -19,7 +19,16 @@ const CustomerPaymentPage = async ({
   if (!questions) return null
 
   return (
-    <></>
+    <PortalForm
+      email={questions.email!}
+      products={products?.products}
+      amount={products?.amount}
+      domainid={params.domainid}
+      customerId={params.customerid}
+      questions={questions.questions}
+      stripeId={products?.stripeId!}
+      type="Payment"
+    />
   )
 }
 
