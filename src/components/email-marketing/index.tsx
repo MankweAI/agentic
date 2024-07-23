@@ -1,39 +1,39 @@
-'use client'
-import { useEmailMarketing } from '@/hooks/email-marketing/use-marketing'
-import React from 'react'
-import { CustomerTable } from './customer-table'
-import { Button } from '../ui/button'
-import { Plus } from 'lucide-react'
-import Modal from '../mondal'
-import { Card, CardContent, CardDescription, CardTitle } from '../ui/card'
-import { Loader } from '../loader'
-import FormGenerator from '../forms/form-generator'
-import { cn, getMonthName } from '@/lib/utils'
-import CalIcon from '@/icons/cal-icon'
-import PersonIcon from '@/icons/person-icon'
-import { EditEmail } from './edit-email'
+"use client";
+import { useEmailMarketing } from "@/hooks/email-marketing/use-marketing";
+import React from "react";
+import { CustomerTable } from "./customer-table";
+import { Button } from "../ui/button";
+import { Plus } from "lucide-react";
+import Modal from "../mondal";
+import { Card, CardContent, CardDescription, CardTitle } from "../ui/card";
+import { Loader } from "../loader";
+import FormGenerator from "../forms/form-generator";
+import { cn, getMonthName } from "@/lib/utils";
+import CalIcon from "@/icons/cal-icon";
+import PersonIcon from "@/icons/person-icon";
+import { EditEmail } from "./edit-email";
 
 type Props = {
   domains: {
     customer: {
       Domain: {
-        name: string
-      } | null
-      id: string
-      email: string | null
-    }[]
-  }[]
+        name: string;
+      } | null;
+      id: string;
+      email: string | null;
+    }[];
+  }[];
   campaign: {
-    name: string
-    id: string
-    customers: string[]
-    createdAt: Date
-  }[]
+    name: string;
+    id: string;
+    customers: string[];
+    createdAt: Date;
+  }[];
   subscription: {
-    plan: 'STANDARD' | 'PRO' | 'ULTIMATE'
-    credits: number
-  } | null
-}
+    plan: "STANDARD" | "PRO" | "ULTIMATE";
+    credits: number;
+  } | null;
+};
 
 const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
   const {
@@ -54,7 +54,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
     emailErrors,
     onCreateEmailTemplate,
     setValue,
-  } = useEmailMarketing()
+  } = useEmailMarketing();
 
   return (
     <div className="w-full flex-1 h-0 grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -84,10 +84,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
               </Card>
             }
           >
-            <form
-              className="flex flex-col gap-4"
-              onSubmit={onCreateCampaign}
-            >
+            <form className="flex flex-col gap-4" onSubmit={onCreateCampaign}>
               <FormGenerator
                 name="name"
                 register={register}
@@ -96,11 +93,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                 placeholder="your campaign name"
                 type="text"
               />
-              <Button
-                className="w-full"
-                disabled={loading}
-                type="submit"
-              >
+              <Button className="w-full" disabled={loading} type="submit">
                 <Loader loading={loading}>Create Campaign</Loader>
               </Button>
             </form>
@@ -117,8 +110,8 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
               <Card
                 key={camp.id}
                 className={cn(
-                  'p-5 min-w-[600px] cursor-pointer',
-                  campaignId == camp.id ? 'bg-gray-50' : ''
+                  "p-5 min-w-[600px] cursor-pointer",
+                  campaignId == camp.id ? "bg-gray-50" : ""
                 )}
                 onClick={() => onSelectCampaign(camp.id)}
               >
@@ -128,7 +121,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                       <div className="flex gap-2 items-center">
                         <CalIcon />
                         <CardDescription>
-                          Created {getMonthName(camp.createdAt.getMonth())}{' '}
+                          Created {getMonthName(camp.createdAt.getMonth())}{" "}
                           {camp.createdAt.getDate()}th
                         </CardDescription>
                       </div>
@@ -180,7 +173,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default EmailMarketing
+export default EmailMarketing;
