@@ -1,5 +1,5 @@
 import { onGetAllCampaigns, onGetAllCustomers } from '@/actions/mail'
-// import EmailMarketing from '@/components/email-marketing'
+import EmailMarketing from '@/components/email-marketing'
 import InfoBar from '@/components/infobar'
 import { currentUser } from '@clerk/nextjs'
 import React from 'react'
