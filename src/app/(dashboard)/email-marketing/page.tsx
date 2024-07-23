@@ -7,23 +7,21 @@ import React from 'react'
 type Props = {}
 
 const Page = async (props: Props) => {
-  const user = await currentUser()
+  const user = false
 
   if (!user) return null
-  const customers = await onGetAllCustomers(user.id)
-  const campaigns = await onGetAllCampaigns(user.id)
+  // const customers = await onGetAllCustomers(user.id)
+  // const campaigns = await onGetAllCampaigns(user.id)
 
-  console.log("------------------------------", user, customers, campaigns);
-  
 
   return (
     <>
       <InfoBar></InfoBar>
-      <EmailMarketing
+      {/* <EmailMarketing
         campaign={campaigns?.campaign!}
         subscription={customers?.subscription!}
         domains={customers?.domains!}
-      />
+      /> */}
     </>
   )
 }
