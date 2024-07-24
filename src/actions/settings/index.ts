@@ -242,41 +242,43 @@ export const onUpdateDomain = async (id: string, name: string) => {
 }
 
 export const onChatBotImageUpdate = async (id: string, icon: string) => {
-  const user = await currentUser()
+  const user = await currentUser();
 
-  if (!user) return
+  if (!user) return;
 
   try {
-    const domain = await client.domain.update({
+    const domain = await client.domain.findUnique({
       where: {
         id,
       },
-      data: {
-        chatBot: {
-          update: {
-            data: {
-              icon,
-            },
-          },
-        },
+      include: {
+        chatBot: true,
       },
-    })
+    });
 
-    if (domain) {
-      return {
-        status: 200,
-        message: 'Domain updated',
-      }
+    if (domain?.chatBot) {
+      await client.chatBot.update({
+        where: {
+          id: domain.chatBot.id,
+        },
+        data: {
+          icon,
+        },
+      });
     }
 
     return {
-      status: 400,
-      message: 'Oops something went wrong!',
-    }
+      status: 200,
+      message: "ChatBot icon updated",
+    };
   } catch (error) {
-    console.log(error)
+    console.log(error);
+    return {
+      status: 400,
+      message: "Oops something went wrong!",
+    };
   }
-}
+};
 
 export const onUpdateWelcomeMessage = async (
   message: string,
