@@ -333,25 +333,24 @@ export const onDeleteUserDomain = async (id: string) => {
       },
     })
 
-    if (validUser) {
-      //check that domain belongs to this user and delete
-      const deletedDomain = await client.domain.delete({
-        where: {
-          userId: validUser.id,
-          id,
-        },
-        select: {
-          name: true,
-        },
-      })
+if (validUser) {
+  // Check that domain belongs to this user and delete
+  const deletedDomain = await client.domain.delete({
+    where: {
+      id: id, 
+    },
+    select: {
+      name: true,
+    },
+  });
 
-      if (deletedDomain) {
-        return {
-          status: 200,
-          message: `${deletedDomain.name} was deleted successfully`,
-        }
-      }
-    }
+  if (deletedDomain) {
+    return {
+      status: 200,
+      message: `${deletedDomain.name} was deleted successfully`,
+    };
+  }
+}
   } catch (error) {
     console.log(error)
   }
