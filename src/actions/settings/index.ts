@@ -285,29 +285,38 @@ export const onUpdateWelcomeMessage = async (
   domainId: string
 ) => {
   try {
-    const update = await client.domain.update({
+    const domain = await client.domain.findUnique({
       where: {
         id: domainId,
       },
-      data: {
-        chatBot: {
-          update: {
-            data: {
-              welcomeMessage: message,
-            },
-          },
-        },
+      include: {
+        chatBot: true,
       },
-    })
+    });
 
-    if (update) {
-      return { status: 200, message: 'Welcome message updated' }
+    if (domain?.chatBot) {
+      await client.chatBot.update({
+        where: {
+          id: domain.chatBot.id,
+        },
+        data: {
+          welcomeMessage: message,
+        },
+      });
     }
-  } catch (error) {
-    console.log(error)
-  }
-}
 
+    return {
+      status: 200,
+      message: "Welcome message updated",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: 400,
+      message: "Oops something went wrong!",
+    };
+  }
+};
 export const onDeleteUserDomain = async (id: string) => {
   const user = await currentUser()
 
