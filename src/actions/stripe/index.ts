@@ -34,44 +34,42 @@ export const onCreateCustomerPaymentIntentSecret = async (
 }
 
 export const onUpdateSubscription = async (
-  plan: 'STANDARD' | 'PRO' | 'ULTIMATE'
+  plan: "STANDARD" | "PRO" | "ULTIMATE"
 ) => {
   try {
-    const user = await currentUser()
-    if (!user) return
-    const update = await client.user.update({
-      where: {
-        clerkId: user.id,
-      },
-      data: {
-        subscription: {
-          update: {
-            data: {
-              plan,
-              credits: plan == 'PRO' ? 50 : plan == 'ULTIMATE' ? 500 : 10,
-            },
-          },
+    const user = await currentUser();
+    if (!user) return;
+
+    // Find the user's subscription (Billings instance)
+    const subscription = await client.user
+      .findUnique({
+        where: {
+          clerkId: user.id,
         },
-      },
-      select: {
-        subscription: {
-          select: {
-            plan: true,
-          },
+      })
+      .subscription();
+
+    if (subscription) {
+      // Update the subscription (Billings instance)
+      await client.billings.update({
+        where: {
+          id: subscription.id,
         },
-      },
-    })
-    if (update) {
-      return {
-        status: 200,
-        message: 'subscription updated',
-        plan: update.subscription?.plan,
-      }
+        data: {
+          plan,
+          credits: plan === "PRO" ? 50 : plan === "ULTIMATE" ? 500 : 10,
+        },
+      });
     }
+
+    return {
+      status: 200,
+      message: "subscription updated",
+    };
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 const setPlanAmount = (item: 'STANDARD' | 'PRO' | 'ULTIMATE') => {
   if (item == 'PRO') {
