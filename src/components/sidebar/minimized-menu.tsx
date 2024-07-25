@@ -31,7 +31,7 @@ export const MinMenu = ({
   return (
     <div className="p-3 flex flex-col items-center h-full">
       <span className="animate-fade-in opacity-0 delay-300 fill-mode-forwards cursor-pointer">
-        {/* <MenuLogo onClick={onShrink} /> */}
+        <MenuLogo onClick={onShrink} />
         <Image
           src="/images/logo-agentic.png"
           alt="LOGO"
