@@ -4,7 +4,11 @@ import { usePathname, useRouter } from 'next/navigation'
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useChatContext } from './user-chat-context'
-import { onGetConversationMode, onToggleRealtime } from '@/actions/conversation'
+import {
+  onGetConversationMode,
+  onToggleRealtime,
+  toggleAllChatRoomsLive,
+} from "@/actions/conversation";
 import { useClerk } from '@clerk/nextjs'
 
 const useSideBar = () => {
@@ -34,6 +38,24 @@ const useSideBar = () => {
       console.log(error)
     }
   }
+  
+  const onActivateRealtimeForAllChatRooms = async (e: any) => {
+    try {
+      const realtime = await toggleAllChatRoomsLive(
+        e.target.ariaChecked == "true" ? false : true
+      );
+      if (realtime) {
+        setRealtime(true);
+        toast({
+          title: "Success",
+          description: realtime.message,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   const onGetCurrentMode = async () => {
     setLoading(true)
@@ -64,6 +86,7 @@ const useSideBar = () => {
     onSignOut,
     realtime,
     onActivateRealtime,
+    onActivateRealtimeForAllChatRooms,
     chatRoom,
     loading,
   }

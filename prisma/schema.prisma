@@ -115,7 +115,6 @@ model ChatRoom {
   Customer   Customer? @relation(fields: [customerId], references: [id], onDelete: Cascade)
   customerId String?   @db.Uuid
   starred    Boolean   @default(false)
-
   message ChatMessage[]
 }
 

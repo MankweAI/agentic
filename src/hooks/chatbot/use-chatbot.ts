@@ -230,5 +230,5 @@ export const useRealTime = (
       pusherClient.unbind('realtime-mode')
       pusherClient.unsubscribe(chatRoom)
     }
-  }, [])
+  }, [chatRoom,setChats])
 }
