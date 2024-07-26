@@ -32,6 +32,25 @@ export const onToggleRealtime = async (id: string, state: boolean) => {
   }
 }
 
+export const toggleAllChatRoomsLive = async (state: boolean) => {
+  console.log('state---------------------------------------------', state);
+  
+  try {
+    await client.chatRoom.updateMany({
+      data: {
+        live: state,
+      },
+    });
+
+    return {
+      status: 200,
+      message: state ? "You are live for all visitors" : "Chatbot is online",
+    };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const onGetConversationMode = async (id: string) => {
   try {
     const mode = await client.chatRoom.findUnique({

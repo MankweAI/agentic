@@ -57,10 +57,10 @@ export const TABS_MENU: TABS_MENU_PROPS[] = [
     label: 'all',
     icon: <EmailIcon />,
   },
-  {
-    label: 'expired',
-    icon: <TimerIcon />,
-  },
+  // {
+  //   label: 'expired',
+  //   icon: <TimerIcon />,
+  // },
   {
     label: 'starred',
     icon: <StarIcon />,
