@@ -25,7 +25,7 @@ const BreadCrumb = (props: Props) => {
     <div className="flex flex-col ">
       <div className="flex gap-5 items-center">
         <h2 className="text-3xl font-bold capitalize">{page}</h2>
-        {page === "conversation" && chatRoom && (
+        {/* {page === "conversation" && chatRoom && (
           <Loader loading={loading} className="p-0 inline">
             <Switch
               defaultChecked={realtime}
@@ -33,7 +33,7 @@ const BreadCrumb = (props: Props) => {
               className="data-[state=checked]:bg-[#00E525] data-[state=unchecked]:bg-gray-300"
             />
           </Loader>
-        )}
+        )} */}
       </div>
       <p className="text-gray-500 text-sm">
         {page == "settings"

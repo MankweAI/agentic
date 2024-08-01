@@ -1,4 +1,4 @@
-import { onAiChatBotAssistant, onGetCurrentChatBot } from '@/actions/bot'
+import { onAiChatBotAssistant, onGetCurrentChatBot } from '@/actions/bot/indexold'
 import { postToParent, pusherClient } from '@/lib/utils'
 import {
   ChatBotMessageProps,
@@ -25,7 +25,8 @@ export const useChatBot = () => {
   })
   const [currentBot, setCurrentBot] = useState<
     | {
-        name: string
+      name: string
+      live: boolean
         chatBot: {
           id: string
           icon: string | null
@@ -90,6 +91,7 @@ export const useChatBot = () => {
           content: chatbot.chatBot?.welcomeMessage!,
         },
       ])
+      
       setCurrentBot(chatbot)
       setLoading(false)
     }
@@ -104,7 +106,7 @@ export const useChatBot = () => {
         limitRequest++
       }
     })
-  }, [])
+  }, [limitRequest])
 
   const onStartChatting = handleSubmit(async (values) => {
     console.log('ALL VALUES', values)
@@ -232,3 +234,40 @@ export const useRealTime = (
     }
   }, [chatRoom,setChats])
 }
+
+
+// export const useRealTime = (
+//   chatRoom: string,
+//   setChats: React.Dispatch<
+//     React.SetStateAction<
+//       {
+//         role: "user" | "assistant";
+//         content: string;
+//         link?: string | undefined;
+//       }[]
+//     >
+//   >
+// ) => {
+//   const counterRef = useRef(1);
+
+//   useEffect(() => {
+//     pusherClient.subscribe(chatRoom);
+//     pusherClient.bind("realtime-mode", (data: any) => {
+//       console.log("✅", data);
+//       if (counterRef.current !== 1) {
+//         setChats((prev: any) => [
+//           ...prev,
+//           {
+//             role: data.chat.role,
+//             content: data.chat.message,
+//           },
+//         ]);
+//       }
+//       counterRef.current += 1;
+//     });
+//     return () => {
+//       pusherClient.unbind("realtime-mode");
+//       pusherClient.unsubscribe(chatRoom);
+//     };
+//   }, [chatRoom, setChats]);
+// };

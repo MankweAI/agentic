@@ -1,13 +1,16 @@
+import AgentName from '@/components/forms/settings/agent-name';
 import { z } from 'zod'
 
 export const MAX_UPLOAD_SIZE = 1024 * 1024 * 2 // 2MB
 export const ACCEPTED_FILE_TYPES = ['image/png', 'image/jpg', 'image/jpeg']
 
 export type DomainSettingsProps = {
-  domain?: string
-  image?: any
-  welcomeMessage?: string
-}
+  domain?: string;
+  image?: any;
+  welcomeMessage?: string;
+  agentName?: string;
+  welcomeMessageOutside?: string;
+};
 
 export type HelpDeskQuestionsProps = {
   question: string
@@ -47,20 +50,31 @@ export const DomainSettingsSchema = z
   .object({
     domain: z
       .string()
-      .min(4, { message: 'A domain must have atleast 3 characters' })
+      .min(4, { message: "A domain must have atleast 3 characters" })
       .refine(
         (value) =>
-          /^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,3}$/.test(value ?? ''),
-        'This is not a valid domain'
+          /^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,3}$/.test(value ?? ""),
+        "This is not a valid domain"
       )
       .optional()
-      .or(z.literal('').transform(() => undefined)),
+      .or(z.literal("").transform(() => undefined)),
     image: z.any().optional(),
     welcomeMessage: z
       .string()
-      .min(6, 'The message must be atleast 6 characters')
+      .min(6, "The message must be atleast 6 characters")
       .optional()
-      .or(z.literal('').transform(() => undefined)),
+      .or(z.literal("").transform(() => undefined)),
+    welcomeMessageOutside: z
+      .string()
+      .min(6, "The message must be atleast 6 characters")
+      .optional()
+      .or(z.literal("").transform(() => undefined)),
+    agentName: z
+      .string()
+      .min(3, "The agent's name must be atleast 3 characters")
+      .max(24, "Name is too long")
+      .optional()
+      .or(z.literal("").transform(() => undefined)),
   })
   .refine(
     (schema) => {
@@ -69,19 +83,19 @@ export const DomainSettingsSchema = z
           ACCEPTED_FILE_TYPES.includes(schema.image?.[0].type!) &&
           schema.image?.[0].size <= MAX_UPLOAD_SIZE
         ) {
-          return true
+          return true;
         }
       }
       if (!schema.image?.length) {
-        return true
+        return true;
       }
     },
     {
       message:
-        'The fill must be less then 2MB, and on PNG, JPEG & JPG files are accepted',
-      path: ['image'],
+        "The fill must be less then 2MB, and on PNG, JPEG & JPG files are accepted",
+      path: ["image"],
     }
-  )
+  );
 
 export const HelpDeskQuestionsSchema = z.object({
   question: z.string().min(1, { message: 'Question cannot be left empty' }),
