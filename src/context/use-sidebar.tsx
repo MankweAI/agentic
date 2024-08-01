@@ -1,51 +1,34 @@
-'use client'
-import { useToast } from '@/components/ui/use-toast'
-import { usePathname, useRouter } from 'next/navigation'
-import React from 'react'
-import { useEffect, useState } from 'react'
-import { useChatContext } from './user-chat-context'
+"use client";
+import { useToast } from "@/components/ui/use-toast";
+import { usePathname, useRouter } from "next/navigation";
+import React from "react";
+import { useEffect, useState } from "react";
+import { useChatContext } from "./user-chat-context";
 import {
   onGetConversationMode,
   onToggleRealtime,
-  toggleAllChatRoomsLive,
 } from "@/actions/conversation";
-import { useClerk } from '@clerk/nextjs'
+import { useClerk } from "@clerk/nextjs";
 
 const useSideBar = () => {
-  const [expand, setExpand] = useState<boolean | undefined>(undefined)
-  const router = useRouter()
-  const pathname = usePathname()
-  const { toast } = useToast()
-  const [realtime, setRealtime] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(false)
+  const [expand, setExpand] = useState<boolean | undefined>(undefined);
+  const router = useRouter();
+  const pathname = usePathname();
+  const { toast } = useToast();
+  const [realtime, setRealtime] = useState<boolean | undefined>(undefined);
+  const [tempRealTime, setTempRealTime] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const { chatRoom } = useChatContext()
+  const { chatRoom } = useChatContext();
 
   const onActivateRealtime = async (e: any) => {
     try {
+      setTempRealTime(e.target.ariaChecked == "true" ? false : true);
       const realtime = await onToggleRealtime(
-        chatRoom!,
-        e.target.ariaChecked == 'true' ? false : true
-      )
-      if (realtime) {
-        setRealtime(realtime.chatRoom.live)
-        toast({
-          title: 'Success',
-          description: realtime.message,
-        })
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  
-  const onActivateRealtimeForAllChatRooms = async (e: any) => {
-    try {
-      const realtime = await toggleAllChatRoomsLive(
         e.target.ariaChecked == "true" ? false : true
       );
       if (realtime) {
-        setRealtime(true);
+        setRealtime(realtime.domain?.live);
         toast({
           title: "Success",
           description: realtime.message,
@@ -56,28 +39,28 @@ const useSideBar = () => {
     }
   };
 
-
   const onGetCurrentMode = async () => {
-    setLoading(true)
-    const mode = await onGetConversationMode(chatRoom!)
+    setLoading(true);
+    const mode = await onGetConversationMode();
+
     if (mode) {
-      setRealtime(mode.live)
-      setLoading(false)
+      setRealtime(mode.live);
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    if (chatRoom) {
-      onGetCurrentMode()
+    if (realtime === undefined) {
+      onGetCurrentMode();
     }
-  }, [chatRoom])
+  }, [realtime]);
 
-  const page = pathname.split('/').pop()
-  const { signOut } = useClerk()
+  const page = pathname.split("/").pop();
+  const { signOut } = useClerk();
 
-  const onSignOut = () => signOut(() => router.push('/'))
+  const onSignOut = () => signOut(() => router.push("/"));
 
-  const onExpand = () => setExpand((prev) => !prev)
+  const onExpand = () => setExpand((prev) => !prev);
 
   return {
     expand,
@@ -85,11 +68,11 @@ const useSideBar = () => {
     page,
     onSignOut,
     realtime,
+    tempRealTime,
     onActivateRealtime,
-    onActivateRealtimeForAllChatRooms,
     chatRoom,
     loading,
-  }
-}
+  };
+};
 
-export default useSideBar
+export default useSideBar;

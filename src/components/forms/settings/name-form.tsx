@@ -9,10 +9,7 @@ import EditChatbotIcon from "./edit-chatbot-icon";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import  ColorPicker  from "@/components/ui/color-picker";
 import { Loader } from "@/components/loader";
-import { useState } from "react";
-
 
 const AgentName = dynamic(
   () => import("./agent-name").then((props) => props.default),
@@ -20,22 +17,6 @@ const AgentName = dynamic(
     ssr: false,
   }
 );
-
-const WelcomeMessageOutside = dynamic(
-  () => import("./outside-greetings-message").then((props) => props.default),
-  {
-    ssr: false,
-  }
-);
-
-const WelcomeMessage = dynamic(
-  () => import("./greetings-message").then((props) => props.default),
-  {
-    ssr: false,
-  }
-);
-
-
 
 type Props = {
   id: string;
@@ -46,40 +27,11 @@ type Props = {
     icon: string | null;
     welcomeMessage: string | null;
     agentName: string | null;
-    welcomeMessageOutside: string | null;
+    welcomeMessage2: string | null;
   } | null;
 };
 
-interface Color {
-  r: string;
-  g: string;
-  b: string;
-  a: string;
-}
-
 const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
-  const [color, setColor] = useState<Color>({
-    r: "241",
-    g: "112",
-    b: "19",
-    a: "1",
-  });
-
-  // Function to create a JSON object from the color
-  const createColorJson = ({ r, g, b, a }: Color) => {
-    return {
-      color: {
-        r: parseInt(r),
-        g: parseInt(g),
-        b: parseInt(b),
-        a: parseFloat(a),
-      },
-    };
-  };
-
-  const colorJson = createColorJson(color);
-
-
   const {
     register,
     onUpdateSettings,
@@ -88,47 +40,32 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
     deleting,
     loading,
   } = useSettings(id);
-
   return (
     <form className="flex flex-col gap-8 pb-10" onSubmit={onUpdateSettings}>
+      <div className="flex flex-col gap-3">
+        <h2 className="font-bold text-2xl">Domain Settings</h2>
+        <Separator orientation="horizontal" />
+        <DomainUpdate name={name} register={register} errors={errors} />
+        <CodeSnippet id={id} />
+      </div>
       <div className="flex flex-col gap-3 mt-5">
         <div className="flex gap-4 items-center">
           <h2 className="font-bold text-2xl">Chatbot Settings</h2>
-          {/* <div className="flex gap-1 bg-black rounded-full px-3 py-1 text-xs items-center font-bold">
+          <div className="flex gap-1 bg-cream rounded-full px-3 py-1 text-xs items-center font-bold">
             <PremiumBadge />
             Premium
-          </div> */}
+          </div>
         </div>
         <Separator orientation="horizontal" />
         <h4 className="font-bold text-md">Agent On Duty</h4>
 
         <div className="grid md:grid-cols-2">
           <div className="col-span-1 flex flex-col gap-5 order-last md:order-first">
-            <AgentName
-              message={chatBot?.agentName!}
-              register={register}
-              errors={errors}
-            />
-
-            <WelcomeMessageOutside
-              message={chatBot?.welcomeMessageOutside!}
-              register={register}
-              errors={errors}
-            />
-
-            <WelcomeMessage
-              message={chatBot?.welcomeMessage!}
-              register={register}
-              errors={errors}
-            />
-
-            <EditChatbotIcon
+            {/* <EditChatbotIcon
               chatBot={chatBot}
               register={register}
               errors={errors}
-            />
-
-            <ColorPicker color={color} setColor={setColor} />
+            /> */}
 
           </div>
           <div className="col-span-1 relative ">
@@ -142,16 +79,18 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
           </div>
         </div>
       </div>
-      <div className="flex gap-5 justify-center">
-        <Button onClick={() => { }} type="submit" className="w-[400px] h-[50px]">
+      <div className="flex gap-5 justify-end">
+        <Button
+          onClick={onDeleteDomain}
+          variant="destructive"
+          type="button"
+          className="px-10 h-[50px]"
+        >
+          <Loader loading={deleting}>Delete Domain</Loader>
+        </Button>
+        <Button type="submit" className="w-[100px] h-[50px]">
           <Loader loading={loading}>Save</Loader>
         </Button>
-      </div>
-      <div className="flex flex-col gap-3">
-        <h2 className="font-bold text-2xl">Domain Settings</h2>
-        <Separator orientation="horizontal" />
-        <DomainUpdate name={name} register={register} errors={errors} />
-        <CodeSnippet id={id} />
       </div>
     </form>
   );

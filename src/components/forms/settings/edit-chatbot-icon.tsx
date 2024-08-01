@@ -17,11 +17,14 @@ type Props = {
 }
 
 const EditChatbotIcon = ({ register, errors, chatBot }: Props) => {
+
+  // Incomplete.
+  // Change the BotIcon in line 47
   return (
     <div className="py-5 flex flex-col gap-5 items-start">
       <Section
-        label="Chatbot icon"
-        message="Change the icon for the chatbot."
+        label="Agent's picture"
+        message="Visitors can see who they are talking to"
       />
       <UploadButton
         label="Edit Image"
@@ -33,12 +36,14 @@ const EditChatbotIcon = ({ register, errors, chatBot }: Props) => {
           <Image
             src={`https://ucarecdn.com/${chatBot.icon}/`}
             alt="bot"
-            width={80}
-            height={80}
+            width={90}
+            height={90}
+            
           />
         </div>
       ) : (
-        <div className="rounded-full cursor-pointer shadow-md w-20 h-20 flex items-center justify-center bg-grandis">
+          <div className="rounded-full cursor-pointer shadow-md w-20 h-20 flex items-center justify-center bg-grandis">
+            
           <BotIcon />
         </div>
       )}

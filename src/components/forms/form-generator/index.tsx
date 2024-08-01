@@ -33,7 +33,9 @@ const FormGenerator = ({
   lines,
   options,
 }: Props) => {
+
   switch (inputType) {
+    
     case 'input':
     default:
       return (

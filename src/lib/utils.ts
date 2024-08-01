@@ -44,6 +44,12 @@ export const isString = (text: string) => {
   return !!text.match(/(.+)/gi);
 };
 
+export const containsGreeting = (text: string) => {
+  const greetingRegex =
+    /\b(hi|hello|hey|greetings|good (morning|afternoon|evening)|hello|hiya|hey there)\b/gi;
+  return !!text.match(greetingRegex);
+};
+
 export const getMonthName = (month: number) => {
   return month == 1
     ? "Jan"

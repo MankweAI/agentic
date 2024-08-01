@@ -12,7 +12,6 @@ import { CardDescription } from "../ui/card";
 import { Separator } from "../ui/separator";
 import useSideBar from "@/context/use-sidebar";
 
-
 type Props = {
   domains?:
     | {
@@ -23,8 +22,6 @@ type Props = {
     | undefined;
 };
 
-
-
 const ConversationMenu = ({ domains }: Props) => {
   const {
     register,
@@ -34,25 +31,25 @@ const ConversationMenu = ({ domains }: Props) => {
     chatroomStarred,
   } = useConversation();
 
-    const {
-      realtime,
-      onActivateRealtimeForAllChatRooms,
-    } = useSideBar();
+  const { realtime, onActivateRealtime, tempRealTime } = useSideBar();
+
+  console.log("*********************One456", realtime);
+
   return (
     <div className="py-3 px-0">
       <TabsMenu triggers={TABS_MENU}>
         <TabsContent value="unread">
-          {/* <div className="flex justify-between w-full gap-5 items-end pr-4">
+          <div className="flex justify-between w-full gap-5 items-end pr-4">
             <h2 className="text-xl font-bold capitalize">Live: All</h2>
-
             <Loader loading={loading} className="px-4">
               <Switch
-                defaultChecked={realtime}
-                onClick={(e) => onActivateRealtimeForAllChatRooms(e)}
+                checked={realtime ?? tempRealTime}
+                // checked={realtime ?? tempRealTime}
+                onClick={(e) => onActivateRealtime(e)}
                 className="data-[state=checked]:bg-[#00E525] data-[state=unchecked]:bg-gray-300"
               />
             </Loader>
-          </div> */}
+          </div>
 
           <ConversationSearch domains={domains} register={register} />
           <div className="flex flex-col">
@@ -96,7 +93,9 @@ const ConversationMenu = ({ domains }: Props) => {
                   <ChatCard
                     seen={room?.chatRoom[0]?.message[0]?.seen}
                     id={room?.chatRoom[0]?.id}
-                    onChat={() => onGetActiveChatMessages(room?.chatRoom[0]?.id)}
+                    onChat={() =>
+                      onGetActiveChatMessages(room?.chatRoom[0]?.id)
+                    }
                     createdAt={room?.chatRoom[0]?.message[0]?.createdAt}
                     key={room?.chatRoom[0]?.id}
                     title={room?.email!}

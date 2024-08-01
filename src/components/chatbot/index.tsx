@@ -24,13 +24,15 @@ const AiChatBot = (props: Props) => {
     errors,
   } = useChatBot()
 
+          console.log("*********************THREE", onRealTime?.mode);
+
   return (
     <div className="h-screen flex flex-col justify-end items-end gap-4">
       {botOpened && (
         <BotWindow
           errors={errors}
           setChat={setOnChats}
-          realtimeMode={onRealTime}
+          realtimeMode={currentBot?.live}
           helpdesk={currentBot?.helpdesk!}
           domainName={currentBot?.name!}
           ref={messageWindowRef}

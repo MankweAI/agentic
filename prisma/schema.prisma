@@ -31,9 +31,10 @@ model User {
 }
 
 model Domain {
-  id   String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name String
-  icon String
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String
+  icon         String
+  live         Boolean  @default(false) // Added 'live' property
 
   chatBot         ChatBot?
   helpdesk        HelpDesk[]
@@ -42,14 +43,15 @@ model Domain {
 
   customer   Customer[]
   User       User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     String?    @db.Uuid
+   userId     String?    @db.Uuid @unique
   Campaign   Campaign?  @relation(fields: [campaignId], references: [id])
   campaignId String?    @db.Uuid
 }
-
 model ChatBot {
   id             String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   welcomeMessage String?
+  welcomeMessageOutside String?
+  agentName String?
   icon           String?
   background     String?
   textColor      String?

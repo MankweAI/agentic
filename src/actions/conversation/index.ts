@@ -1,9 +1,11 @@
-'use server'
+"use server";
 
-import { client } from '@/lib/prisma'
-import { pusherServer } from '@/lib/utils'
+import { client } from "@/lib/prisma";
+import { pusherServer } from "@/lib/utils";
+import { currentUser } from "@clerk/nextjs";
+import { v4 as uuid } from "uuid";
 
-export const onToggleRealtime = async (id: string, state: boolean) => {
+export const onToggleRealtimeOld = async (id: string, state: boolean) => {
   try {
     const chatRoom = await client.chatRoom.update({
       where: {
@@ -16,25 +18,85 @@ export const onToggleRealtime = async (id: string, state: boolean) => {
         id: true,
         live: true,
       },
-    })
+    });
 
     if (chatRoom) {
       return {
         status: 200,
         message: chatRoom.live
-          ? 'Realtime mode enabled'
-          : 'Realtime mode disabled',
+          ? "Realtime mode enabled"
+          : "Realtime mode disabled",
         chatRoom,
-      }
+      };
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
+
+export const onToggleRealtime = async (state: boolean) => {
+  const clerkUserId = await currentUser();
+  const prismaUserId = await client.user.findFirst({
+    where: {
+      clerkId: clerkUserId?.id,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  if (prismaUserId && prismaUserId?.id.length > 0) {
+    // console.log("*********************ONE", prismaUserId?.id);
+
+    try {
+      const domain = await client.domain.findUnique({
+        where: {
+          userId: prismaUserId?.id,
+        },
+        select: {
+          id: true,
+          live: true,
+        },
+      });
+
+      if (domain && domain.id) {
+        // console.log("*********************TWO", domain);
+
+        const domainId = domain.id; // Use the retrieved domain ID
+        const updatedDomain = await client.domain.update({
+          where: {
+            id: domainId,
+          },
+          data: {
+            live: state,
+          },
+          select: {
+            id: true,
+            live: true,
+          },
+        });
+
+        if (updatedDomain) {
+          // console.log("*********************THREE", updatedDomain.live);
+
+          return {
+            status: 200,
+            message: updatedDomain.live
+              ? "Realtime mode enabled"
+              : "Realtime mode disabled",
+            domain: updatedDomain,
+          };
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
 
 export const toggleAllChatRoomsLive = async (state: boolean) => {
-  console.log('state---------------------------------------------', state);
-  
+  console.log("state---------------------------------------------", state);
+
   try {
     await client.chatRoom.updateMany({
       data: {
@@ -51,22 +113,58 @@ export const toggleAllChatRoomsLive = async (state: boolean) => {
   }
 };
 
-export const onGetConversationMode = async (id: string) => {
-  try {
-    const mode = await client.chatRoom.findUnique({
-      where: {
-        id,
-      },
-      select: {
-        live: true,
-      },
-    })
-    console.log(mode)
-    return mode
-  } catch (error) {
-    console.log(error)
+export const onGetConversationMode = async () => {
+  // console.log("*********************ONE");
+
+  const clerkUserId = await currentUser();
+  const prismaUserId = await client.user.findFirst({
+    where: {
+      clerkId: clerkUserId?.id,
+    },
+    select: {
+      id: true,
+    },
+  });
+  if (prismaUserId && prismaUserId?.id.length > 0) {
+    // console.log("*********************TWO");
+
+    try {
+      const domain = await client.domain.findUnique({
+        where: {
+          userId: prismaUserId?.id,
+        },
+        select: {
+          id: true,
+          live: true,
+        },
+      });
+
+      if (domain && domain.id) {
+
+        try {
+          const id = domain.id; // Use the retrieved domain ID
+          const mode = await client.domain.findUnique({
+            where: {
+              id,
+            },
+            select: {
+              live: true,
+            },
+          });
+
+
+          return mode;
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    } catch (error) {
+      // console.log("*********************FOUR");
+
+      console.log(error);
+    }
   }
-}
+};
 
 export const onGetDomainChatRooms = async (id: string) => {
   try {
@@ -103,12 +201,12 @@ export const onGetDomainChatRooms = async (id: string) => {
     });
 
     if (domains) {
-      return domains
+      return domains;
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export const onDeleteChatroom = async (id: string) => {
   try {
@@ -123,9 +221,7 @@ export const onDeleteChatroom = async (id: string) => {
     await client.chatMessage.deleteMany({
       where: {
         chatRoomId: id,
-
       },
-
     });
 
     // Delete customer associated with the chat room
@@ -138,7 +234,6 @@ export const onDeleteChatroom = async (id: string) => {
     console.log(error);
   }
 };
-
 
 // Use chatroom ID to get the 'starred' boolean field from the chatroom table
 export const onGetChatRoomStarred = async (id: string) => {
@@ -178,7 +273,7 @@ export const onStarChatRoom = async (id: string, state: boolean) => {
 
     if (chatRoom) {
       console.log("Chatroom starred", chatRoom.starred);
-      
+
       return {
         status: 200,
         message: chatRoom.starred ? "Chatroom starred" : "Chatroom unstarred",
@@ -189,7 +284,6 @@ export const onStarChatRoom = async (id: string, state: boolean) => {
     console.log(error);
   }
 };
-
 
 export const getAllStarredChatrooms = async () => {
   try {
@@ -239,21 +333,19 @@ export const onGetChatMessages = async (id: string) => {
             seen: true,
           },
           orderBy: {
-            createdAt: 'asc',
+            createdAt: "asc",
           },
         },
       },
-    })
+    });
 
     if (messages) {
-      return messages
+      return messages;
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
-
-
+};
 
 export const onViewUnReadMessages = async (id: string) => {
   try {
@@ -264,31 +356,31 @@ export const onViewUnReadMessages = async (id: string) => {
       data: {
         seen: true,
       },
-    })
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export const onRealTimeChat = async (
   chatroomId: string,
   message: string,
   id: string,
-  role: 'assistant' | 'user'
+  role: "assistant" | "user"
 ) => {
-  pusherServer.trigger(chatroomId, 'realtime-mode', {
+  pusherServer.trigger(chatroomId, "realtime-mode", {
     chat: {
       message,
       id,
       role,
     },
-  })
-}
+  });
+};
 
 export const onOwnerSendMessage = async (
   chatroom: string,
   message: string,
-  role: 'assistant' | 'user'
+  role: "assistant" | "user"
 ) => {
   try {
     const chat = await client.chatRoom.update({
@@ -313,17 +405,17 @@ export const onOwnerSendMessage = async (
             seen: true,
           },
           orderBy: {
-            createdAt: 'desc',
+            createdAt: "desc",
           },
           take: 1,
         },
       },
-    })
+    });
 
     if (chat) {
-      return chat
+      return chat;
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};

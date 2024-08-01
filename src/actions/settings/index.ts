@@ -183,6 +183,8 @@ export const onGetCurrentDomainInfo = async (domain: string) => {
               select: {
                 id: true,
                 welcomeMessage: true,
+                welcomeMessageOutside: true,
+                agentName: true,
                 icon: true,
               },
             },
@@ -317,6 +319,85 @@ export const onUpdateWelcomeMessage = async (
     };
   }
 };
+
+
+export const onUpdateWelcomeMessageOutside = async (
+  message: string,
+  domainId: string
+) => {
+  try {
+    const domain = await client.domain.findUnique({
+      where: {
+        id: domainId,
+      },
+      include: {
+        chatBot: true,
+      },
+    });
+
+    if (domain?.chatBot) {
+      await client.chatBot.update({
+        where: {
+          id: domain.chatBot.id,
+        },
+        data: {
+          welcomeMessageOutside: message,
+        },
+      });
+    }
+
+    return {
+      status: 200,
+      message: "Welcome message updated",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: 400,
+      message: "Oops something went wrong!",
+    };
+  }
+};
+
+export const onUpdateAgentName = async (
+  message: string,
+  domainId: string
+) => {
+  try {
+    const domain = await client.domain.findUnique({
+      where: {
+        id: domainId,
+      },
+      include: {
+        chatBot: true,
+      },
+    });
+
+    if (domain?.chatBot) {
+      await client.chatBot.update({
+        where: {
+          id: domain.chatBot.id,
+        },
+        data: {
+          agentName: message,
+        },
+      });
+    }
+
+    return {
+      status: 200,
+      message: "Welcome message updated",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: 400,
+      message: "Oops something went wrong!",
+    };
+  }
+};
+
+
 export const onDeleteUserDomain = async (id: string) => {
   const user = await currentUser()
 

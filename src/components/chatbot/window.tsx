@@ -20,37 +20,33 @@ import Accordion from '../accordian'
 import UploadButton from '../upload-button'
 
 type Props = {
-  errors: any
-  register: UseFormRegister<ChatBotMessageProps>
-  chats: { role: 'assistant' | 'user'; content: string; link?: string }[]
-  onChat(): void
-  onResponding: boolean
-  domainName: string
-  theme?: string | null
-  textColor?: string | null
-  help?: boolean
-  realtimeMode:
-    | {
-        chatroom: string
-        mode: boolean
-      }
-    | undefined
+  errors: any;
+  register: UseFormRegister<ChatBotMessageProps>;
+  chats: { role: "assistant" | "user"; content: string; link?: string }[];
+  onChat(): void;
+  onResponding: boolean;
+  domainName: string;
+  theme?: string | null;
+  textColor?: string | null;
+  help?: boolean;
+  realtimeMode: boolean | undefined;
+
   helpdesk: {
-    id: string
-    question: string
-    answer: string
-    domainId: string | null
-  }[]
+    id: string;
+    question: string;
+    answer: string;
+    domainId: string | null;
+  }[];
   setChat: React.Dispatch<
     React.SetStateAction<
       {
-        role: 'user' | 'assistant'
-        content: string
-        link?: string | undefined
+        role: "user" | "assistant";
+        content: string;
+        link?: string | undefined;
       }[]
     >
-  >
-}
+  >;
+};
 
 export const BotWindow = forwardRef<HTMLDivElement, Props>(
   (
@@ -87,10 +83,10 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
                 Sales Rep - Web Prodigies
               </h3>
               <p className="text-sm">{domainName.split('.com')[0]}</p>
-              {realtimeMode?.mode && (
+              {realtimeMode && (
                 <RealTimeMode
                   setChats={setChat}
-                  chatRoomId={realtimeMode.chatroom}
+                  chatRoomId={"chatroom"}
                 />
               )}
             </div>
