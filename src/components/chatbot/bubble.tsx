@@ -13,10 +13,11 @@ type Props = {
   };
   createdAt?: Date;
   bubbleColor?: string;
-  textColor?: string;
+  textColor: string | undefined | null
 };
 
-const Bubble = ({ message, createdAt, bubbleColor }: Props) => {
+const Bubble = ({ message, createdAt, bubbleColor, textColor }: Props) => {
+
   let d = new Date();
   const image = extractUUIDFromString(message.content);
   console.log(message.link);
@@ -52,9 +53,8 @@ const Bubble = ({ message, createdAt, bubbleColor }: Props) => {
           }
         )}
         style={{
-          backgroundColor:
-            message.role !== "assistant" ? bubbleColor : undefined,
-          // color: message.role !== "assistant" ? textColor : undefined,
+          backgroundColor:message.role !== "assistant" ? bubbleColor : undefined,
+          color: message.role !== "assistant" && textColor !== undefined && textColor !== null ? textColor : undefined,
         }}
       >
         {createdAt ? (

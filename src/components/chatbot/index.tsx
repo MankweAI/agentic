@@ -24,7 +24,6 @@ const AiChatBot = (props: Props) => {
     errors,
   } = useChatBot()
 
-          console.log("*********************THREE", onRealTime?.mode);
 
   return (
     <div className="h-screen flex flex-col justify-end items-end gap-4">
@@ -43,16 +42,17 @@ const AiChatBot = (props: Props) => {
           register={register}
           onChat={onStartChatting}
           onResponding={onAiTyping}
+          chatbotIcon={ currentBot?.chatBot?.icon}
         />
       )}
       <div
         className={cn(
-          'rounded-full relative cursor-pointer shadow-md w-20 h-20 flex items-center justify-center bg-grandis',
-          loading ? 'invisible' : 'visible'
+          "rounded-full relative cursor-pointer shadow-md w-20 h-20 flex items-center justify-center bg-grandis",
+          loading ? "invisible" : "visible"
         )}
         onClick={onOpenChatBot}
       >
-        {currentBot?.chatBot?.icon ? (
+        {currentBot?.chatBot?.icon && !botOpened ? (
           <Image
             src={`https://ucarecdn.com/${currentBot.chatBot.icon}/`}
             alt="bot"
@@ -63,7 +63,7 @@ const AiChatBot = (props: Props) => {
         )}
       </div>
     </div>
-  )
+  );
 }
 
 export default AiChatBot
