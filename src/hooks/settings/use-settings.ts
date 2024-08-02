@@ -10,6 +10,7 @@ import {
   onUpdatePassword,
   onUpdateWelcomeMessage,
   onUpdateWelcomeMessageOutside,
+  onUpdateBackroundColorAndText,
   onUpdateAgentName,
 } from "@/actions/settings";
 import { useToast } from "@/components/ui/use-toast";
@@ -37,6 +38,19 @@ import { useForm } from "react-hook-form";
 const upload = new UploadClient({
   publicKey: process.env.NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY as string,
 });
+
+interface Color {
+  r?: number;
+  g?: number;
+  b?: number;
+  a?: number;
+}
+
+interface TextColor {
+  black?: string;
+  white?: string;
+}
+
 
 export const useThemeMode = () => {
   const { setTheme, theme } = useTheme();
@@ -97,7 +111,7 @@ export const useSettings = (id: string) => {
   const [deleting, setDeleting] = useState<boolean>(false);
 
   const onUpdateSettings = handleSubmit(async (values) => {
-    console.log("\\\\\\\\\\\\////////////", values);
+    
 
     setLoading(true);
     if (values.domain) {
@@ -157,6 +171,14 @@ export const useSettings = (id: string) => {
     setLoading(false);
   });
 
+  const onClickSaveButton = async (
+    domainId: string,
+    backroundColor?: Partial<Color>,
+    textColor?: string
+  ) => {
+    const tempBackroundColor = JSON.stringify(backroundColor);
+    onUpdateBackroundColorAndText(tempBackroundColor, textColor, domainId);
+  };
   const onDeleteDomain = async () => {
     setDeleting(true);
     const deleted = await onDeleteUserDomain(id);
@@ -172,6 +194,7 @@ export const useSettings = (id: string) => {
   return {
     register,
     onUpdateSettings,
+    onClickSaveButton,
     errors,
     loading,
     onDeleteDomain,

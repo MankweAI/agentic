@@ -27,12 +27,9 @@ function ColorPicker({ color, setColor }: ColorPickerProps) {
   };
 
   return (
-    <div
-      className="App"
-      style={{ display: "flex", justifyContent: "space-around" }}
-    >
+    <div className="App" style={{ display: "flex", justifyContent: "start" }}>
       <div className="sketchpicker">
-        <p>Selected Color</p>
+        <p>Backround Color</p>
         {/* Div to display the color  */}
         <div
           style={{
@@ -53,6 +50,8 @@ function ColorPicker({ color, setColor }: ColorPickerProps) {
           onChange={handleSketchPickerChange}
         />
       </div>
+
+
     </div>
   );
 }
