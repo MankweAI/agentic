@@ -28,6 +28,8 @@ type Props = {
   domainName: string;
   theme?: string | null;
   textColor?: string | null;
+  chatbotIcon?: string | null;
+
   help?: boolean;
   realtimeMode: boolean | undefined;
 
@@ -62,10 +64,16 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
       setChat,
       textColor,
       theme,
+      chatbotIcon,
       help,
     },
     ref
   ) => {
+    console.log("*********************THREE", textColor);
+    
+    // Incomplete
+    // The chatroom ID in line 104 is set to "chatroom" instead of an ID. Potential bug.
+
     const colorObject = theme ? JSON.parse(theme) : null;
     const toRgbaString = (color: any) => {
       if (!color) return "rgba(255, 255, 255, 1)"; // Default to white if color is null or undefined
@@ -77,38 +85,38 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
     const rgbaColor = toRgbaString(colorObject);
 
     return (
-      <div className="h-[670px] w-[450px] flex flex-col bg-white rounded-xl mr-[80px] border-[1px] overflow-hidden">
+      <div className="h-[620px] w-[450px] flex flex-col justify-end bg-white rounded-xl border-[1px] overflow-hidden">
         <div
-          className="flex justify-between px-4 pt-4"
-          style={{ backgroundColor: rgbaColor }} // Apply dynamic background color
+          className="flex justify-center px-4 pt-4"
+          style={{
+            backgroundColor: rgbaColor,
+            backgroundImage: `url(https://ucarecdn.com/bff986e9-01c9-4e73-b290-f8ed6e6abed5/titlebarbackroundagentic.png)`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
-          <div className="flex gap-2">
-            <Avatar className="w-20 h-20">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <div className="flex items-start flex-col">
-              <h3 className="text-lg font-bold leading-none">
-                Sales Rep - Web Prodigies
+          <div className="flex gap-2 items-center justify-center ">
+            <Image
+              src={`https://ucarecdn.com/${chatbotIcon}/`}
+              alt="bot"
+              width={70}
+              height={70}
+            />
+            <div className="flex items-center flex-col">
+              <h3 className="text-lg font-bold leading-none pb-2">
+                Lebogang - Matlala Attorneys
               </h3>
-              <p className="text-sm">{domainName.split(".com")[0]}</p>
+              {/* <p className="text-sm">{domainName.split(".com")[0]}</p> */}
+
               {realtimeMode && (
                 <RealTimeMode setChats={setChat} chatRoomId={"chatroom"} />
               )}
             </div>
           </div>
-          <div className="relative w-16 h-16">
-            <Image
-              src="https://ucarecdn.com/019dd17d-b69b-4dea-a16b-60e0f25de1e9/propuser.png"
-              fill
-              alt="users"
-              objectFit="contain"
-            />
-          </div>
         </div>
         <TabsMenu
           triggers={BOT_TABS_MENU}
-          className=" bg-transparent border-[1px] border-border m-2"
+          className=" bg-transparent border-[1px] border-border m-2 flex justify-center"
         >
           <TabsContent value="chat">
             <Separator orientation="horizontal" />
@@ -116,13 +124,18 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
               <div
                 style={{
                   background: theme || "",
-                  color: textColor || "",
+                  color: "black",
                 }}
                 className="px-3 flex h-[400px] flex-col py-5 gap-3 chat-window overflow-y-auto"
                 ref={ref}
               >
                 {chats.map((chat, key) => (
-                  <Bubble key={key} message={chat} bubbleColor={rgbaColor} />
+                  <Bubble
+                    key={key}
+                    message={chat}
+                    bubbleColor={rgbaColor}
+                    textColor={textColor}
+                  />
                 ))}
                 {onResponding && <Responding />}
               </div>
@@ -140,23 +153,14 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
                     <Send />
                   </Button>
                 </div>
-                <Label htmlFor="bot-image">
-                  <Paperclip />
-                  <Input
-                    {...register("image")}
-                    type="file"
-                    id="bot-image"
-                    className="hidden"
-                  />
-                </Label>
               </form>
             </div>
           </TabsContent>
 
           <TabsContent value="helpdesk">
-            <div className="h-[485px] overflow-y-auto overflow-x-hidden p-4 flex flex-col gap-4">
+            <div className="h-[460px] overflow-y-auto overflow-x-hidden p-4 flex flex-col gap-4">
               <div>
-                <CardTitle>Help Desk</CardTitle>
+                <CardTitle>FAQs</CardTitle>
                 <CardDescription>
                   Browse from a list of questions people usually ask.
                 </CardDescription>
@@ -173,8 +177,8 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
             </div>
           </TabsContent>
         </TabsMenu>
-        <div className="flex justify-center ">
-          <p className="text-gray-400 text-xs">Powered By Web Prodigies</p>
+        <div className="flex justify-center items-end ">
+          <p className="text-gray-500 text-xs">Powered By Agentic.co.za</p>
         </div>
       </div>
     );
