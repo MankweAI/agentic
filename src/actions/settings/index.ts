@@ -397,6 +397,55 @@ export const onUpdateAgentName = async (
   }
 };
 
+export const onUpdateBackroundColorAndText = async (
+  background: string | undefined,
+  textColor: string | undefined,
+  domainId: string
+) => {
+      console.log(`Selected color is now: ${textColor}`);
+
+  try {
+    const domain = await client.domain.findUnique({
+      where: {
+        id: domainId,
+      },
+      include: {
+        chatBot: true,
+      },
+    });
+
+    if (domain?.chatBot) {
+      const dataToUpdate: { background?: string; textColor?: string } = {};
+
+      if (background !== undefined && background !== null) {
+        dataToUpdate.background = background;
+      }
+
+      if (textColor !== undefined && textColor !== null) {
+        dataToUpdate.textColor = textColor;
+      }
+
+      await client.chatBot.update({
+        where: {
+          id: domain.chatBot.id,
+        },
+        data: dataToUpdate,
+      });
+    }
+
+    return {
+      status: 200,
+      message: "GOT IT SO RIGHT!!!",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      status: 400,
+      message: "Oops something went wrong!",
+    };
+  }
+};
+
 
 export const onDeleteUserDomain = async (id: string) => {
   const user = await currentUser()

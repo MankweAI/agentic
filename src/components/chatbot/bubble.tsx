@@ -7,17 +7,19 @@ import Link from 'next/link'
 
 type Props = {
   message: {
-    role: 'assistant' | 'user'
-    content: string
-    link?: string
-  }
-  createdAt?: Date
-}
+    role: "assistant" | "user";
+    content: string;
+    link?: string;
+  };
+  createdAt?: Date;
+  bubbleColor?: string;
+  textColor?: string;
+};
 
-const Bubble = ({ message, createdAt }: Props) => {
-  let d = new Date()
-  const image = extractUUIDFromString(message.content)
-  console.log(message.link)
+const Bubble = ({ message, createdAt, bubbleColor }: Props) => {
+  let d = new Date();
+  const image = extractUUIDFromString(message.content);
+  console.log(message.link);
 
   return (
     <div
@@ -28,7 +30,10 @@ const Bubble = ({ message, createdAt }: Props) => {
     >
       {message.role == "assistant" ? (
         <Avatar className="w-5 h-5">
-          <AvatarImage src="/src/app/images/profile-pic-agentic.png" alt="@shadcn" />
+          <AvatarImage
+            src="/src/app/images/profile-pic-agentic.png"
+            alt="@shadcn"
+          />
           {/* <AvatarFallback>CN</AvatarFallback> */}
         </Avatar>
       ) : (
@@ -41,10 +46,16 @@ const Bubble = ({ message, createdAt }: Props) => {
       <div
         className={cn(
           "flex flex-col gap-3 min-w-[200px] max-w-[300px] p-4 rounded-t-md",
-          message.role == "assistant"
-            ? "bg-muted rounded-r-md"
-            : "bg-[#C9FFF8] rounded-l-md"
+          {
+            "bg-muted rounded-r-md": message.role === "assistant",
+            "rounded-l-md": message.role !== "assistant",
+          }
         )}
+        style={{
+          backgroundColor:
+            message.role !== "assistant" ? bubbleColor : undefined,
+          // color: message.role !== "assistant" ? textColor : undefined,
+        }}
       >
         {createdAt ? (
           <div className="flex gap-2 text-xs text-gray-600">
@@ -84,6 +95,6 @@ const Bubble = ({ message, createdAt }: Props) => {
       </div>
     </div>
   );
-}
+};
 
 export default Bubble

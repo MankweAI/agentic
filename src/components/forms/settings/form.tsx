@@ -12,6 +12,8 @@ import { Button } from "@/components/ui/button";
 import  ColorPicker  from "@/components/ui/color-picker";
 import { Loader } from "@/components/loader";
 import { useState } from "react";
+import TextColorSelector from "../../ui/textColorSelector";
+
 
 
 const AgentName = dynamic(
@@ -65,6 +67,11 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
     a: "1",
   });
 
+  const [selectedColor, setSelectedColor] = useState<"white" | "black">(
+    "white"
+  );
+  
+
   // Function to create a JSON object from the color
   const createColorJson = ({ r, g, b, a }: Color) => {
     return {
@@ -85,9 +92,19 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
     onUpdateSettings,
     errors,
     onDeleteDomain,
+    onClickSaveButton,
     deleting,
     loading,
   } = useSettings(id);
+
+    const handleClick = () => {
+      onClickSaveButton(id, colorJson.color, selectedColor);
+  };
+  
+    const handleColorChange = (color: "white" | "black") => {
+      setSelectedColor(color);
+      // Handle the color change, e.g., update global state, make API calls, etc.
+    };
 
   return (
     <form className="flex flex-col gap-8 pb-10" onSubmit={onUpdateSettings}>
@@ -128,8 +145,14 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
               errors={errors}
             />
 
+            <Separator orientation="horizontal" />
+            <h4 className="font-bold text-md">Chatbot Theme</h4>
+
             <ColorPicker color={color} setColor={setColor} />
 
+            <div className="w-[200px]">
+              <TextColorSelector onSelectColor={handleColorChange} />
+            </div>
           </div>
           <div className="col-span-1 relative ">
             <Image
@@ -143,7 +166,11 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
         </div>
       </div>
       <div className="flex gap-5 justify-center">
-        <Button onClick={() => { }} type="submit" className="w-[400px] h-[50px]">
+        <Button
+          onClick={handleClick}
+          type="submit"
+          className="w-[400px] h-[50px]"
+        >
           <Loader loading={loading}>Save</Loader>
         </Button>
       </div>
