@@ -3,7 +3,6 @@ import SideBar from '@/components/sidebar'
 import { ChatProvider } from '@/context/user-chat-context'
 import React from 'react'
 export const dynamic = "force-dynamic";
-// 'auto' | 'force-dynamic' | 'error' | 'force-static'
 
 type Props = {
   children: React.ReactNode

@@ -47,7 +47,7 @@ const AiChatBot = (props: Props) => {
       )}
       <div
         className={cn(
-          "rounded-full relative cursor-pointer shadow-md w-20 h-20 flex items-center justify-center bg-grandis",
+          "rounded-full relative cursor-pointer shadow-md w-20 h-20 flex items-center justify-center bg-gray-700",
           loading ? "invisible" : "visible"
         )}
         onClick={onOpenChatBot}

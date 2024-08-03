@@ -1,6 +1,7 @@
 import CalIcon from '@/icons/cal-icon'
 import ChatIcon from '@/icons/chat-icon'
 import DashboardIcon from '@/icons/dashboard-icon'
+import DevicesIcon from '@/icons/devices-icon'
 import EmailIcon from '@/icons/email-icon'
 import HelpDeskIcon from '@/icons/help-desk-icon'
 import IntegrationsIcon from '@/icons/integrations-icon'
@@ -14,12 +15,27 @@ type SIDE_BAR_MENU_PROPS = {
   path: string
 }
 
-export const SIDE_BAR_MENU: SIDE_BAR_MENU_PROPS[] = [
+type ONLINE_STATUS_MENU_PROPS = {
+  label: string;
+  icon: JSX.Element;
+  path: string;
+};
+
+export const ONLINE_STATUS_MENU: ONLINE_STATUS_MENU_PROPS[] = [
   {
-    label: "Dashboard",
-    icon: <DashboardIcon />,
-    path: "dashboard",
+    label: "Online",
+    icon: <DevicesIcon />,
+    path: "conversatio",
   },
+];
+
+export const SIDE_BAR_MENU: SIDE_BAR_MENU_PROPS[] = [
+  // {
+  //   label: "Dashboard",
+  //   icon: <DashboardIcon />,
+  //   path: "dashboard",
+  // },
+
   {
     label: "Conversations",
     icon: <ChatIcon />,
