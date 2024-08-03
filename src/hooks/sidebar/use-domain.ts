@@ -36,7 +36,7 @@ export const useDomain = () => {
   const onAddDomain = handleSubmit(async (values: FieldValues) => {
     setLoading(true)
     const uploaded = await upload.uploadFile(values.image[0])
-    const domain = await onIntegrateDomain(values.domain, uploaded.uuid)
+    const domain = await onIntegrateDomain(values.domain, "")
     if (domain) {
       reset()
       setLoading(false)

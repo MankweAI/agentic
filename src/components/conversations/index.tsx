@@ -33,13 +33,11 @@ const ConversationMenu = ({ domains }: Props) => {
 
   const { realtime, onActivateRealtime, tempRealTime } = useSideBar();
 
-  console.log("*********************One456", realtime);
-
   return (
     <div className="py-3 px-0">
       <TabsMenu triggers={TABS_MENU}>
         <TabsContent value="unread">
-          <div className="flex justify-between w-full gap-5 items-end pr-4">
+          {/* <div className="flex justify-between w-full gap-5 items-end pr-4">
             <h2 className="text-xl font-bold capitalize">Live: All</h2>
             <Loader loading={loading} className="px-4">
               <Switch
@@ -49,7 +47,7 @@ const ConversationMenu = ({ domains }: Props) => {
                 className="data-[state=checked]:bg-[#00E525] data-[state=unchecked]:bg-gray-300"
               />
             </Loader>
-          </div>
+          </div> */}
 
           <ConversationSearch domains={domains} register={register} />
           <div className="flex flex-col">

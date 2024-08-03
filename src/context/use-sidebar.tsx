@@ -58,7 +58,7 @@ const useSideBar = () => {
   const page = pathname.split("/").pop();
   const { signOut } = useClerk();
 
-  const onSignOut = () => signOut(() => router.push("/"));
+  const onSignOut = () => signOut(() => router.push("/auth/sign-in"));
 
   const onExpand = () => setExpand((prev) => !prev);
 

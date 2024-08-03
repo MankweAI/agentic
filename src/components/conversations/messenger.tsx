@@ -34,6 +34,8 @@ const Messenger = (props: Props) => {
                     role: chat.role!,
                     content: chat.message,
                   }}
+                  textColor="black"
+                  bubbleColor="#F6F6D2"
                   createdAt={chat.createdAt}
                 />
               ))
@@ -45,28 +47,21 @@ const Messenger = (props: Props) => {
       </div>
       <form
         onSubmit={onHandleSentMessage}
-        className="flex px-3 pt-3 pb-10 flex-col backdrop-blur-sm bg-muted w-full"
+        className="flex px-3 pt-3 pb-8 flex-col backdrop-blur-sm bg-muted w-full"
       >
         <div className="flex justify-between">
           <Input
-            {...register('content')}
+            {...register("content")}
             placeholder="Type your message..."
             className="focus-visible:ring-0 flex-1 p-0 focus-visible:ring-offset-0 bg-muted rounded-none outline-none border-none"
           />
-          <Button
-            type="submit"
-            className="mt-3 px-7"
-            disabled={!chatRoom}
-          >
+          <Button type="submit" className="mt-3 px-7" disabled={!chatRoom}>
             Send
           </Button>
         </div>
-        <span>
-          <PaperclipIcon className='text-muted-foreground' />
-        </span>
       </form>
     </div>
-  )
+  );
 }
 
 export default Messenger
