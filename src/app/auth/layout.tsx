@@ -16,15 +16,15 @@ const Layout = async ({ children }: Props) => {
     <div className="h-screen flex w-full justify-center">
       <div className="w-[600px] ld:w-full flex flex-col items-center p-6">
         <Image
-          src="/images/logo-agentic-white-backround.png"
+          src="/images/agentic-ai-logo.svg"
           alt="LOGO"
-          sizes="100vw"
+        
           style={{
             width: "40%",
-            height: "auto",
+            height: "20%",
           }}
-          width={0}
-          height={0}
+          width={40}
+          height={40}
         />
         {children}
       </div>

@@ -1,6 +1,6 @@
-import { onGetBlogPosts } from '@/actions/landing'
-import NavBar from '@/components/navbar'
-import { Button } from '@/components/ui/button'
+import { onGetBlogPosts } from "@/actions/landing";
+import NavBar from "@/components/navbar";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,49 +8,42 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { pricingCards } from '@/constants/landing-page'
-import clsx from 'clsx'
-import { ArrowRightCircleIcon, Check } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
-import parse from 'html-react-parser'
-import { getMonthName } from '@/lib/utils'
+} from "@/components/ui/card";
+import { pricingCards } from "@/constants/landing-page";
+import clsx from "clsx";
+import { ArrowRightCircleIcon, Check } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import parse from "html-react-parser";
+import { getMonthName } from "@/lib/utils";
 // import { getMonthName } from '@/lib/utils'
 
 export default async function Home() {
   const posts:
     | {
-        id: string
-        title: string
-        image: string
-        content: string
-        createdAt: Date
+        id: string;
+        title: string;
+        image: string;
+        content: string;
+        createdAt: Date;
       }[]
-    | undefined = await onGetBlogPosts()
+    | undefined = await onGetBlogPosts();
   // console.log("BLOG POST ID: ", posts)
-  
+
   return (
     <main>
       <NavBar />
       <section>
         <div className="flex items-center justify-center flex-col mt-[80px] gap-4 ">
-          <span className="text-[#16AF9D] bg-[#E0FFFB] px-4 py-2 rounded-full text-sm">
-            Touch your customers in real-time!
-          </span>
-          <Image
-            src="/images/agentic-ai-logo.svg"
-            width={500}
-            height={100}
-            alt="Logo"
-            className="max-w-lg object-contain"
-          />
-          <p className="text-center max-w-[500px]">
-            Your AI powered lead generator and customer relationship enhancing system.
-          </p>
-          <Button className="bg-[#16AF9D] font-extrabold text-xl text-white px-4 w-1/4">
+          <h1 className="text-4xl font-extrabold text-center">
+            78% of leads wont reach out.{" "}
+            <span className="text-[#C60D69]">Go to them! </span>
+            <br />
+          </h1>
+
+          {/* <Button className="bg-[#16AF9D] font-extrabold text-xl text-white px-4 w-1/4">
             Start your 30 days free trial
-          </Button>
+          </Button> */}
           <Image
             src="/images/website-mobile-image.png"
             width={400}
@@ -63,7 +56,8 @@ export default async function Home() {
       <section className="flex justify-center items-center flex-col gap-4 mt-10">
         <h2 className="text-4xl text-center">Just the right fit for you!</h2>
         <p className="text-muted-foreground text-center max-w-lg">
-          We recommend you to start with our free 30 days trial to determine if the solution fits your business needs.
+          We recommend you to start with our free 30 days trial to determine if
+          the solution fits your business needs.
         </p>
       </section>
       <div className="flex  justify-center gap-4 flex-wrap mt-6">
@@ -83,7 +77,7 @@ export default async function Home() {
             <CardContent>
               <span className="text-4xl font-bold">{card.price}</span>
               <span className="text-muted-foreground">
-                <span>/ { card.duration}</span>
+                <span>/ {card.duration}</span>
               </span>
             </CardContent>
             <CardFooter className="flex flex-col items-start gap-4">
@@ -109,7 +103,8 @@ export default async function Home() {
       <section className="flex justify-center items-center flex-col gap-4 mt-28">
         <h2 className="text-4xl text-center">News Room</h2>
         <p className="text-muted-foreground text-center max-w-lg">
-          Explore our insights on AI, Lead Generation, technology, and optimizing your business.
+          Explore our insights on AI, Lead Generation, technology, and
+          optimizing your business.
         </p>
       </section>
       <section className="md:grid-cols-3 grid-cols-1 grid gap-5 container mt-8">
