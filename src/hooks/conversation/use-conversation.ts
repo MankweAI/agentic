@@ -159,6 +159,8 @@ export const useChatTime = (createdAt: Date, roomId: string) => {
 };
 
 export const useChatWindow = () => {
+  console.log("useChatWindow useChatWindow useChatWindow useChatWindow");
+  
   const { chats, loading, setChats, chatRoom } = useChatContext();
   const messageWindowRef = useRef<HTMLDivElement | null>(null);
   const { register, handleSubmit, reset } = useForm({
@@ -202,7 +204,7 @@ export const useChatWindow = () => {
       //WIP: Remove this line
       if (message) {
         //remove this
-        // setChats((prev) => [...prev, message.message[0]])
+        setChats((prev) => [...prev, message.message[0]])
 
         await onRealTimeChat(
           chatRoom!,

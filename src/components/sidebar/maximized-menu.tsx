@@ -38,18 +38,19 @@ const MaxMenu = ({ current, domains, onExpand, onSignOut }: Props) => {
   return (
     <div className="py-3 px-4 flex flex-col h-full">
       <div className="flex justify-between items-center">
-        <Image
-          src="/images/named-logo-agentic.png"
-          alt="LOGO"
-          sizes="100vw"
-          className="animate-fade-in opacity-0 delay-300 fill-mode-forwards"
-          style={{
-            width: "70%",
-            height: "auto",
-          }}
-          width={0}
-          height={0}
-        />
+        <div className="flex  justify-center items-center self-stretch  tracking-tighter text-neutral-700">
+          <Image
+            src="/images/agentic-ai-logo.svg"
+            alt="LOGO"
+            style={{
+              width: "40px",
+              height: "auto",
+            }}
+            width={40}
+            height={40}
+          />
+          <p className="text-md font-bold text-center">agentic</p>
+        </div>
         <ChevronLeft
           className="cursor-pointer animate-fade-in opacity-0 delay-300 fill-mode-forwards"
           onClick={onExpand}
