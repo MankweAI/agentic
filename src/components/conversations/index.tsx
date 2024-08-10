@@ -11,6 +11,8 @@ import ChatCard from "./chat-card";
 import { CardDescription } from "../ui/card";
 import { Separator } from "../ui/separator";
 import useSideBar from "@/context/use-sidebar";
+import { useEffect, useMemo } from "react";
+
 
 type Props = {
   domains?:
@@ -29,9 +31,37 @@ const ConversationMenu = ({ domains }: Props) => {
     loading,
     onGetActiveChatMessages,
     chatroomStarred,
+    updateChatroomId,
   } = useConversation();
 
-  const { realtime, onActivateRealtime, tempRealTime } = useSideBar();
+
+  const { realtime, onGetCurrentMode, setRealtime } = useSideBar();
+
+  useEffect(() => {
+
+  });
+
+  const unseenChatRooms = useMemo(() => {
+    return chatRooms.filter((chatRoom) => !chatRoom?.seen);
+  }, [chatRooms]);
+
+  const sortedChatRooms = useMemo(() => {
+    return chatRooms.sort(
+      (a, b) => Number(b?.createdAt) - Number(a?.createdAt)
+    );
+  }, [chatRooms]);
+
+  
+
+  // useEffect(() => {
+
+  //   if (realtime === undefined && domains !== null && domains !== undefined) {
+
+  //     onGetCurrentMode(domains[0]?.id).then((liveStatus) => {
+  //       setRealtime(liveStatus);
+  //     });
+  //   }
+  // }, [realtime, domains, onGetCurrentMode, setRealtime]);
 
   return (
     <div className="py-3 px-0">
@@ -49,26 +79,25 @@ const ConversationMenu = ({ domains }: Props) => {
             </Loader>
           </div> */}
 
-          <ConversationSearch domains={domains} register={register} />
+          {/* <ConversationSearch domains={domains} register={register} /> */}
           <div className="flex flex-col">
             <Loader loading={loading}>
-              {chatRooms.filter((room) => !room.chatRoom[0]?.message[0]?.seen)
-                .length ? (
-                chatRooms
-                  .filter((room) => !room.chatRoom[0]?.message[0]?.seen)
-                  .map((room) => (
-                    <ChatCard
-                      seen={room.chatRoom[0]?.message[0]?.seen}
-                      id={room?.chatRoom[0]?.id}
-                      onChat={() =>
-                        onGetActiveChatMessages(room.chatRoom[0].id)
-                      }
-                      createdAt={room?.chatRoom[0]?.message[0]?.createdAt}
-                      key={room?.chatRoom[0]?.id}
-                      title={room.email!}
-                      description={room.chatRoom[0]?.message[0]?.message}
-                    />
-                  ))
+              {unseenChatRooms.length ? (
+                unseenChatRooms.map((chatRoom: any) => (
+                  <ChatCard
+                    seen={chatRoom?.seen}
+                    id={chatRoom?.id}
+                    onChat={() => {
+                      onGetActiveChatMessages(chatRoom?.id).then(() => {
+                        updateChatroomId(chatRoom?.id); 
+                      });
+                    }}
+                    createdAt={chatRoom?.createdAt}
+                    key={chatRoom?.id}
+                    title={""}
+                    description={chatRoom?.latestMessage}
+                  />
+                ))
               ) : (
                 <CardDescription>
                   No unread chats for your domain
@@ -81,25 +110,17 @@ const ConversationMenu = ({ domains }: Props) => {
           <Separator orientation="horizontal" className="mt-5" />
           <div className="flex flex-col">
             <Loader loading={loading}>
-              {chatRooms
-                .sort(
-                  (a, b) =>
-                    Number(b.chatRoom[0]?.message[0]?.createdAt) -
-                    Number(a.chatRoom[0]?.message[0]?.createdAt)
-                )
-                .map((room) => (
-                  <ChatCard
-                    seen={room?.chatRoom[0]?.message[0]?.seen}
-                    id={room?.chatRoom[0]?.id}
-                    onChat={() =>
-                      onGetActiveChatMessages(room?.chatRoom[0]?.id)
-                    }
-                    createdAt={room?.chatRoom[0]?.message[0]?.createdAt}
-                    key={room?.chatRoom[0]?.id}
-                    title={room?.email!}
-                    description={room.chatRoom[0]?.message[0]?.message}
-                  />
-                ))}
+              {sortedChatRooms.map((chatRoom) => (
+                <ChatCard
+                  seen={chatRoom?.seen}
+                  id={chatRoom?.id}
+                  onChat={() => onGetActiveChatMessages(chatRoom?.id)}
+                  createdAt={chatRoom?.createdAt}
+                  key={chatRoom.id}
+                  title={""}
+                  description={chatRoom?.latestMessage}
+                />
+              ))}
             </Loader>
           </div>
         </TabsContent>
@@ -107,20 +128,19 @@ const ConversationMenu = ({ domains }: Props) => {
           <Separator orientation="horizontal" className="mt-5" />
           <div className="flex flex-col">
             <Loader loading={loading}>
-              {chatRooms.filter((room) => room.chatRoom[0]?.starred).length ? (
+              {chatRooms.filter((chatRoom) => chatRoom?.starred === true)
+                .length ? (
                 chatRooms
-                  .filter((room) => room.chatRoom[0]?.starred)
-                  .map((room) => (
+                  .filter((chatRoom) => chatRoom?.starred === true)
+                  .map((chatRoom) => (
                     <ChatCard
-                      seen={room.chatRoom[0].message[0]?.seen}
-                      id={room.chatRoom[0].id}
-                      onChat={() =>
-                        onGetActiveChatMessages(room.chatRoom[0].id)
-                      }
-                      createdAt={room.chatRoom[0].message[0]?.createdAt}
-                      key={room.chatRoom[0].id}
-                      title={room.email!}
-                      description={room.chatRoom[0].message[0]?.message}
+                      seen={chatRoom?.seen}
+                      id={chatRoom?.id}
+                      onChat={() => {}}
+                      createdAt={chatRoom?.createdAt}
+                      key={chatRoom.id}
+                      title={""}
+                      description={chatRoom?.latestMessage}
                     />
                   ))
               ) : (

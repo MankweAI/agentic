@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { User, Headset } from "lucide-react";
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState, useEffect } from 'react';
 
 type Props = {
   message: {
@@ -17,10 +18,26 @@ type Props = {
 };
 
 const Bubble = ({ message, createdAt, bubbleColor, textColor }: Props) => {
+  const [newCreatedAt, setNewCreatedAt] = useState<Date | undefined>(undefined)
+    
+
+ 
+  
+  useEffect(() => {
+    if (createdAt) {
+      const date = new Date(createdAt);
+      setNewCreatedAt(date);
+      // console.log(date);
+    } else {
+      setNewCreatedAt(undefined);
+    }
+  }, [createdAt]);
+
+
 
   let d = new Date();
   const image = extractUUIDFromString(message.content);
-  console.log(message.link);
+  // console.log(message.link);
 
   return (
     <div
@@ -57,14 +74,14 @@ const Bubble = ({ message, createdAt, bubbleColor, textColor }: Props) => {
               : undefined,
         }}
       >
-        {createdAt ? (
+        {newCreatedAt ? (
           <div className="flex gap-2 text-xs text-gray-600">
             <p>
-              {createdAt.getDate()} {getMonthName(createdAt.getMonth())}
+              {newCreatedAt.getDate()} {getMonthName(newCreatedAt.getMonth())}
             </p>
             <p>
-              {createdAt.getHours()}:{createdAt.getMinutes()}
-              {createdAt.getHours() > 12 ? "PM" : "AM"}
+              {newCreatedAt.getHours()}:{newCreatedAt.getMinutes()}
+              {newCreatedAt.getHours() > 12 ? "PM" : "AM"}
             </p>
           </div>
         ) : (

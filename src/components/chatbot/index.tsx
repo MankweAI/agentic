@@ -22,7 +22,9 @@ const AiChatBot = (props: Props) => {
     onRealTime,
     setOnChats,
     errors,
-  } = useChatBot()
+    firebaseRealTimeMode,
+  } = useChatBot();
+
 
 
   return (
@@ -31,7 +33,7 @@ const AiChatBot = (props: Props) => {
         <BotWindow
           errors={errors}
           setChat={setOnChats}
-          realtimeMode={currentBot?.live}
+          realtimeMode={firebaseRealTimeMode}
           helpdesk={currentBot?.helpdesk!}
           domainName={currentBot?.name!}
           ref={messageWindowRef}
@@ -42,7 +44,7 @@ const AiChatBot = (props: Props) => {
           register={register}
           onChat={onStartChatting}
           onResponding={onAiTyping}
-          chatbotIcon={ currentBot?.chatBot?.icon}
+          chatbotIcon={currentBot?.chatBot?.icon}
         />
       )}
       <div

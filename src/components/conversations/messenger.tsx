@@ -1,13 +1,13 @@
-'use client'
-import { useChatWindow } from '@/hooks/conversation/use-conversation'
-import React from 'react'
-import { Loader } from '../loader'
-import Bubble from '../chatbot/bubble'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
-import { PaperclipIcon } from 'lucide-react'
+"use client";
+import { useChatWindow } from "@/hooks/conversation/use-conversation";
+import React from "react";
+import { Loader } from "../loader";
+import Bubble from "../chatbot/bubble";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { PaperclipIcon } from "lucide-react";
 
-type Props = {}
+type Props = {};
 
 const Messenger = (props: Props) => {
   const {
@@ -17,7 +17,10 @@ const Messenger = (props: Props) => {
     chatRoom,
     onHandleSentMessage,
     register,
-  } = useChatWindow()
+  } = useChatWindow();
+
+  // console.log("********************** 100", chatRoom);
+  
   return (
     <div className="flex-1 flex flex-col h-0 relative">
       <div className="flex-1 h-0 w-full flex flex-col">
@@ -62,6 +65,6 @@ const Messenger = (props: Props) => {
       </form>
     </div>
   );
-}
+};
 
-export default Messenger
+export default Messenger;

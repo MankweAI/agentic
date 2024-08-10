@@ -10,6 +10,8 @@ import { Loader } from "../loader";
 import { useConversation } from "@/hooks/conversation/use-conversation";
 import useSideBar from "@/context/use-sidebar";
 import { Switch } from "../ui/switch";
+import { useEffect, useState } from "react";
+
 
 type Props = {
   onExpand(): void;
@@ -26,6 +28,7 @@ type Props = {
 };
 
 const MaxMenu = ({ current, domains, onExpand, onSignOut }: Props) => {
+  // const [domainData, setDomainData] = useState({});
   const {
     register,
     chatRooms,
@@ -33,8 +36,26 @@ const MaxMenu = ({ current, domains, onExpand, onSignOut }: Props) => {
     onGetActiveChatMessages,
     chatroomStarred,
   } = useConversation();
+  const {
+    realtime,
+    onActivateRealtime,
+    tempRealTime,
+    onGetCurrentMode,
+    setRealtime,
+  } = useSideBar();
 
-  const { realtime, onActivateRealtime, tempRealTime } = useSideBar();
+  useEffect(() => {
+
+    if (realtime === undefined && domains !== null && domains !== undefined) {
+      // console.log(".........................Current Mod 2", realtime);
+
+      onGetCurrentMode(domains[0]?.id).then((liveStatus) => {
+        setRealtime(liveStatus);
+      });
+    }
+  }, [realtime, domains, onGetCurrentMode, setRealtime]);
+
+
   return (
     <div className="py-3 px-4 flex flex-col h-full">
       <div className="flex justify-between items-center">
@@ -49,7 +70,7 @@ const MaxMenu = ({ current, domains, onExpand, onSignOut }: Props) => {
             width={40}
             height={40}
           />
-          <p className="text-md font-bold text-center">agentic</p>
+          <p className="text-lg font-extrabold text-center">agentic</p>
         </div>
         <ChevronLeft
           className="cursor-pointer animate-fade-in opacity-0 delay-300 fill-mode-forwards"
@@ -78,9 +99,9 @@ const MaxMenu = ({ current, domains, onExpand, onSignOut }: Props) => {
                   ))}
                   <Loader loading={loading} className="px-4">
                     <Switch
-                      checked={realtime ?? tempRealTime}
+                      checked={realtime}
                       // checked={realtime ?? tempRealTime}
-                      onClick={(e) => onActivateRealtime(e)}
+                      onClick={(e) => onActivateRealtime(e, domain.id)}
                       className="data-[state=checked]:bg-[#00E525] data-[state=unchecked]:bg-gray-300"
                     />
                   </Loader>

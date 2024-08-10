@@ -177,7 +177,7 @@ export const onAiChatBotAssistant = async (
           }
         }
 
-          console.log("CUSTOMER IS NOT LIVE...............");
+          // console.log("CUSTOMER IS NOT LIVE...............");
 
 
         await onStoreConversations(

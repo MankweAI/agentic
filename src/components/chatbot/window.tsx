@@ -69,7 +69,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
     },
     ref
   ) => {
-    console.log("*********************THREE", textColor);
+
     
     // Incomplete
     // The chatroom ID in line 104 is set to "chatroom" instead of an ID. Potential bug.
