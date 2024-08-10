@@ -1,19 +1,19 @@
-'use client'
-import { useChatTime } from '@/hooks/conversation/use-conversation'
-import React from 'react'
-import { Card, CardContent, CardDescription } from '../ui/card'
-import { Avatar, AvatarFallback } from '../ui/avatar'
-import { User } from 'lucide-react'
-import { UrgentIcon } from '@/icons/urgent-icon'
+"use client";
+import { useChatTime } from "@/hooks/conversation/use-conversation";
+import React from "react";
+import { Card, CardContent, CardDescription } from "../ui/card";
+import { Avatar, AvatarFallback } from "../ui/avatar";
+import { User, Mail, MailIcon } from "lucide-react";
+import { UrgentIcon } from "@/icons/urgent-icon";
 
 type Props = {
-  title: string
-  description?: string
-  createdAt: Date
-  id: string
-  onChat(): void
-  seen?: boolean
-}
+  title: string;
+  description?: string;
+  createdAt: number | undefined;
+  id: string;
+  onChat(): void;
+  seen?: boolean;
+};
 
 const ChatCard = ({
   title,
@@ -23,7 +23,9 @@ const ChatCard = ({
   id,
   seen,
 }: Props) => {
-  const { messageSentAt, urgent } = useChatTime(createdAt, id)
+  const date = new Date(createdAt);
+
+  const { messageSentAt, urgent } = useChatTime(date, id);
 
   return (
     <Card
@@ -34,13 +36,13 @@ const ChatCard = ({
         <div>
           <Avatar>
             <AvatarFallback className="bg-muted">
-              <User />
+              <User style={{ color: "grey", width: "20px" }} />
             </AvatarFallback>
           </Avatar>
         </div>
         <div className="flex justify-between w-full">
           <div>
-            <div className="flex gap-5 items-center">
+            <div className="flex gap-5 items-center justify-center">
               <CardDescription className="font-bold leading-none text-gray-600">
                 {title}
               </CardDescription>
@@ -48,19 +50,20 @@ const ChatCard = ({
             </div>
             <CardDescription>
               {description
-                ? description.substring(0, 20) + '...'
-                : 'This chatroom is empty'}
+                ? description.substring(0, 40) + "..."
+                : "This chatroom is empty"}
             </CardDescription>
           </div>
-          <div className="w-[100px] flex justify-end">
+          <div className="w-[50px] flex flex-col justify-end items-end">
             <CardDescription className="text-xs">
-              {createdAt ? messageSentAt : ''}
+              {date ? messageSentAt : ""}
             </CardDescription>
+            <MailIcon style={{ color: "grey", width: "15px" }} />
           </div>
         </div>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default ChatCard
+export default ChatCard;

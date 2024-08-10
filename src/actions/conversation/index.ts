@@ -5,6 +5,7 @@ import { pusherServer } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs";
 import { v4 as uuid } from "uuid";
 
+
 export const onToggleRealtimeOld = async (id: string, state: boolean) => {
   try {
     const chatRoom = await client.chatRoom.update({
@@ -95,7 +96,7 @@ export const onToggleRealtime = async (state: boolean) => {
 };
 
 export const toggleAllChatRoomsLive = async (state: boolean) => {
-  console.log("state---------------------------------------------", state);
+
 
   try {
     await client.chatRoom.updateMany({
@@ -114,7 +115,7 @@ export const toggleAllChatRoomsLive = async (state: boolean) => {
 };
 
 export const onGetConversationMode = async () => {
-  // console.log("*********************ONE");
+
 
   const clerkUserId = await currentUser();
   const prismaUserId = await client.user.findFirst({
@@ -126,7 +127,7 @@ export const onGetConversationMode = async () => {
     },
   });
   if (prismaUserId && prismaUserId?.id.length > 0) {
-    // console.log("*********************TWO");
+
 
     try {
       const domain = await client.domain.findUnique({
@@ -142,7 +143,7 @@ export const onGetConversationMode = async () => {
       if (domain && domain.id) {
 
         try {
-          const id = domain.id; // Use the retrieved domain ID
+          const id = domain.id; 
           const mode = await client.domain.findUnique({
             where: {
               id,
@@ -159,7 +160,7 @@ export const onGetConversationMode = async () => {
         }
       }
     } catch (error) {
-      // console.log("*********************FOUR");
+    
 
       console.log(error);
     }
@@ -419,3 +420,5 @@ export const onOwnerSendMessage = async (
     console.log(error);
   }
 };
+
+

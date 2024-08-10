@@ -27,6 +27,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/index.tsx"
-  ],
+, "src/pages/api/instantChats/sendMessage.js"  ],
   "exclude": ["node_modules"]
 }
