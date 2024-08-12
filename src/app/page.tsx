@@ -35,10 +35,10 @@ export default async function Home() {
       <NavBar />
       <section>
         <div className="flex items-center justify-center flex-col mt-[80px] gap-4 ">
-          <h1 className="text-6xl font-extrabold text-center w-3/4">
+          <h1 className="text-6xl font-black text-center w-3/4">
             SEO brings the traffic.
             <br />
-            <span className="text-[#C60D69]">Agentic converts it into sales. </span>
+            <span className="text-[#C60D69]">We convert it into sales. </span>
           </h1>
 
           {/* <Button className="bg-[#16AF9D] font-extrabold text-xl text-white px-4 w-1/4">

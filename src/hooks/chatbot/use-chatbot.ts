@@ -14,7 +14,7 @@ import { UploadClient } from "@uploadcare/upload-client";
 import { listenForStatusChanges } from "@/pages/api/instantChats/realtimeToggle";
 import { v4 as uuidv4 } from "uuid";
 import { useForm } from "react-hook-form";
-import { ref, set, onValue } from "firebase/database";
+import { ref, set, onValue, onChildAdded } from "firebase/database";
 import { database } from "../../lib/firebaseConfig";
 
 const upload = new UploadClient({
@@ -177,6 +177,9 @@ export const useChatBot = () => {
       //   }
       // }
     } else if (values.content && firebaseRealTimeMode) {
+      console.log("...chatroomId 11", firebaseChatRoomId);
+      console.log("...chatroomId 12", chatroomId);
+
       const response = await fetch("/api/chatbot/sendMessage", {
         method: "POST",
         headers: {
@@ -191,30 +194,30 @@ export const useChatBot = () => {
         }),
       });
 
-      if (response.ok && firebaseChatRoomId === null) {
-        setFirebaseChatRoomId(chatroomId);
-
+      if (response.ok) {
         // Attach a domain listener
         const domainRef = ref(
           database,
-          `domain/${currentBotId}/chatrooms/${chatroomId}`
+          `domain/${currentBotId}/chatrooms/${chatroomId}/messages`
         );
-        onValue(domainRef, (snapshot) => {
-          const data = snapshot.val();
+        onChildAdded(domainRef, (childSnapshot) => {
+          const messageData = childSnapshot.val();
+          console.log(".........101", messageData);
 
-          let messageList: { role: "user" | "assistant"; content: string }[] =
-            [];
+          const messageObject = {
+            role: messageData.role,
+            content: messageData.message, // Renamed 'message' to 'content'
+            createdAt: messageData.createdAt,
+          };
 
-          Object.values(data.message).forEach((innerObject: any) => {
-            const messageObject = {
-              role: innerObject.role,
-              content: innerObject.message, // Renamed 'message' to 'content'
-            };
-            messageList.push(messageObject);
-          });
+          // console.log(".........101", zzzzzzz);
 
-          setOnChats(messageList as typeof onChats);
+          setOnChats((prevChats) => [...prevChats, messageObject]);
         });
+      }
+
+      if (!firebaseChatRoomId) {
+        setFirebaseChatRoomId(chatroomId);
       }
     }
   });

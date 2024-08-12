@@ -1,15 +1,20 @@
 "use client";
 import { useChatWindow } from "@/hooks/conversation/use-conversation";
-import React from "react";
+import React, { useState } from "react";
 import { Loader } from "../loader";
 import Bubble from "../chatbot/bubble";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { PaperclipIcon } from "lucide-react";
+import useSideBar from "@/context/use-sidebar";
 
 type Props = {};
 
 const Messenger = (props: Props) => {
+
+  const { realtime } = useSideBar();
+
+  
   const {
     messageWindowRef,
     chats,
@@ -19,7 +24,8 @@ const Messenger = (props: Props) => {
     register,
   } = useChatWindow();
 
-  // console.log("********************** 100", chatRoom);
+
+  // console.log("********************** 100", realtime);
   
   return (
     <div className="flex-1 flex flex-col h-0 relative">

@@ -17,7 +17,16 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { ref, set, onValue, get } from "firebase/database";
+import {
+  ref,
+  set,
+  onValue,
+  get,
+  onChildAdded,
+  query,
+  limitToLast,
+  DataSnapshot,
+} from "firebase/database";
 import { database } from "../../lib/firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
 
@@ -68,157 +77,133 @@ export const useConversation = () => {
     seen: boolean;
   };
 
+  type ChatroomObjectType = {
+    id: string;
+    starred: boolean | undefined;
+    createdAt: number | undefined;
+    latestMessage: string | undefined;
+    seen: boolean | undefined;
+  };
+
+  const domainId = "0c5b84af-d4a0-472f-a26f-e4953749dd78";
   const [objectList, setObjectList] = useState<ObjectType[]>([]);
+  // const [chatroomList, setChatroomList] = useState<ChatroomObjectType[]>([]);
+  const chatroomList: any = [];
+  let totalChatroomsCount: number = 0;
+  const chatrooms: any = [];
 
   useEffect(() => {
-    const domainId = "0c5b84af-d4a0-472f-a26f-e4953749dd78";
-    const fetchChatRooms = async () => {
-      setLoading(true);
-      try {
-        console.log("..............", domainId);
+    // Step 1 Attach a listener to the domain and get any newly created chatroomId
+    const domainRef = ref(database, `domain/${domainId}`);
 
-        const response = await fetch(
-          `/api/conversations/getChatrooms?domain=${domainId}`,
-          {
-            method: "GET",
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Error retrieving live status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        response.ok && setChatRooms(data);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchChatRooms();
+    try {
+      attachListenerToDomain((newChatroomData) => {
+        // chatroomList.push(newChatroomData);
+        setChatRooms((prevChatRooms) => [
+          ...prevChatRooms,
+          ...[newChatroomData],
+        ]);
+      });
+    } catch (error) {
+      console.error(`Error attaching listener: ${error}`);
+    }
   }, []);
+
+  useEffect(() => {}, []);
+
+  function attachListenerToDomain(
+    callback: (newChatroomData: ChatroomObjectType) => void
+  ) {
+    const domainRef = ref(database, `domain/${domainId}/chatrooms`);
+
+    onChildAdded(
+      domainRef,
+      (childSnapshot) => {
+        const rawChatroomData = childSnapshot.val();
+
+        if (rawChatroomData && rawChatroomData.messages) {
+          const messageId = Object.keys(rawChatroomData.messages)[0];
+          const messageText = rawChatroomData.messages[messageId].message;
+          const latestMessage = rawChatroomData.messages[messageId].message;
+          const newChatroomData: ChatroomObjectType = {
+            latestMessage: latestMessage,
+            id: rawChatroomData.id,
+            starred: rawChatroomData.starred,
+            createdAt: rawChatroomData.createdAt,
+            seen: rawChatroomData.seen,
+          };
+
+          // Call the callback with newChatroomData
+          callback(newChatroomData);
+        }
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+  function attachListenerToChatroom(chatroomData: any): Promise<any> {
+    const messagesRef = ref(
+      database,
+      `domain/${domainId}/chatrooms/${chatroomData.id}/messages`
+    );
+    const latestMessageQuery = query(messagesRef, limitToLast(1));
+
+    return new Promise((resolve, reject) => {
+      onChildAdded(
+        latestMessageQuery,
+        (snapshot) => {
+          const newMessage = snapshot.val();
+
+          // Resolve the promise with the modifiedObject
+          // resolve(modifiedObject);
+        },
+        (error) => {
+          // Reject the promise if an error occurs
+          reject(error);
+        }
+      );
+    });
+  }
+
   const onGetActiveChatMessages = async (
     chatroomId: string,
     domainId: string = "0c5b84af-d4a0-472f-a26f-e4953749dd78"
   ) => {
     setChatRoom(chatroomId);
     setActiveChatroomId(chatroomId);
+    setChats([]);
+    setObjectList([])
 
-    if (!isChatroomIdAlreadyInList(chatroomId)) {
-      addChatroomId(chatroomId);
+    try {
+      // Attach a domain listener
+      const domainRef = ref(
+        database,
+        `domain/${domainId}/chatrooms/${chatroomId}/messages`
+      );
 
-      try {
-        // Attach a domain listener
-        const domainRef = ref(
-          database,
-          `domain/${domainId}/chatrooms/${chatroomId}`
-        );
+      onChildAdded(domainRef, (childSnapshot) => {
+        const tempMessageObject = childSnapshot.val();
+        const modifiedObject: {
+          message: string;
+          id: string;
+          role: "user" | "assistant";
+          createdAt: Date;
+          seen: boolean;
+        } = {
+          message: tempMessageObject.message,
+          id: childSnapshot.key!,
+          role: tempMessageObject.role === "user" ? "user" : "assistant",
+          createdAt: new Date(tempMessageObject.createdAt),
+          seen: tempMessageObject.seen,
+        };
 
-        get(domainRef)
-          .then((snapshot) => {
-            if (snapshot.exists()) {
-              console.log("Path exists!");
+        console.log("...........123 ", modifiedObject);
 
-              setObjectList([]);
-
-              const data = snapshot.val();
-              const messages = Object.values(data);
-              setFirebaseChatRoomId(messages[1]);
-              const innerMessages = Object.values(messages);
-              const internalMessages: any = innerMessages[2];
-
-              for (const key in internalMessages) {
-                if (internalMessages.hasOwnProperty(key)) {
-                  const tempMessageObject = internalMessages[key];
-                  const modifiedObject: {
-                    message: string;
-                    id: string;
-                    role: "user" | "assistant";
-                    createdAt: Date;
-                    seen: boolean;
-                  } = {
-                    message: tempMessageObject.message,
-                    id: tempMessageObject.createdAt.toString(),
-                    role:
-                      tempMessageObject.role === "user" ? "user" : "assistant",
-                    createdAt: new Date(tempMessageObject.createdAt),
-                    seen: tempMessageObject.seen,
-                  };
-
-                  // objectList.push(modifiedObject);
-
-              console.log("..............", activeChatroomId);
-
-                  setObjectList((prevList) => [...prevList, modifiedObject]);
-                }
-              }
-            } else {
-              console.log("Path does not exist!");
-              setChats([]);
-            }
-          })
-          .catch((error) => {
-            console.error("Error checking path:", error);
-          });
-
-        onValue(domainRef, (snapshot) => {});
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      setObjectList([]);
-
-      try {
-        const response = await fetch(
-          `/api/chatbot/getMessages?domain=${domainId}&chatroom=${chatroomId}`,
-          {
-            method: "GET",
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Error retrieving live status: ${response}`);
-        }
-
-        const data = await response.json();
-        const messages = Object.values(data);
-        const innerMessages = Object.values(messages);
-        const internalMessages: any = innerMessages[0];
-
-        for (const key in internalMessages) {
-          if (internalMessages.hasOwnProperty(key)) {
-            const tempMessages = internalMessages[key];
-            if (key === "message" && internalMessages.hasOwnProperty(key)) {
-              for (const key in tempMessages) {
-                const tempMessageObject = tempMessages[key];
-
-                const modifiedObject: {
-                  message: string;
-                  id: string;
-                  role: "user" | "assistant";
-                  createdAt: Date;
-                  seen: boolean;
-                } = {
-                  message: tempMessageObject.message,
-                  id: tempMessageObject.createdAt.toString(),
-                  role:
-                    tempMessageObject.role === "user" ? "user" : "assistant",
-                  createdAt: new Date(tempMessageObject.createdAt),
-                  seen: tempMessageObject.seen,
-                };
-                // objectList.push(modifiedObject);
-                setObjectList((prevList) => [...prevList, modifiedObject]);
-              }
-            }
-          }
-        }
-      } catch (error) {
-        console.error(error);
-        return null;
-      }
+        setObjectList((prevList) => [...prevList, modifiedObject]);
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -228,6 +213,7 @@ export const useConversation = () => {
     loadMessages(false);
 
     setChats(objectList);
+    // setObjectList([])
   });
 
   function updateChatroomId(newChatroomId: string) {
@@ -237,7 +223,7 @@ export const useConversation = () => {
 
     // Update the state instantly with the new value
     setActiveChatroomId(newChatroomId);
-    console.log("Active chatroom ID:", activeChatroomId);
+    // console.log("Active chatroom ID:", activeChatroomId);
   }
 
   return {
@@ -285,7 +271,7 @@ export const useChatWindow = () => {
   // }, [chatRoom, setChats]);
 
   const onHandleSentMessageOld = handleSubmit(async (values) => {
-    console.log("........................ 20");
+    // console.log("........................ 20");
 
     try {
       reset();
@@ -297,7 +283,7 @@ export const useChatWindow = () => {
       //WIP: Remove this line
       if (message) {
         //remove this
-        console.log("------------------------- 22222", message.message[0]);
+        // console.log("------------------------- 22222", message.message[0]);
 
         setChats((prev) => [...prev, message.message[0]]);
 
@@ -319,14 +305,8 @@ export const useChatWindow = () => {
     try {
       reset();
 
-      const messageData = {
-        message: values.content,
-        role: "assistant",
-        createdAt: Date.now(),
-        seen: false,
-      };
 
-      const response = await fetch("/api/chatbot/sendMessage", {
+      await fetch("/api/chatbot/sendMessage", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -340,7 +320,7 @@ export const useChatWindow = () => {
         }),
       });
 
-      const data = await response.json();
+     
 
       // setChats((prev) => [...prev, data.message]);
     } catch (error) {
