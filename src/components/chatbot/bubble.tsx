@@ -19,6 +19,8 @@ type Props = {
 
 const Bubble = ({ message, createdAt, bubbleColor, textColor }: Props) => {
   const [newCreatedAt, setNewCreatedAt] = useState<Date | undefined>(undefined)
+
+  
     
 
  
@@ -36,7 +38,7 @@ const Bubble = ({ message, createdAt, bubbleColor, textColor }: Props) => {
 
 
   let d = new Date();
-  const image = extractUUIDFromString(message.content);
+  // const image = extractUUIDFromString(message.content);
   // console.log(message.link);
 
   return (
@@ -92,7 +94,7 @@ const Bubble = ({ message, createdAt, bubbleColor, textColor }: Props) => {
           </p>
         )}
         <p className="text-sm">
-          {message.content.replace("(complete)", " ")}
+          {message.content?.replace("(complete)", " ")}
           {message.link && (
             <Link
               className="underline font-bold pl-2"
