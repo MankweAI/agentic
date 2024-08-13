@@ -26,6 +26,7 @@ import {
   query,
   limitToLast,
   DataSnapshot,
+  update,
 } from "firebase/database";
 import { database } from "../../lib/firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
@@ -58,6 +59,8 @@ export const useConversation = () => {
     setChats,
     chatRoom,
     setChatRoom,
+    setDomainId,
+    domainId
   } = useChatContext();
   const [chatRooms, setChatRooms] = useState<
     {
@@ -85,7 +88,9 @@ export const useConversation = () => {
     seen: boolean | undefined;
   };
 
-  const domainId = "0c5b84af-d4a0-472f-a26f-e4953749dd78";
+  // console.log("-----Our Domain ID", domainId);
+  
+  // const domainId = "0c5b84af-d4a0-472f-a26f-e4953749dd78";
   const [objectList, setObjectList] = useState<ObjectType[]>([]);
   // const [chatroomList, setChatroomList] = useState<ChatroomObjectType[]>([]);
   const chatroomList: any = [];
@@ -107,7 +112,7 @@ export const useConversation = () => {
     } catch (error) {
       console.error(`Error attaching listener: ${error}`);
     }
-  }, []);
+  }, [domainId]);
 
   useEffect(() => {}, []);
 
@@ -142,29 +147,7 @@ export const useConversation = () => {
       }
     );
   }
-  function attachListenerToChatroom(chatroomData: any): Promise<any> {
-    const messagesRef = ref(
-      database,
-      `domain/${domainId}/chatrooms/${chatroomData.id}/messages`
-    );
-    const latestMessageQuery = query(messagesRef, limitToLast(1));
 
-    return new Promise((resolve, reject) => {
-      onChildAdded(
-        latestMessageQuery,
-        (snapshot) => {
-          const newMessage = snapshot.val();
-
-          // Resolve the promise with the modifiedObject
-          // resolve(modifiedObject);
-        },
-        (error) => {
-          // Reject the promise if an error occurs
-          reject(error);
-        }
-      );
-    });
-  }
 
   const onGetActiveChatMessages = async (
     chatroomId: string,
@@ -200,7 +183,12 @@ export const useConversation = () => {
 
         console.log("...........123 ", modifiedObject);
 
-        setObjectList((prevList) => [...prevList, modifiedObject]);
+        setObjectList((prevList) => {
+          const newList = [...prevList, modifiedObject];
+          return newList.sort(
+            (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
+          );
+        });
       });
     } catch (error) {
       console.log(error);
@@ -226,13 +214,46 @@ export const useConversation = () => {
     // console.log("Active chatroom ID:", activeChatroomId);
   }
 
+  const onChangeSeenStatus = async (
+    chatroomId: string,
+    seen: boolean
+  ) => {
+    const chatroomRef = ref(
+      database,
+      `domain/${domainId}/chatrooms/${chatroomId}`
+    );
+    if (!seen) {
+      await update(chatroomRef, {
+        seen: true,
+      });
+    }
+  };
+
+  const onChangeStarredStatus = async (
+    chatroomId: string,
+    starred: boolean
+  ) => {
+    const chatroomRef = ref(
+      database,
+      `domain/${domainId}/chatrooms/${activeChatroomId}`
+    );
+    await update(chatroomRef, {
+      starred: !true,
+    });
+  };
+
   return {
     register,
     chatRooms,
     loading,
     chatroomStarred,
     updateChatroomId,
+    onChangeSeenStatus,
     onGetActiveChatMessages,
+    activeChatroomId,
+    setDomainId,
+    onChangeStarredStatus,
+    domainId,
   };
 };
 

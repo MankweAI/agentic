@@ -31,6 +31,7 @@ const ConversationMenu = ({ domains }: Props) => {
     loading,
     onGetActiveChatMessages,
     chatroomStarred,
+    onChangeSeenStatus,
     updateChatroomId,
   } = useConversation();
 
@@ -89,8 +90,9 @@ const ConversationMenu = ({ domains }: Props) => {
                     id={chatRoom?.id}
                     onChat={() => {
                       onGetActiveChatMessages(chatRoom?.id).then(() => {
-                        updateChatroomId(chatRoom?.id); 
-                      });
+                        updateChatroomId(chatRoom?.id);
+                      }),
+                        onChangeSeenStatus(chatRoom?.id, chatRoom?.seen);
                     }}
                     createdAt={chatRoom?.createdAt}
                     key={chatRoom?.id}

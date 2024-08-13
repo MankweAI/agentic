@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils'
 import React from 'react'
 import MaxMenu from './maximized-menu'
 import { MinMenu } from './minimized-menu'
+import { useConversation} from "@/hooks/conversation/use-conversation"
 
 type Props = {
   domains:
@@ -18,6 +19,12 @@ type Props = {
 
 const SideBar = ({ domains }: Props) => {
   const { expand, onExpand, page, onSignOut } = useSideBar()
+  const { setDomainId } = useConversation();
+  
+  if (domains && domains[0] && domains[0].id) {
+    setDomainId(domains[0].id);
+  }
+
 
   return (
     <div
