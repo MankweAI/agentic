@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription } from "../ui/card";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { User, Mail, MailIcon } from "lucide-react";
 import { UrgentIcon } from "@/icons/urgent-icon";
+import { MdEmail, MdMarkEmailRead } from "react-icons/md";
 
 type Props = {
   title: string;
@@ -46,7 +47,6 @@ const ChatCard = ({
               <CardDescription className="font-bold leading-none text-gray-600">
                 {title}
               </CardDescription>
-              {urgent && !seen && <UrgentIcon />}
             </div>
             <CardDescription>
               {description
@@ -58,7 +58,15 @@ const ChatCard = ({
             <CardDescription className="text-xs">
               {date ? messageSentAt : ""}
             </CardDescription>
-            <MailIcon style={{ color: "grey", width: "15px" }} />
+            {urgent && !seen ? (
+              <MdEmail
+                style={{ color: "gold", width: "20px", height: "20px" }}
+              />
+            ) : (
+              <MdMarkEmailRead
+                style={{ color: "gray", width: "20px", height: "20px" }}
+              />
+            )}
           </div>
         </div>
       </CardContent>

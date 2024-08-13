@@ -60,7 +60,7 @@ export const useConversation = () => {
     chatRoom,
     setChatRoom,
     setDomainId,
-    domainId
+    domainId,
   } = useChatContext();
   const [chatRooms, setChatRooms] = useState<
     {
@@ -89,7 +89,7 @@ export const useConversation = () => {
   };
 
   // console.log("-----Our Domain ID", domainId);
-  
+
   // const domainId = "0c5b84af-d4a0-472f-a26f-e4953749dd78";
   const [objectList, setObjectList] = useState<ObjectType[]>([]);
   // const [chatroomList, setChatroomList] = useState<ChatroomObjectType[]>([]);
@@ -148,15 +148,14 @@ export const useConversation = () => {
     );
   }
 
-
   const onGetActiveChatMessages = async (
     chatroomId: string,
-    domainId: string = "0c5b84af-d4a0-472f-a26f-e4953749dd78"
+    
   ) => {
     setChatRoom(chatroomId);
     setActiveChatroomId(chatroomId);
     setChats([]);
-    setObjectList([])
+    setObjectList([]);
 
     try {
       // Attach a domain listener
@@ -181,7 +180,6 @@ export const useConversation = () => {
           seen: tempMessageObject.seen,
         };
 
-        console.log("...........123 ", modifiedObject);
 
         setObjectList((prevList) => {
           const newList = [...prevList, modifiedObject];
@@ -200,6 +198,8 @@ export const useConversation = () => {
 
     loadMessages(false);
 
+        console.log("...........123 ", objectList);
+
     setChats(objectList);
     // setObjectList([])
   });
@@ -214,10 +214,7 @@ export const useConversation = () => {
     // console.log("Active chatroom ID:", activeChatroomId);
   }
 
-  const onChangeSeenStatus = async (
-    chatroomId: string,
-    seen: boolean
-  ) => {
+  const onChangeSeenStatus = async (chatroomId: string, seen: boolean) => {
     const chatroomRef = ref(
       database,
       `domain/${domainId}/chatrooms/${chatroomId}`
@@ -229,17 +226,23 @@ export const useConversation = () => {
     }
   };
 
-  const onChangeStarredStatus = async (
-    chatroomId: string,
-    starred: boolean
+  const listenToStarredChanges = async (
+    callback: (starred: boolean) => void
   ) => {
-    const chatroomRef = ref(
-      database,
-      `domain/${domainId}/chatrooms/${activeChatroomId}`
-    );
-    await update(chatroomRef, {
-      starred: !true,
-    });
+    try {
+      const starredRef = ref(
+        database,
+        `domain/${domainId}/chatrooms/${activeChatroomId}/starred`
+      );
+
+      // Listen to changes in the 'starred' field
+      onValue(starredRef, (snapshot) => {
+        const starredStatus = snapshot.val();
+        callback(starredStatus);
+      });
+    } catch (error) {
+      console.error("Error listening to starred changes:", error);
+    }
   };
 
   return {
@@ -252,7 +255,7 @@ export const useConversation = () => {
     onGetActiveChatMessages,
     activeChatroomId,
     setDomainId,
-    onChangeStarredStatus,
+    listenToStarredChanges,
     domainId,
   };
 };
@@ -326,7 +329,6 @@ export const useChatWindow = () => {
     try {
       reset();
 
-
       await fetch("/api/chatbot/sendMessage", {
         method: "POST",
         headers: {
@@ -340,8 +342,6 @@ export const useChatWindow = () => {
           messageId: messageId,
         }),
       });
-
-     
 
       // setChats((prev) => [...prev, data.message]);
     } catch (error) {
@@ -359,23 +359,21 @@ export const useChatWindow = () => {
   };
 };
 
-export const getChatRoomStar = async (id: string) => {
-  try {
-    const getStar = await onGetChatRoomStarred(id);
-    return getStar;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 // use chatroom ID and the state to update the chatroom table with the 'starred' field set to true or false
-export const updateChatroomStar = async (id: string, state: boolean) => {
+export const updateChatroomStar = async (
+  domainId: string,
+  chatroomId: string,
+  starred: boolean
+) => {
   try {
-    const chatRoom = await onStarChatRoom(id, state);
-    return chatRoom;
-  } catch (error) {
-    console.log(error);
-  }
+    const chatroomRef = ref(
+      database,
+      `domain/${domainId}/chatrooms/${chatroomId}`
+    );
+    await update(chatroomRef, {
+      starred: true,
+    });
+  } catch {}
 };
 
 // use chatroom ID to delete the chatroom
