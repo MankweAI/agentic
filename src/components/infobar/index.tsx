@@ -18,15 +18,12 @@ import { useState } from "react";
 type Props = {};
 
 const InfoBar = (props: Props) => {
-  
-
   // const { listenToStarredChanges } = useConversation();
 
   const { chatRoom, loading } = useSideBar();
   const tempChatRoom = chatRoom ? chatRoom : null;
   const [chatRoomStarred, setChatRoomStarred] = useState<boolean | null>(null);
   const [starClicked, setStarClicked] = useState<boolean>(false);
-  console.log("chatRoom is null or undefined", chatRoom);
 
   // if (chatRoom !== null && chatRoom !== undefined) {
   //   if (loading) {
