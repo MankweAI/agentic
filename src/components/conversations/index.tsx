@@ -12,7 +12,7 @@ import { CardDescription } from "../ui/card";
 import { Separator } from "../ui/separator";
 import useSideBar from "@/context/use-sidebar";
 import { useEffect, useMemo } from "react";
-
+import { useChatContext } from "@/context/user-chat-context";
 
 type Props = {
   domains?:
@@ -29,18 +29,22 @@ const ConversationMenu = ({ domains }: Props) => {
     register,
     chatRooms,
     loading,
-    onGetActiveChatMessages,
+
     chatroomStarred,
-    onChangeSeenStatus,
+    onUpdateRead,
     updateChatroomId,
   } = useConversation();
 
+  const {
+    setLoading: loadMessages,
+    setChats,
+    chatRoom,
+    domainId,
+  } = useChatContext();
 
   const { realtime, onGetCurrentMode, setRealtime } = useSideBar();
 
-  useEffect(() => {
-
-  });
+  useEffect(() => {});
 
   const unseenChatRooms = useMemo(() => {
     return chatRooms.filter((chatRoom) => !chatRoom?.seen);
@@ -51,8 +55,6 @@ const ConversationMenu = ({ domains }: Props) => {
       (a, b) => Number(b?.createdAt) - Number(a?.createdAt)
     );
   }, [chatRooms]);
-
-  
 
   // useEffect(() => {
 
@@ -87,17 +89,19 @@ const ConversationMenu = ({ domains }: Props) => {
                 unseenChatRooms.map((chatRoom: any) => (
                   <ChatCard
                     seen={chatRoom?.seen}
-                    id={chatRoom?.id}
+                    id={chatRoom?.chatroomId}
                     onChat={() => {
-                      onGetActiveChatMessages(chatRoom?.id).then(() => {
-                        updateChatroomId(chatRoom?.id);
-                      }),
-                        onChangeSeenStatus(chatRoom?.id, chatRoom?.seen);
+                      updateChatroomId(chatRoom?.chatroomId),
+                        onUpdateRead(
+                          chatRoom?.chatroomId,
+                          chatRoom?.messageId,
+                          chatRoom?.seen
+                        );
                     }}
                     createdAt={chatRoom?.createdAt}
-                    key={chatRoom?.id}
+                    key={chatRoom?.messageId}
                     title={""}
-                    description={chatRoom?.latestMessage}
+                    description={chatRoom?.message}
                   />
                 ))
               ) : (
@@ -115,12 +119,19 @@ const ConversationMenu = ({ domains }: Props) => {
               {sortedChatRooms.map((chatRoom) => (
                 <ChatCard
                   seen={chatRoom?.seen}
-                  id={chatRoom?.id}
-                  onChat={() => onGetActiveChatMessages(chatRoom?.id)}
+                  id={chatRoom?.chatroomId}
+                  onChat={() => {
+                    updateChatroomId(chatRoom?.chatroomId)
+                      // onUpdateRead(
+                      //   chatRoom?.chatroomId,
+                      //   chatRoom?.messageId,
+                      //   chatRoom?.seen
+                      // );
+                  }}
                   createdAt={chatRoom?.createdAt}
-                  key={chatRoom.id}
+                  key={chatRoom.messageId}
                   title={""}
-                  description={chatRoom?.latestMessage}
+                  description={chatRoom?.message}
                 />
               ))}
             </Loader>
@@ -130,26 +141,27 @@ const ConversationMenu = ({ domains }: Props) => {
           <Separator orientation="horizontal" className="mt-5" />
           <div className="flex flex-col">
             <Loader loading={loading}>
-              {chatRooms.filter((chatRoom) => chatRoom?.starred === true)
+              {""}
+              {/* {chatRooms.filter((chatRoom) => chatRoom?.starred === true)
                 .length ? (
                 chatRooms
                   .filter((chatRoom) => chatRoom?.starred === true)
                   .map((chatRoom) => (
                     <ChatCard
                       seen={chatRoom?.seen}
-                      id={chatRoom?.id}
+                      id={chatRoom?.messageId}
                       onChat={() => {}}
                       createdAt={chatRoom?.createdAt}
-                      key={chatRoom.id}
+                      key={chatRoom.messageId}
                       title={""}
-                      description={chatRoom?.latestMessage}
+                      description={chatRoom?.message}
                     />
                   ))
               ) : (
                 <CardDescription>
                   No unread chats for your domain
                 </CardDescription>
-              )}
+              )} */}
             </Loader>
           </div>
         </TabsContent>

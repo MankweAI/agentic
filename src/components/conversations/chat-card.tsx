@@ -10,7 +10,7 @@ import { MdEmail, MdMarkEmailRead } from "react-icons/md";
 type Props = {
   title: string;
   description?: string;
-  createdAt: number | undefined;
+  createdAt: Date;
   id: string;
   onChat(): void;
   seen?: boolean;

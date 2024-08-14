@@ -7,28 +7,30 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { PaperclipIcon } from "lucide-react";
 import useSideBar from "@/context/use-sidebar";
+import { useChatContext } from "@/context/user-chat-context";
+import { ChatProvider } from "@/context/user-chat-context"; 
+
+
 
 type Props = {};
 
 const Messenger = (props: Props) => {
+  const { chatRoom } = useChatContext();
+
 
   const { realtime } = useSideBar();
 
-  
   const {
     messageWindowRef,
     chats,
     loading,
-    chatRoom,
+    // chatRoom,
     onHandleSentMessage,
     register,
   } = useChatWindow();
 
-
-  // console.log("********************** 100", realtime);
-  
   return (
-    <div className="flex-1 flex flex-col h-0 relative">
+      <ChatProvider>    <div className="flex-1 flex flex-col h-0 relative">
       <div className="flex-1 h-0 w-full flex flex-col">
         <Loader loading={loading}>
           <div
@@ -38,7 +40,7 @@ const Messenger = (props: Props) => {
             {chats.length ? (
               chats.map((chat) => (
                 <Bubble
-                  key={chat.id}
+                  key={chat.messageId}
                   message={{
                     role: chat.role!,
                     content: chat.message,
@@ -69,7 +71,8 @@ const Messenger = (props: Props) => {
           </Button>
         </div>
       </form>
-    </div>
+    </div></ChatProvider>
+
   );
 };
 

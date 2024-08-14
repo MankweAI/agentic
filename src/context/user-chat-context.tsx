@@ -11,19 +11,21 @@ type ChatInitialValuesProps = {
   setChatRoom: React.Dispatch<React.SetStateAction<string | undefined>>;
   chats: {
     message: string;
-    id: string;
-    role: "assistant" | "user" | null;
+    messageId: string;
+    role: "user" | "assistant";
     createdAt: Date;
     seen: boolean;
+    chatroomId: string;
   }[];
   setChats: React.Dispatch<
     React.SetStateAction<
       {
-        message: string;
-        id: string;
-        role: "assistant" | "user" | null;
+        messageId: string;
         createdAt: Date;
+        message: string;
         seen: boolean;
+        role: "user" | "assistant";
+        chatroomId: string;
       }[]
     >
   >;

@@ -65,6 +65,8 @@ import { v4 as uuidv4 } from "uuid";
 // }
 
 //................................................
+
+const uniqueId = uuidv4();
 export default async function handler(req, res) {
   console.log("API route called!");
   if (req.method !== "POST") {
@@ -81,25 +83,20 @@ export default async function handler(req, res) {
         // If chatroom doesn't exist, create it with initial data
         currentChatroom = {
           starred: false,
-          id: chatroom || push(chatroomRef).key, // Ensure chatroomId is defined
-          createdAt: Date.now(),
-          seen: false,
-          messages: {},
           status: "active",
+          messages: [], // Initialize as an empty array
         };
       }
 
-      const newMessageId =
-        messageId || push(child(chatroomRef, "messages")).key;
-
-      // Add the new message to the messages list (as an array of objects)
-      currentChatroom.messages[newMessageId] = {
+      // Add the new message to the messages list (as an object)
+      currentChatroom.messages.push({
         message: message,
         createdAt: Date.now(),
         seen: false,
         role: role,
-        
-      };
+        messageId: messageId,
+        chatroomId: chatroom,
+      });
 
       return currentChatroom; // Return the updated chatroom object
     });
