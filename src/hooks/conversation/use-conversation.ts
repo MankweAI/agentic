@@ -140,7 +140,7 @@ export const useConversation = () => {
         if (rawChatroomData && rawChatroomData.messages) {
           const messageIds = Object.keys(rawChatroomData.messages);
           const latestMessageId = messageIds[messageIds.length - 1]; // Get the last message id
-          const role = rawChatroomData.messages[latestMessageId].role
+          const role = rawChatroomData.messages[latestMessageId].role;
 
           const newChatroomData: ChatroomObjectType = {
             message: rawChatroomData.messages[latestMessageId].message,
@@ -200,8 +200,6 @@ export const useConversation = () => {
     setChats([]);
     setObjectList([]);
 
-
-
     try {
       // Attach a domain listener
       const domainRef = ref(
@@ -213,35 +211,30 @@ export const useConversation = () => {
         domainRef,
         (snapshot) => {
           const rawChatroomData = snapshot.val();
-            setObjectList(rawChatroomData);
-
+          setObjectList(rawChatroomData);
         },
         (error) => {
           console.error(error);
         }
       );
-      
     } catch (error) {
       console.log(error);
     }
   };
 
-useEffect(() => {
-  if (objectList?.length > 0 && objectList[0].chatroomId === chatRoom) {
-    setChats(objectList);
-    // setObjectList([]);
-  } else {
-    // setChats([]);
-  }
-}, [chatRoom, objectList, setChats]);
-
+  useEffect(() => {
+    if (objectList?.length > 0 && objectList[0].chatroomId === chatRoom) {
+      setChats(objectList);
+      // setObjectList([]);
+    } else {
+      // setChats([]);
+    }
+  }, [chatRoom, objectList, setChats]);
 
   function updateChatroomId(newChatroomId: string) {
     // Retrieve the previous value
     // const prevChatroomId = activeChatroomId;
-
     // Update the state instantly with the new value
-
     // setChatRoom(newChatroomId);
   }
 
@@ -250,14 +243,12 @@ useEffect(() => {
     messageId: string,
     seen: boolean
   ) => {
-      const messagesRef = ref(
-        database,
-        `domain/${domainId}/chatrooms/${chatroomId}/messages`
-      );
-
+    const messagesRef = ref(
+      database,
+      `domain/${domainId}/chatrooms/${chatroomId}/messages`
+    );
 
     try {
-
       if (!seen) {
         // Create a reference to the messages path
 
@@ -295,20 +286,42 @@ useEffect(() => {
     } catch (error) {
       console.error("Error updating last message:", error);
     }
-    
   };
 
+  const updateChatroomStarred = async (
+    chatroomId: string,
+    starred: boolean
+  ) => {
+    const chatroomRef = ref(
+      database,
+      `domain/${domainId}/chatrooms/${chatroomId}`
+    );
 
+    try {
+      await update(chatroomRef, {
+        starred: starred,
+      });
+      console.log(
+        `Chatroom ${chatroomId} starred status updated to ${starred}`
+      );
+    } catch (error) {
+      console.error(
+        `Error updating chatroom ${chatroomId} starred status:`,
+        error
+      );
+    }
+  };
 
   return {
     register,
     chatRooms,
     loading,
+    updateChatroomStarred,
     chatroomStarred,
     updateChatroomId,
     onUpdateRead,
     onGetActiveChatMessages,
-  
+
     domainId,
   };
 };
