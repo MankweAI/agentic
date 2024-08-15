@@ -92,7 +92,7 @@ export default async function handler(req, res) {
       currentChatroom.messages.push({
         message: message,
         createdAt: Date.now(),
-        seen: false,
+        seen: role === 'user' ? false : true,
         role: role,
         messageId: messageId,
         chatroomId: chatroom,
