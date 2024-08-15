@@ -20,26 +20,15 @@ type Props = {};
 const InfoBar = (props: Props) => {
   // const { listenToStarredChanges } = useConversation();
 
+  const { updateChatroomStarred } = useConversation();
   const { chatRoom, loading } = useSideBar();
-      // console.log(".......... 12", chatRoom);
-
-  const tempChatRoom = chatRoom ? chatRoom : null;
   const [chatRoomStarred, setChatRoomStarred] = useState<boolean | null>(null);
   const [starClicked, setStarClicked] = useState<boolean>(false);
 
-  // if (chatRoom !== null && chatRoom !== undefined) {
-  //   if (loading) {
-  //     getChatRoomStar(chatRoom).then((res) => {
-  //       setChatRoomStarred(res?.starred ?? null);
-  //     });
-  //   }
-  // }
-
-  const handleStarClick = () => {
-    // chatRoom && onChangeStarredStatus(chatRoom, false)
-    // chatRoom && updateChatroomStar(chatRoom, !chatRoomStarred);
-    // setStarClicked(true);
-  };
+const handleStarClick = () => {
+  chatRoom && updateChatroomStarred(chatRoom, !starClicked);
+  setStarClicked(!starClicked);
+};
 
   // Handle the delete chatroom. Pop up a modal to confirm the delete action before deleting the chatroom
   const handleTrashClick = () => {
@@ -57,8 +46,8 @@ const InfoBar = (props: Props) => {
 
             <Star
               onClick={handleStarClick}
-              stroke={chatRoomStarred ? "blue" : "currentColor"}
-              fill={chatRoomStarred ? "blue" : "none"}
+              stroke={starClicked ? "gold" : "currentColor"}
+              fill={starClicked ? "gold" : "none"}
             />
           </Card>
         </div>
