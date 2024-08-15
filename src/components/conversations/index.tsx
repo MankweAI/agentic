@@ -29,7 +29,7 @@ const ConversationMenu = ({ domains }: Props) => {
     register,
     chatRooms,
     loading,
-
+    onGetActiveChatMessages,
     chatroomStarred,
     onUpdateRead,
     updateChatroomId,
@@ -39,6 +39,7 @@ const ConversationMenu = ({ domains }: Props) => {
     setLoading: loadMessages,
     setChats,
     chatRoom,
+    setChatRoom,
     domainId,
   } = useChatContext();
 
@@ -91,17 +92,19 @@ const ConversationMenu = ({ domains }: Props) => {
                     seen={chatRoom?.seen}
                     id={chatRoom?.chatroomId}
                     onChat={() => {
-                      updateChatroomId(chatRoom?.chatroomId),
+                      setChatRoom(chatRoom?.chatroomId),
                         onUpdateRead(
                           chatRoom?.chatroomId,
                           chatRoom?.messageId,
                           chatRoom?.seen
                         );
+                      onGetActiveChatMessages(chatRoom?.chatroomId);
                     }}
                     createdAt={chatRoom?.createdAt}
                     key={chatRoom?.messageId}
                     title={""}
                     description={chatRoom?.message}
+                    role={chatRoom?.role}
                   />
                 ))
               ) : (
@@ -121,17 +124,19 @@ const ConversationMenu = ({ domains }: Props) => {
                   seen={chatRoom?.seen}
                   id={chatRoom?.chatroomId}
                   onChat={() => {
-                    updateChatroomId(chatRoom?.chatroomId)
-                      // onUpdateRead(
-                      //   chatRoom?.chatroomId,
-                      //   chatRoom?.messageId,
-                      //   chatRoom?.seen
-                      // );
+                    setChatRoom(chatRoom?.chatroomId),
+                      onGetActiveChatMessages(chatRoom?.chatroomId);
+                    onUpdateRead(
+                      chatRoom?.chatroomId,
+                      chatRoom?.messageId,
+                      chatRoom?.seen
+                    );
                   }}
                   createdAt={chatRoom?.createdAt}
                   key={chatRoom.messageId}
                   title={""}
                   description={chatRoom?.message}
+                  role={chatRoom?.role}
                 />
               ))}
             </Loader>

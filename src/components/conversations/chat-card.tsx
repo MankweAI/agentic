@@ -14,6 +14,7 @@ type Props = {
   id: string;
   onChat(): void;
   seen?: boolean;
+  role: string;
 };
 
 const ChatCard = ({
@@ -23,6 +24,7 @@ const ChatCard = ({
   onChat,
   id,
   seen,
+  role,
 }: Props) => {
   const date = new Date(createdAt);
 
@@ -58,7 +60,7 @@ const ChatCard = ({
             <CardDescription className="text-xs">
               {date ? messageSentAt : ""}
             </CardDescription>
-            {urgent && !seen ? (
+            {urgent && !seen && role === 'user' ? (
               <MdEmail
                 style={{ color: "gold", width: "20px", height: "20px" }}
               />

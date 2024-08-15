@@ -60,6 +60,7 @@ export const useConversation = () => {
     setChats,
     chatRoom: chatRoomId,
     setChatRoom,
+    chatRoom,
     loading,
     domainId,
   } = useChatContext();
@@ -139,6 +140,7 @@ export const useConversation = () => {
         if (rawChatroomData && rawChatroomData.messages) {
           const messageIds = Object.keys(rawChatroomData.messages);
           const latestMessageId = messageIds[messageIds.length - 1]; // Get the last message id
+          const role = rawChatroomData.messages[latestMessageId].role
 
           const newChatroomData: ChatroomObjectType = {
             message: rawChatroomData.messages[latestMessageId].message,
@@ -166,7 +168,7 @@ export const useConversation = () => {
         if (rawChatroomData && rawChatroomData.messages) {
           // Get the most recent message added to the chatroom
           const messageIds = Object.keys(rawChatroomData.messages);
-          const latestMessageId = messageIds[messageIds.length - 1]; 
+          const latestMessageId = messageIds[messageIds.length - 1];
 
           const newMessageData = {
             message: rawChatroomData.messages[latestMessageId].message,
@@ -193,56 +195,46 @@ export const useConversation = () => {
     );
   }
 
-  console.log("Path exists..................... 101", chatRooms);
-
-  // const onGetActiveChatMessages = async (chatroomId: string) => {
-  //   setChatRoom(chatRoomId);
-  //   setChats([]);
-  //   setObjectList([]);
-
-  //   try {
-  //     // Attach a domain listener
-  //     const domainRef = ref(
-  //       database,
-  //       `domain/${domainId}/chatrooms/${chatroomId}/messages`
-  //     );
-
-  //     onChildAdded(domainRef, (childSnapshot) => {
-  //       const tempMessageObject = childSnapshot.val();
-  //       const modifiedObject: {
-  //         message: string;
-  //         id: string;
-  //         role: "user" | "assistant";
-  //         createdAt: Date;
-  //         seen: boolean;
-  //       } = {
-  //         message: tempMessageObject.message,
-  //         id: childSnapshot.key!,
-  //         role: tempMessageObject.role === "user" ? "user" : "assistant",
-  //         createdAt: new Date(tempMessageObject.createdAt),
-  //         seen: tempMessageObject.seen,
-  //       };
-
-  //       setObjectList((prevList) => {
-  //         const newList = [...prevList, modifiedObject];
-  //         return newList.sort(
-  //           (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
-  //         );
-  //       });
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  useEffect(() => {
+  const onGetActiveChatMessages = async (chatroomId: string) => {
+    // setChatRoom(chatRoomId);
     setChats([]);
+    setObjectList([]);
 
-    loadMessages(false);
 
+
+    try {
+      // Attach a domain listener
+      const domainRef = ref(
+        database,
+        `domain/${domainId}/chatrooms/${chatroomId}/messages`
+      );
+
+      onValue(
+        domainRef,
+        (snapshot) => {
+          const rawChatroomData = snapshot.val();
+            setObjectList(rawChatroomData);
+
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+useEffect(() => {
+  if (objectList?.length > 0 && objectList[0].chatroomId === chatRoom) {
     setChats(objectList);
-    // setObjectList([])
-  });
+    // setObjectList([]);
+  } else {
+    // setChats([]);
+  }
+}, [chatRoom, objectList, setChats]);
+
 
   function updateChatroomId(newChatroomId: string) {
     // Retrieve the previous value
@@ -250,8 +242,7 @@ export const useConversation = () => {
 
     // Update the state instantly with the new value
 
-    setChatRoom(newChatroomId);
-    // console.log("Active chatroom ID:", activeChatroomId);
+    // setChatRoom(newChatroomId);
   }
 
   const onUpdateRead = async (
@@ -259,40 +250,55 @@ export const useConversation = () => {
     messageId: string,
     seen: boolean
   ) => {
-    const messageRef = ref(
-      database,
-      `domain/${domainId}/chatrooms/${chatroomId}/messages/${messageId}`
-    );
-
-    // if (!seen) {
-    //   try {
-    //     await update(messageRef, {
-    //       seen: true,
-    //     });
-    //   } catch (error) {
-    //     console.error(`Error updating message seen status: ${error}`);
-    //   }
-    // }
-  };
-
-  const listenToStarredChanges = async (
-    callback: (starred: boolean) => void
-  ) => {
-    try {
-      const starredRef = ref(
+      const messagesRef = ref(
         database,
-        `domain/${domainId}/chatrooms/${chatRoomId}/starred`
+        `domain/${domainId}/chatrooms/${chatroomId}/messages`
       );
 
-      // Listen to changes in the 'starred' field
-      onValue(starredRef, (snapshot) => {
-        const starredStatus = snapshot.val();
-        callback(starredStatus);
-      });
+
+    try {
+
+      if (!seen) {
+        // Create a reference to the messages path
+
+        // Retrieve the current messages from the reference
+        const snapshot = await get(messagesRef);
+        if (!snapshot.exists()) {
+          console.error("No messages found at the given path.");
+          return;
+        }
+
+        // Get messages array from snapshot
+        const messages = snapshot.val();
+
+        if (!Array.isArray(messages) || messages.length === 0) {
+          console.error("No messages available or messages is not an array.");
+          return;
+        }
+
+        // Determine the index of the last message
+        const lastMessageIndex = messages.length - 1;
+
+        // Create a path to the last message
+        const lastMessagePath = `${messagesRef}/${lastMessageIndex}`;
+
+        const lastMessageRef = ref(
+          database,
+          `domain/${domainId}/chatrooms/${chatroomId}/messages/${lastMessageIndex}/`
+        );
+
+        // Update the 'seen' value for the last message
+        await update(lastMessageRef, { seen: true });
+      }
+
+      // console.log("Last message marked as seen.");
     } catch (error) {
-      console.error("Error listening to starred changes:", error);
+      console.error("Error updating last message:", error);
     }
+    
   };
+
+
 
   return {
     register,
@@ -301,8 +307,8 @@ export const useConversation = () => {
     chatroomStarred,
     updateChatroomId,
     onUpdateRead,
-
-    listenToStarredChanges,
+    onGetActiveChatMessages,
+  
     domainId,
   };
 };
@@ -340,8 +346,6 @@ export const useChatWindow = () => {
   //     };
   //   }
   // }, [chatRoom, setChats]);
-
-
 
   const onHandleSentMessage = handleSubmit(async (values) => {
     const messageId = uuidv4();

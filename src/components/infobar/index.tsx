@@ -21,6 +21,8 @@ const InfoBar = (props: Props) => {
   // const { listenToStarredChanges } = useConversation();
 
   const { chatRoom, loading } = useSideBar();
+      // console.log(".......... 12", chatRoom);
+
   const tempChatRoom = chatRoom ? chatRoom : null;
   const [chatRoomStarred, setChatRoomStarred] = useState<boolean | null>(null);
   const [starClicked, setStarClicked] = useState<boolean>(false);
