@@ -35,9 +35,9 @@ const AiTrainingData = ({ id }: Props) => {
               errors={errors}
               form="filter-questions-form"
               name="question"
-              placeholder="Insert training data for your AI"
-              type="text"
+              placeholder="Insert training data. Start with  'You are a... '"
               lines={5}
+              type="text"
             />
           </div>
           <Button
