@@ -129,6 +129,8 @@ export const useConversation = () => {
   ) {
     const chatRoomRef = ref(database, `domain/${domainId}/chatrooms`);
 
+    
+
     // Listen on all new chatrooms.
 
     // On Child Added: For new chatrooms
@@ -139,7 +141,7 @@ export const useConversation = () => {
 
         if (rawChatroomData && rawChatroomData.messages) {
           const messageIds = Object.keys(rawChatroomData.messages);
-          const latestMessageId = messageIds[messageIds.length - 1]; // Get the last message id
+          const latestMessageId = messageIds[messageIds.length - 1];
           const role = rawChatroomData.messages[latestMessageId].role;
 
           const newChatroomData: ChatroomObjectType = {

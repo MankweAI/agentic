@@ -133,9 +133,6 @@ export const useChatBot = () => {
   }, [limitRequest]);
 
   const onStartChatting = handleSubmit(async (values) => {
-    console.log();
-    // console.log('ALL VALUES', values)
-
     reset();
 
     if (values.content && !firebaseRealTimeMode) {
@@ -149,13 +146,14 @@ export const useChatBot = () => {
       ]);
 
       setOnAiTyping(true);
+      // console.log('ALL VALUES', values)
 
       const response = await onAiChatBotAssistant(
         currentBotId!,
         onChats,
         "user",
         values.content,
-        firebaseRealTimeMode
+        
       );
 
       if (response) {
@@ -163,19 +161,6 @@ export const useChatBot = () => {
 
         setOnChats((prev: any) => [...prev, response.response]);
       }
-
-      // if (response) {
-      //   setOnAiTyping(false);
-      //   if (response.live) {
-      //     setOnRealTime((prev) => ({
-      //       ...prev,
-      //       chatroom: response.chatRoom,
-      //       mode: response.live,
-      //     }));
-      //   } else {
-      //     setOnChats((prev: any) => [...prev, response.response]);
-      //   }
-      // }
     } else if (values.content && firebaseRealTimeMode) {
       console.log("...chatroomId 11", firebaseChatRoomId);
       console.log("...chatroomId 12", chatroomId);
@@ -202,7 +187,6 @@ export const useChatBot = () => {
         );
         onChildAdded(domainRef, (childSnapshot) => {
           const messageData = childSnapshot.val();
-          console.log(".........101", messageData);
 
           const messageObject = {
             role: messageData.role,
