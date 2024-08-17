@@ -1,67 +1,48 @@
-'use client'
-import Section from '@/components/section-label'
+"use client";
+import Section from "@/components/section-label";
 import {
   Card,
   CardContent,
   CardDescription,
   CardTitle,
-} from '@/components/ui/card'
-import { useFilterQuestions, useHelpDesk } from '@/hooks/settings/use-settings'
-import React from 'react'
-import FormGenerator from '../form-generator'
-import { Button } from '@/components/ui/button'
-import { Loader } from '@/components/loader'
+} from "@/components/ui/card";
+import {
+  useTrainingDataHook,
+  useHelpDesk,
+} from "@/hooks/settings/use-settings";
+import React from "react";
+import FormGenerator from "../form-generator";
+import { Button } from "@/components/ui/button";
+import { Loader } from "@/components/loader";
 
 type Props = {
-  id: string
-}
+  id: string;
+};
 
-const FilterQuestions = ({ id }: Props) => {
-  const { register, errors, onAddFilterQuestions, isQuestions, loading } =
-    useFilterQuestions(id)
+const AiTrainingData = ({ id }: Props) => {
+  const { register, errors, onAddTrainingData, trainingData, loading } =
+    useTrainingDataHook(id);
 
   return (
     <Card className="w-full grid grid-cols-1 lg:grid-cols-2">
       <CardContent className="p-6 border-r-[1px]">
-        <CardTitle>Bot Questions</CardTitle>
-        <form
-          onSubmit={onAddFilterQuestions}
-          className="flex flex-col gap-6 mt-10"
-        >
+        <form onSubmit={onAddTrainingData} className="flex flex-col gap-6 mt-">
           <div className="flex flex-col gap-3">
-            <Section
-              label="Question"
-              message="Add a question that you want your chatbot to ask"
-            />
-            <FormGenerator
-              inputType="input"
-              register={register}
-              errors={errors}
-              form="filter-questions-form"
-              name="question"
-              placeholder="Type your question"
-              type="text"
-            />
-          </div>
-          <div className="flex flex-col gap-3">
-            <Section
-              label="Answer to question"
-              message="The anwer for the question above"
-            />
+            <Section label="AI Training Data" message="" />
             <FormGenerator
               inputType="textarea"
               register={register}
               errors={errors}
               form="filter-questions-form"
-              name="answer"
-              placeholder="Type your answer"
+              name="question"
+              placeholder="Insert training data for your AI"
               type="text"
               lines={5}
             />
           </div>
           <Button
             type="submit"
-            className="bg-orange hover:bg-orange hover:opacity-70 transition duration-150 ease-in-out text-white font-semibold"
+            className="bg-[#C60D69] hover:bg-[#C60D69] hover:opacity-70 transition duration-150 ease-in-out text-white font-semibold"
           >
             Create
           </Button>
@@ -69,22 +50,15 @@ const FilterQuestions = ({ id }: Props) => {
       </CardContent>
       <CardContent className="p-6 overflow-y-auto chat-window">
         <Loader loading={loading}>
-          {isQuestions.length ? (
-            isQuestions.map((question) => (
-              <p
-                key={question.id}
-                className="font-bold"
-              >
-                {question.question}
-              </p>
-            ))
+          {trainingData?.length ? (
+            <p className="font-bold">{trainingData}</p>
           ) : (
             <CardDescription>No Questions</CardDescription>
           )}
         </Loader>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default FilterQuestions
+export default AiTrainingData;

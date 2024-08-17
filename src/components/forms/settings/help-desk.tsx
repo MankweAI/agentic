@@ -24,11 +24,8 @@ const HelpDesk = ({ id }: Props) => {
   return (
     <Card className="w-full grid grid-cols-1 lg:grid-cols-2">
       <CardContent className="p-6 border-r-[1px]">
-        <CardTitle>Help Desk</CardTitle>
-        <form
-          onSubmit={onSubmitQuestion}
-          className="flex flex-col gap-6 mt-10"
-        >
+        <CardTitle>FAQ</CardTitle>
+        <form onSubmit={onSubmitQuestion} className="flex flex-col gap-6 mt-10">
           <div className="flex flex-col gap-3">
             <Section
               label="Question"
@@ -62,7 +59,7 @@ const HelpDesk = ({ id }: Props) => {
           </div>
           <Button
             type="submit"
-            className="bg-orange hover:bg-orange hover:opacity-70 transition duration-150 ease-in-out text-white font-semibold"
+            className="bg-[#C60D69] hover:bg-[#C60D69] hover:opacity-70 transition duration-150 ease-in-out text-white font-semibold"
           >
             Create
           </Button>
@@ -84,7 +81,7 @@ const HelpDesk = ({ id }: Props) => {
         </Loader>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 export default HelpDesk

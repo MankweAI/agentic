@@ -85,10 +85,10 @@ export const TABS_MENU: TABS_MENU_PROPS[] = [
 
 export const HELP_DESK_TABS_MENU: TABS_MENU_PROPS[] = [
   {
-    label: 'help desk',
+    label: 'Help Desk',
   },
   {
-    label: 'questions',
+    label: 'AI Training',
   },
 ]
 
