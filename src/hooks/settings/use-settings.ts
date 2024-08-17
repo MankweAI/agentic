@@ -1,10 +1,10 @@
 import {
   onChatBotImageUpdate,
-  onCreateFilterQuestions,
+  onCreateTrainingData,
   onCreateHelpDeskQuestion,
   onCreateNewDomainProduct,
   onDeleteUserDomain,
-  onGetAllFilterQuestions,
+  onGetTrainingData,
   onGetAllHelpDeskQuestions,
   onUpdateDomain,
   onUpdatePassword,
@@ -51,7 +51,6 @@ interface TextColor {
   white?: string;
 }
 
-
 export const useThemeMode = () => {
   const { setTheme, theme } = useTheme();
   return {
@@ -95,7 +94,6 @@ export const useChangePassword = () => {
 };
 
 export const useSettings = (id: string) => {
-  
   const {
     register,
     handleSubmit,
@@ -111,8 +109,6 @@ export const useSettings = (id: string) => {
   const [deleting, setDeleting] = useState<boolean>(false);
 
   const onUpdateSettings = handleSubmit(async (values) => {
-    
-
     setLoading(true);
     if (values.domain) {
       const domain = await onUpdateDomain(id, values.domain);
@@ -257,7 +253,7 @@ export const useHelpDesk = (id: string) => {
   };
 };
 
-export const useFilterQuestions = (id: string) => {
+export const useTrainingDataHook = (id: string) => {
   const {
     register,
     handleSubmit,
@@ -268,43 +264,44 @@ export const useFilterQuestions = (id: string) => {
   });
   const { toast } = useToast();
   const [loading, setLoading] = useState<boolean>(false);
-  const [isQuestions, setIsQuestions] = useState<
-    { id: string; question: string }[]
-  >([]);
+  const [trainingData, setTrainingData] = useState<string>();
 
-  const onAddFilterQuestions = handleSubmit(async (values) => {
+  const onAddTrainingData = handleSubmit(async (values) => {
     setLoading(true);
-    const questions = await onCreateFilterQuestions(id, values.question);
-    if (questions) {
-      setIsQuestions(questions.questions!);
+    const trainingData = await onCreateTrainingData(id, values.question);
+    if (trainingData) {
+      setTrainingData(trainingData.trainingData!);
       toast({
-        title: questions.status == 200 ? "Success" : "Error",
-        description: questions.message,
+        title: trainingData.status == 200 ? "Success" : "Error",
+        description: trainingData.message,
       });
       reset();
       setLoading(false);
     }
   });
 
-  const onGetQuestions = async () => {
+  const getTrainingData = async () => {
     setLoading(true);
-    const questions = await onGetAllFilterQuestions(id);
-    if (questions) {
-      setIsQuestions(questions.questions);
+    const trainingData = await onGetTrainingData(id);
+    if (trainingData) {
+      setTrainingData(trainingData.trainingData);
       setLoading(false);
-    }
+    } else {
+      setLoading(false);
+
+     }
   };
 
   useEffect(() => {
-    onGetQuestions();
+    getTrainingData();
   }, []);
 
   return {
     loading,
-    onAddFilterQuestions,
+    onAddTrainingData,
     register,
     errors,
-    isQuestions,
+    trainingData,
   };
 };
 

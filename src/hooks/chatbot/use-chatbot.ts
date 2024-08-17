@@ -162,8 +162,7 @@ export const useChatBot = () => {
         setOnChats((prev: any) => [...prev, response.response]);
       }
     } else if (values.content && firebaseRealTimeMode) {
-      console.log("...chatroomId 11", firebaseChatRoomId);
-      console.log("...chatroomId 12", chatroomId);
+
 
       const response = await fetch("/api/chatbot/sendMessage", {
         method: "POST",
@@ -193,8 +192,6 @@ export const useChatBot = () => {
             content: messageData.message, // Renamed 'message' to 'content'
             createdAt: messageData.createdAt,
           };
-
-          // console.log(".........101", zzzzzzz);
 
           setOnChats((prevChats) => [...prevChats, messageObject]);
         });

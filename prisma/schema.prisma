@@ -38,7 +38,7 @@ model Domain {
 
   chatBot         ChatBot?
   helpdesk        HelpDesk[]
-  filterQuestions FilterQuestions[]
+  trainingData String @default("")
   products        Product[]
 
   customer   Customer[]
@@ -72,15 +72,6 @@ model HelpDesk {
   id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   question String
   answer   String
-
-  Domain   Domain? @relation(fields: [domainId], references: [id], onDelete: Cascade)
-  domainId String? @db.Uuid
-}
-
-model FilterQuestions {
-  id       String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  question String
-  answered String?
 
   Domain   Domain? @relation(fields: [domainId], references: [id], onDelete: Cascade)
   domainId String? @db.Uuid
