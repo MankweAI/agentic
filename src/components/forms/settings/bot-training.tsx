@@ -15,8 +15,7 @@ const BotTrainingForm = ({ id }: Props) => {
       <div className="flex flex-col gap-2">
         <h2 className="font-bold text-2xl">Chatbot</h2>
         <p className="text-sm font-light">
-          Set FAQs and
-          create your chatbot's brain.
+          Set FAQs and create your chatbot&apos;s brain.
         </p>
       </div>
       <TabsMenu triggers={HELP_DESK_TABS_MENU}>
