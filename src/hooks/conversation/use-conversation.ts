@@ -329,7 +329,9 @@ export const useConversation = () => {
 };
 
 export const useChatWindow = () => {
-  const { chats, loading, setChats, chatRoom } = useChatContext();
+  const { chats, loading, setChats, chatRoom, domainId } = useChatContext();
+  // console.log("...... DOMAIN ID", domainId);
+  
 
   const messageWindowRef = useRef<HTMLDivElement | null>(null);
   const { register, handleSubmit, reset } = useForm({
@@ -374,7 +376,7 @@ export const useChatWindow = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          domain: "0c5b84af-d4a0-472f-a26f-e4953749dd78",
+          domain: domainId,
           chatroom: chatRoom,
           message: values.content,
           role: "assistant",

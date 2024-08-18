@@ -1,6 +1,6 @@
 // import { NextApiRequest, NextApiResponse } from "next/types";
 import { database } from "../../../lib/firebaseConfig";
-import { ref, set, onValue, get } from "firebase/database";
+import { ref, set, onValue, get, update } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
 
 export default async function handler(req, res) {
@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   // Section A
   try {
-    const domainRef = ref(database, `domain`);
+    const domainRef = ref(database, `domain/${domainId}`);
     const liveStatusRef = ref(database, `domain/${domainId}/liveStatus`);
 
     // Check if the domain already exists
@@ -22,13 +22,12 @@ export default async function handler(req, res) {
     if (!domainSnapshot.exists()) {
       // If the domain does not exist, create it
       await set(domainRef, {
-        id: domainId, // Set the domain's ID
-        createdAt: Date.now(), // Set a creation timestamp or any other initial data
-        liveStatus: liveStatus, // Initialize liveStatus
+        id: domainId,
+        liveStatus: liveStatus,
       });
     } else {
       // If the domain exists, just update the liveStatus
-      await set(liveStatusRef, liveStatus);
+      await update(domainRef, { liveStatus: liveStatus });
     }
 
     // Section B
