@@ -12,6 +12,10 @@ export const usePortal = (
   domainId: string,
   email: string
 ) => {
+
+    console.log("......... customerId", customerId);
+    console.log("......... domainid", domainId);
+    console.log("......... email", email);
   const {
     register,
     setValue,

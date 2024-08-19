@@ -5,6 +5,7 @@ import { BotWindow } from './window'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { BotIcon } from '@/icons/bot-icon'
+import { X } from "lucide-react";
 
 type Props = {}
 
@@ -28,7 +29,7 @@ const AiChatBot = (props: Props) => {
 
 
   return (
-    <div className="h-screen flex flex-col justify-end items-end gap-4">
+    <div className="fixed bottom-0 right-0 flex flex-col justify-end items-end gap-4 z-auto">
       {botOpened && (
         <BotWindow
           errors={errors}
@@ -49,7 +50,7 @@ const AiChatBot = (props: Props) => {
       )}
       <div
         className={cn(
-          "rounded-full relative cursor-pointer shadow-md w-20 h-20 flex items-center justify-center bg-gray-700",
+          "rounded-full relative cursor-pointer shadow-md w-14 h-14 flex items-center justify-center bg-gray-700",
           loading ? "invisible" : "visible"
         )}
         onClick={onOpenChatBot}
@@ -61,7 +62,7 @@ const AiChatBot = (props: Props) => {
             fill
           />
         ) : (
-          <BotIcon />
+          <X className='text-white' />
         )}
       </div>
     </div>

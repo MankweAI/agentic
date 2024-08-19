@@ -56,18 +56,7 @@ const PortalSteps = ({
   amount,
   stripeId,
 }: Props) => {
-  if (step == 1) {
-    return (
-      <QuestionsForm
-        register={register}
-        error={error}
-        onNext={onNext}
-        questions={questions}
-      />
-    )
-  }
-
-  if (step == 2 && type == 'Appointment') {
+  if (step == 1 && type == "Appointment") {
     return (
       <BookAppointmentDate
         date={date}
@@ -79,20 +68,7 @@ const PortalSteps = ({
         onSlot={onSlot}
         loading={loading}
       />
-    )
-  }
-
-
-  if (step == 2 && type == 'Payment') {
-    return (
-      <PaymentCheckout
-        products={products}
-        stripeId={stripeId}
-        onBack={onBack}
-        onNext={onNext}
-        amount={amount}
-      />
-    )
+    );
   }
 
   return (

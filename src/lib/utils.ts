@@ -40,6 +40,12 @@ export const extractEmailsFromString = (text: string) => {
   return text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi);
 };
 
+export const extractPhoneNumber = (text: string) => {
+  return text.match(
+    /(082|083|084|085|086|087|078|079|081|060|061|062|063|064|065|066|067|068|069)\d{7}/g
+  );
+};
+
 export const isString = (text: string) => {
   return !!text.match(/(.+)/gi);
 };

@@ -85,9 +85,9 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
     const rgbaColor = toRgbaString(colorObject);
 
     return (
-      <div className="h-[620px] w-[450px] flex flex-col justify-end bg-white rounded-xl border-[1px] overflow-hidden">
+      <div className="h-[522px] w-[380px] flex flex-col justify-between bg-white rounded-xl border-[1px] overflow-hidden">
         <div
-          className="flex justify-center px-4 pt-4"
+          className="flex justify-center items-start p-2 "
           style={{
             backgroundColor: rgbaColor,
             backgroundImage: `url(https://ucarecdn.com/bff986e9-01c9-4e73-b290-f8ed6e6abed5/titlebarbackroundagentic.png)`,
@@ -99,12 +99,12 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
             <Image
               src={`https://ucarecdn.com/${chatbotIcon}/`}
               alt="bot"
-              width={70}
-              height={70}
+              width={50}
+              height={50}
             />
-            <div className="flex items-center flex-col">
+            <div className="flex items-start flex-col">
               <h3 className="text-lg font-bold leading-none pb-2">
-                Lebogang - Matlala Attorneys
+                Matlala Attorneys
               </h3>
               {/* <p className="text-sm">{domainName.split(".com")[0]}</p> */}
 
@@ -126,7 +126,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
                   background: theme || "",
                   color: "black",
                 }}
-                className="px-3 flex h-[400px] flex-col py-5 gap-3 chat-window overflow-y-auto"
+                className="px-3 flex h-[340px] w-full flex-col py-5 gap-3 chat-window overflow-y-auto"
                 ref={ref}
               >
                 {chats.map((chat, key) => (
@@ -141,15 +141,15 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
               </div>
               <form
                 onSubmit={onChat}
-                className="flex px-3 py-1 flex-col flex-1 bg-porcelain"
+                className="flex px-3  flex-col flex-1 bg-porcelain"
               >
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                   <Input
                     {...register("content")}
                     placeholder="Type your message..."
                     className="focus-visible:ring-0 flex-1 p-0 focus-visible:ring-offset-0 bg-porcelain rounded-none outline-none border-none"
                   />
-                  <Button type="submit" className="mt-3">
+                  <Button type="submit" className="mt-0">
                     <Send />
                   </Button>
                 </div>
@@ -178,7 +178,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
           </TabsContent>
         </TabsMenu>
         <div className="flex justify-center items-end ">
-          <p className="text-gray-500 text-xs">Powered By Agentic.co.za</p>
+          <p className="text-gray-500 text-xs">Powered by agentic.co.za</p>
         </div>
       </div>
     );
