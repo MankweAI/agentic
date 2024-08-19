@@ -56,11 +56,11 @@ const PortalForm = ({
     loading,
   } = usePortal(customerId, domainid, email)
 
-  useEffect(() => {
-    if (questions.every((question) => question.answered)) {
-      onNext()
-    }
-  }, [onNext, questions])
+  // useEffect(() => {
+  //   if (questions.every((question) => question.answered)) {
+  //     // onNext()
+  //   }
+  // }, [onNext, questions])
 
   return (
     <form
@@ -90,21 +90,21 @@ const PortalForm = ({
           <div className="w-[400px] grid grid-cols-2 gap-3">
             <div
               className={cn(
-                'rounded-full h-2 col-span-1',
-                step == 1 ? 'bg-orange' : 'bg-platinum'
+                "rounded-full h-2 col-span-1",
+                step == 1 ? "bg-[#C60D69]" : "bg-platinum"
               )}
             ></div>
             <div
               className={cn(
-                'rounded-full h-2 col-span-1',
-                step == 2 ? 'bg-orange' : 'bg-platinum'
+                "rounded-full h-2 col-span-1",
+                step == 2 ? "bg-[#C60D69]" : "bg-platinum"
               )}
             ></div>
           </div>
         </div>
       )}
     </form>
-  )
+  );
 }
 
 export default PortalForm

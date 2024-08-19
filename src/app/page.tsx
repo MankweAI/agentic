@@ -16,6 +16,8 @@ import Image from "next/image";
 import Link from "next/link";
 import parse from "html-react-parser";
 import { getMonthName } from "@/lib/utils";
+import ChatbotFrame from "@/components/iframe-react-code";
+
 // import { getMonthName } from '@/lib/utils'
 
 export default async function Home() {
@@ -131,6 +133,8 @@ export default async function Home() {
             </Link>
           ))}
       </section>
+
+      <ChatbotFrame />
     </main>
   );
 }

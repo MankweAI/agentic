@@ -11,13 +11,6 @@ export const onDomainCustomerResponses = async (customerId: string) => {
       },
       select: {
         email: true,
-        questions: {
-          select: {
-            id: true,
-            question: true,
-            answered: true,
-          },
-        },
       },
     })
 

@@ -40,12 +40,22 @@ model Domain {
   helpdesk        HelpDesk[]
   trainingData String @default("")
   products        Product[]
+  filterQuestions FilterQuestions[]
 
   customer   Customer[]
   User       User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
    userId     String?    @db.Uuid @unique
   Campaign   Campaign?  @relation(fields: [campaignId], references: [id])
   campaignId String?    @db.Uuid
+}
+
+model FilterQuestions {
+  id       String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  question String
+  answered String?
+
+  Domain   Domain? @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  domainId String? @db.Uuid
 }
 model ChatBot {
   id             String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid

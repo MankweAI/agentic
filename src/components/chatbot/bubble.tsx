@@ -59,14 +59,14 @@ const Bubble = ({ message, createdAt, bubbleColor, textColor }: Props) => {
       )}
       <div
         className={cn(
-          "flex flex-col gap-3 min-w-[200px] max-w-[300px] p-4 rounded-t-3xl",
+          "flex flex-col gap-3 min-w-[200px] max-w-[250px] h-auto p-2.5 rounded-t-3xl",
           {
             "bg-muted rounded-r-3xl": message.role === "assistant",
             "rounded-l-3xl": message.role !== "assistant",
           }
         )}
         style={{
-          backgroundColor:
+          backgroundColor: 
             message.role !== "assistant" ? bubbleColor : undefined,
           color:
             message.role !== "assistant" &&
