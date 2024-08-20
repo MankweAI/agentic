@@ -6,6 +6,10 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { BotIcon } from '@/icons/bot-icon'
 import { X } from "lucide-react";
+import ChatPopup from './ChatPopUp'
+import { useState, useEffect } from 'react'
+import ChatbotProfileImage from './ChatbotProfileImage'
+import ChatBotIcon from './ChatBotIcon'
 
 type Props = {}
 
@@ -26,10 +30,20 @@ const AiChatBot = (props: Props) => {
     firebaseRealTimeMode,
   } = useChatBot();
 
+  const [botClicked, setBotClicked] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (botOpened) {
+      setBotClicked(true);
+    }
+  }, [botOpened]);
+  
+  
+
 
 
   return (
-    <div className="fixed bottom-0 right-0 flex flex-col justify-end items-end gap-4 z-auto">
+    <div className="fixed bottom-2 right-2 flex flex-col justify-end items-end gap-4 z-auto">
       {botOpened && (
         <BotWindow
           errors={errors}
@@ -48,21 +62,28 @@ const AiChatBot = (props: Props) => {
           chatbotIcon={currentBot?.chatBot?.icon}
         />
       )}
+
       <div
         className={cn(
-          "rounded-full relative cursor-pointer shadow-md w-14 h-14 flex items-center justify-center bg-gray-700",
-          loading ? "invisible" : "visible"
+          "cursor-pointer",
+          loading ? "invisible" : "slide-in",
+          botOpened ? "visible" : ""
         )}
         onClick={onOpenChatBot}
       >
-        {currentBot?.chatBot?.icon && !botOpened ? (
-          <Image
-            src={`https://ucarecdn.com/${currentBot.chatBot.icon}/`}
-            alt="bot"
-            fill
-          />
+        {currentBot?.chatBot?.icon && !botOpened && firebaseRealTimeMode ? (
+          !botClicked ? (
+            <ChatPopup icon={currentBot?.chatBot?.icon} />
+          ) : (
+            <ChatbotProfileImage
+              src={`https://ucarecdn.com/${currentBot?.chatBot?.icon}/`}
+            />
+          )
         ) : (
-          <X className='text-white' />
+          <div className="relative cursor-pointer rounded-full shadow-md w-14 h-14 flex items-center justify-center bg-gray-700">
+            {!firebaseRealTimeMode && !botOpened ? <ChatBotIcon /> :<X className="text-white rounded-full " /> }
+            
+          </div>
         )}
       </div>
     </div>
