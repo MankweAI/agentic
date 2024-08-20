@@ -30,7 +30,7 @@ function NavBar() {
         </li>
         <li>
           <Link
-            href="#"
+            href="/pricing"
             className="hover:text-neutral-900 transition duration-300 ease-in-out"
           >
             Pricing

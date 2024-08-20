@@ -1,7 +1,7 @@
 export const pricingCards = [
   {
     title: "30 Days Free Trial",
-    description: "No credit card required.",
+    description: "No credit card required",
     price: "R0",
     duration: "month",
     highlight: "Key features",
@@ -15,8 +15,8 @@ export const pricingCards = [
   },
   {
     title: "Ultimate",
-    description: "The ultimate lead generation kit",
-    price: "R1800",
+    description: "The ultimate lead conversion kit",
+    price: "R2200",
     duration: "month",
     highlight: "Key features",
     features: [
