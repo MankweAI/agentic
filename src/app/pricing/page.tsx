@@ -18,11 +18,12 @@ export default async function Pricing() {
     <div className="h-auto w-full">
       <NavBar />
       <div className="container mx-auto max-w-4xl p-4 md:p-6 lg:p-8 xl:p-10 bg-white rounded-lg shadow-lg">
-      
-        <div className="m-8 w-full flex justify-between">
-          <h1 className="text-xl w-full flex justify-center font-bold text-[#C60D69]">
-            Price Plans
-          </h1>
+        <div className="m-8 w-full flex flex-col items-center justify-center">
+          <h1 className="text-2xl   font-bold text-[#C60D69]">Price Plans</h1>
+          <p className="text-muted-foreground text-center max-w-lg">
+            We recommend starting with our free 30-day trial to ensure our
+            solution meets your business needs.
+          </p>
         </div>
         <div className="flex  justify-center gap-4 flex-wrap m-12">
           {pricingCards.map((card) => (

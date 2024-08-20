@@ -38,9 +38,9 @@ export default async function Home() {
       <section>
         <div className="flex items-center justify-center flex-col mt-[80px] gap-4 ">
           <h1 className="text-6xl font-black text-center w-3/4">
-            SEO brings the traffic.
+            Bring the traffic,
             <br />
-            <span className="text-[#C60D69]">We convert it into sales. </span>
+            <span className="text-[#C60D69]">We&apos;ll bring the revenue! </span>
           </h1>
 
           {/* <Button className="bg-[#16AF9D] font-extrabold text-xl text-white px-4 w-1/4">
@@ -57,10 +57,7 @@ export default async function Home() {
       </section>
       <section className="flex justify-center items-center flex-col gap-4 mt-10">
         <h2 className="text-4xl text-center">Just the right fit for you!</h2>
-        <p className="text-muted-foreground text-center max-w-lg">
-          We recommend you to start with our free 30 days trial to determine if
-          the solution fits your business needs.
-        </p>
+
       </section>
 
 
