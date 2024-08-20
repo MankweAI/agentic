@@ -1,27 +1,26 @@
 export const pricingCards = [
   {
     title: "30 Days Free Trial",
-    description: "Perfect for trying out  Agentic AI",
+    description: "No credit card required.",
     price: "R0",
-    duration: "30 Days",
+    duration: "month",
     highlight: "Key features",
     features: [
-      " Chat to website visitors ",
-      "AI Chatbot ",
-      "Appointments Bookings",
+      "Instant Human Chats",
+      "AI ChatBot Chats",
+      "Call Back Requests",
+      "24 Hour Support",
     ],
     priceId: "",
   },
   {
     title: "Ultimate",
     description: "The ultimate lead generation kit",
-    price: "R1399",
+    price: "R1800",
     duration: "month",
     highlight: "Key features",
     features: [
-      " Chat to website visitors ",
-      "AI Chatbot ",
-      "Appointments Bookings",
+      "Everything in trial"
     ],
 
     priceId: "price_1OYxkqFj9oKEERu1KfJGWxgN",

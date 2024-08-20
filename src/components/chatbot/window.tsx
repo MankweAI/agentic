@@ -3,6 +3,7 @@ import React, { forwardRef } from "react";
 import { UseFormRegister } from "react-hook-form";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import RealTimeMode from "./real-time";
+import { OffLineMode } from "./real-time";
 import Image from "next/image";
 import TabsMenu from "../tabs/intex";
 import { BOT_TABS_MENU } from "@/constants/menu";
@@ -18,6 +19,7 @@ import { Label } from "../ui/label";
 import { CardDescription, CardTitle } from "../ui/card";
 import Accordion from "../accordian";
 import UploadButton from "../upload-button";
+import ChatBotIcon from "./ChatBotIcon";
 
 type Props = {
   errors: any;
@@ -69,8 +71,6 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
     },
     ref
   ) => {
-
-    
     // Incomplete
     // The chatroom ID in line 104 is set to "chatroom" instead of an ID. Potential bug.
 
@@ -95,23 +95,34 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
             backgroundPosition: "center",
           }}
         >
-          <div className="flex gap-2 items-center justify-center ">
-            <Image
-              src={`https://ucarecdn.com/${chatbotIcon}/`}
-              alt="bot"
-              width={50}
-              height={50}
-            />
+          <div className="flex gap-4 items-center justify-start  w-3/4">
+            {realtimeMode ? (
+              <Image
+                src={`https://ucarecdn.com/${chatbotIcon}/`}
+                alt="bot"
+                width={50}
+                height={50}
+                className="rounded-full"
+              />
+            ) : (
+              <div
+                className={`relative cursor-pointer rounded-full shadow-md w-10 p-2 h-10 flex items-center justify-center`}
+                style={{
+                  backgroundColor: rgbaColor,
+                }}
+              >
+                <ChatBotIcon />
+              </div>
+            )}
             <div className="flex items-start flex-col">
-              <h3 className="text-lg font-bold leading-none pb-2">
-                Matlala Attorneys
-              </h3>
+              <h3 className="text-lg font-bold leading-none pb-2">Agentic</h3>
               {/* <p className="text-sm">{domainName.split(".com")[0]}</p> */}
 
-              {realtimeMode && (
+              {realtimeMode ? (
                 <RealTimeMode setChats={setChat} chatRoomId={"chatroom"} />
-              )}
+              ) : <OffLineMode />}
             </div>
+            <div></div>
           </div>
         </div>
         <TabsMenu
