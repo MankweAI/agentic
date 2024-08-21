@@ -17,6 +17,7 @@ import Link from "next/link";
 import parse from "html-react-parser";
 import { getMonthName } from "@/lib/utils";
 import ChatbotFrame from "@/components/iframe-react-code";
+import VideoLoop from "@/components/VideoLoop";
 
 // import { getMonthName } from '@/lib/utils'
 
@@ -35,63 +36,91 @@ export default async function Home() {
   return (
     <main>
       <NavBar />
-      <section>
-        <div className="flex items-center justify-center flex-col mt-[80px] gap-4 ">
+      <div className="container mx-auto max-w-6xl p-4 md:p-6 lg:p-8 xl:p-10 bg-white shadow-2xl border-2 border-b-2 border-r-2 border-l-2 border-t-0 flex flex-col justify-center items-center gap-4">
+        <section className="flex justify-center items-center flex-col gap-4 mt-8">
           <h1 className="text-6xl font-black text-center w-3/4">
             Bring the traffic,
             <br />
-            <span className="text-[#C60D69]">We&apos;ll bring the revenue! </span>
+            <span className="text-[#C60D69]">
+              We&apos;ll bring the revenue!{" "}
+            </span>
           </h1>
 
           {/* <Button className="bg-[#16AF9D] font-extrabold text-xl text-white px-4 w-1/4">
             Start your 30 days free trial
           </Button> */}
-          <Image
-            src="/images/website-mobile-image.png"
-            width={400}
-            height={100}
-            alt="Logo"
-            className="max-w-lg object-contain"
-          />
-        </div>
-      </section>
-      <section className="flex justify-center items-center flex-col gap-4 mt-10">
-        <h2 className="text-4xl text-center">Just the right fit for you!</h2>
+          <div className="w-3/4 p-3 bg-gray-700 rounded-xl mt-4">
+            <VideoLoop />
+          </div>
+        </section>
+        <section className="flex flex-row justify-between items-center w-full gap-4 mt-10">
+          <div className="flex flex-col justify-between items-start w-1/2  gap-4 mt-10">
+            <h1 className="text-5xl text-start font-bold">
+              Sales Team Goes To Customer
+            </h1>
+            <p className=" text-start">
+              Put your sales team in front of your customers the moment they
+              need you. Turn every interaction into an opportunity for real-time
+              human connection and rapid sales growth.
+            </p>
+          </div>
+          <div className="flex justify-center items-start w-1/2 gap-4 mt-10">
+            <Image
+              src="/images/agentic-homepage1.png"
+              width={500}
+              height={200}
+              alt="Logo"
+              className="max-w-lg object-contain"
+            />
+          </div>
+        </section>
 
-      </section>
-
-
-      <section className="flex justify-center items-center flex-col gap-4 mt-28">
-        <h2 className="text-4xl text-center">News Room</h2>
-        <p className="text-muted-foreground text-center max-w-lg">
-          Explore our insights on AI, Lead Generation, technology, and
-          optimizing your business.
-        </p>
-      </section>
-      <section className="md:grid-cols-3 grid-cols-1 grid gap-5 container mt-8">
-        {posts &&
-          posts.map((post) => (
-            <Link href={`/blogs/${post.id}`} key={post.id}>
-              <Card className="flex flex-col gap-2 rounded-xl overflow-hidden h-full hover:bg-gray-100">
-                <div className="relative w-full aspect-video">
-                  <Image
-                    src={`${process.env.CLOUDWAYS_UPLOADS_URL}${post.image}`}
-                    alt="post featured image"
-                    fill
-                  />
-                </div>
-                <div className="py-5 px-10 flex flex-col gap-5">
-                  <CardDescription>
-                    {getMonthName(post.createdAt.getMonth())}{" "}
-                    {post.createdAt.getDate()} {post.createdAt.getFullYear()}
-                  </CardDescription>
-                  <CardTitle>{post.title}</CardTitle>
-                  {parse(post.content.slice(4, 100))}...
-                </div>
-              </Card>
-            </Link>
-          ))}
-      </section>
+        <section className="flex flex-row justify-between items-center w-full gap-4 mt-10">
+          <div className="flex justify-center items-start w-1/2 gap-4 mt-10">
+            <Image
+              src="/images/agentic-homepage2.png"
+              width={500}
+              height={200}
+              alt="Logo"
+              className="max-w-lg object-contain"
+            />
+          </div>
+          <div className="flex flex-col justify-between items-start w-1/2  gap-4 mt-10">
+            <h1 className="text-5xl text-start font-bold">
+              Unlock 10X revenue growth.
+            </h1>
+            <p className=" text-start">
+              0nly 28% of your qualified leads will reach out on their own.
+              Capture the other 72% by proactively engaging them and secure more
+              sales.
+            </p>
+          </div>
+        </section>
+        <section className="md:grid-cols-3 grid-cols-1 grid gap-5 container mt-8">
+          {posts &&
+            posts.map((post) => (
+              <Link href={`/blogs/${post.id}`} key={post.id}>
+                <Card className="flex flex-col gap-2 rounded-xl overflow-hidden h-full hover:bg-gray-100">
+                  <div className="relative w-full aspect-video">
+                    <Image
+                      src={`${process.env.CLOUDWAYS_UPLOADS_URL}${post.image}`}
+                      alt="post featured image"
+                      fill
+                    />
+                  </div>
+                  <div className="py-5 px-10 flex flex-col gap-5">
+                    <CardDescription>
+                      {getMonthName(post.createdAt.getMonth())}{" "}
+                      {post.createdAt.getDate()} {post.createdAt.getFullYear()}
+                    </CardDescription>
+                    <CardTitle>{post.title}</CardTitle>
+                    {parse(post.content.slice(4, 100))}...
+                  </div>
+                </Card>
+              </Link>
+            ))}
+        </section>
+      </div>
 
       <ChatbotFrame />
     </main>

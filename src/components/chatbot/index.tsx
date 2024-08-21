@@ -1,17 +1,19 @@
-'use client'
-import { useChatBot } from '@/hooks/chatbot/use-chatbot'
-import React from 'react'
-import { BotWindow } from './window'
-import { cn } from '@/lib/utils'
-import Image from 'next/image'
-import { BotIcon } from '@/icons/bot-icon'
+"use client";
+import { useChatBot } from "@/hooks/chatbot/use-chatbot";
+import React from "react";
+import { BotWindow } from "./window";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { BotIcon } from "@/icons/bot-icon";
 import { X } from "lucide-react";
-import ChatPopup from './ChatPopUp'
-import { useState, useEffect } from 'react'
-import ChatbotProfileImage from './ChatbotProfileImage'
-import ChatBotIcon from './ChatBotIcon'
+import ChatPopup from "./ChatPopUp";
+import { useState, useEffect } from "react";
+import ChatbotProfileImage from "./ChatbotProfileImage";
+import ChatBotIcon from "./ChatBotIcon";
+import Lottie from "lottie-react";
+import chatbotAnimation from "../../lottie-chatbot-icon.json";
 
-type Props = {}
+type Props = {};
 
 const AiChatBot = (props: Props) => {
   const {
@@ -30,17 +32,13 @@ const AiChatBot = (props: Props) => {
     firebaseRealTimeMode,
   } = useChatBot();
 
-  const [botClicked, setBotClicked] = useState<boolean>(false)
+  const [botClicked, setBotClicked] = useState<boolean>(false);
 
   useEffect(() => {
     if (botOpened) {
       setBotClicked(true);
     }
   }, [botOpened]);
-  
-  
-
-
 
   return (
     <div className="fixed bottom-2 right-2 flex flex-col justify-end items-end gap-4 z-auto">
@@ -80,14 +78,25 @@ const AiChatBot = (props: Props) => {
             />
           )
         ) : (
-          <div className="relative cursor-pointer rounded-full shadow-md w-14 h-14 flex items-center justify-center bg-gray-700">
-            {!firebaseRealTimeMode && !botOpened ? <ChatBotIcon /> :<X className="text-white rounded-full " /> }
-            
+          <div className="relative cursor-pointer rounded-full shadow-md w-[70px] h-[70px] flex items-center justify-center bg-gray-800">
+            {!firebaseRealTimeMode && !botOpened ? (
+              <Lottie
+                animationData={chatbotAnimation}
+                loop={true}
+                autoplay={true}
+                style={{
+                  width: 150,
+                  height: 150,
+                }}
+              />
+            ) : (
+              <X className="text-white rounded-full" />
+            )}
           </div>
         )}
       </div>
     </div>
   );
-}
+};
 
-export default AiChatBot
+export default AiChatBot;
