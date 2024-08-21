@@ -15,8 +15,8 @@ export const pricingCards = [
   },
   {
     title: "Ultimate",
-    description: "The ultimate lead conversion kit",
-    price: "R2200",
+    description: "The ultimate sales growth kit",
+    price: "R2800",
     duration: "month",
     highlight: "Key features",
     features: [
