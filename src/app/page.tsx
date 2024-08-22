@@ -46,9 +46,17 @@ export default async function Home() {
             </span>
           </h1>
 
-          {/* <Button className="bg-[#16AF9D] font-extrabold text-xl text-white px-4 w-1/4">
-            Start your 30 days free trial
-          </Button> */}
+          <div className="w-1/4 mt-8 ">
+            <Link
+              href={`/conversation?plan=${""}`}
+              className="w-full flex justify-center"
+            >
+              <Button className="bg-[#C60D69] hover:bg-[#C60D69] transition duration-300 hover:scale-105 font-extrabold text-xl text-white w-full">
+                Get Started
+              </Button>
+            </Link>
+          </div>
+
           <div className="w-3/4 p-3 bg-gray-700 rounded-xl mt-4">
             <VideoLoop />
           </div>
@@ -59,9 +67,9 @@ export default async function Home() {
               Sales Team Goes To Customer
             </h1>
             <p className=" text-start">
-              Put your sales team in front of your customers the moment they
-              need you. Turn every interaction into an opportunity for real-time
-              human connection and rapid sales growth.
+              Put your sales team or front desk in front of your customers the
+              moment they need you. Turn every interaction into an opportunity
+              for real-time human connection and rapid sales growth.
             </p>
           </div>
           <div className="flex justify-center items-start w-1/2 gap-4 mt-10">

@@ -5,6 +5,7 @@ import { User, Headset } from "lucide-react";
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react';
+import { Bot } from 'lucide-react';
 
 type Props = {
   message: {
@@ -14,17 +15,19 @@ type Props = {
   };
   createdAt?: Date;
   bubbleColor?: string;
-  textColor: string | undefined | null
+  textColor: string | undefined | null;
+  realtimeMode: boolean | undefined;
 };
 
-const Bubble = ({ message, createdAt, bubbleColor, textColor }: Props) => {
-  const [newCreatedAt, setNewCreatedAt] = useState<Date | undefined>(undefined)
+const Bubble = ({
+  message,
+  createdAt,
+  bubbleColor,
+  textColor,
+  realtimeMode,
+}: Props) => {
+  const [newCreatedAt, setNewCreatedAt] = useState<Date | undefined>(undefined);
 
-  
-    
-
- 
-  
   useEffect(() => {
     if (createdAt) {
       const date = new Date(createdAt);
@@ -34,8 +37,6 @@ const Bubble = ({ message, createdAt, bubbleColor, textColor }: Props) => {
       setNewCreatedAt(undefined);
     }
   }, [createdAt]);
-
-
 
   let d = new Date();
   // const image = extractUUIDFromString(message.content);
@@ -48,8 +49,12 @@ const Bubble = ({ message, createdAt, bubbleColor, textColor }: Props) => {
         message.role == "assistant" ? "self-start" : "self-end flex-row-reverse"
       )}
     >
-      {message.role == "assistant" ? (
-        <Headset />
+      {message.role === "assistant" ? (
+        realtimeMode ? (
+          <Headset />
+        ) : (
+          <Bot />
+        )
       ) : (
         <Avatar className="w-5 h-5">
           <AvatarFallback>
@@ -66,7 +71,7 @@ const Bubble = ({ message, createdAt, bubbleColor, textColor }: Props) => {
           }
         )}
         style={{
-          backgroundColor: 
+          backgroundColor:
             message.role !== "assistant" ? bubbleColor : undefined,
           color:
             message.role !== "assistant" &&

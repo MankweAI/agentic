@@ -83,6 +83,10 @@ body {
   }
 }
 
+.active {
+  color: #C60D69; /* Change text color to match the button color */
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -110,7 +114,7 @@ body {
 }
 .typing .dot {
   animation: mercuryTypingAnimation 1.8s infinite ease-in-out;
-  background-color: #ffc989;
+  background-color: #C60D69;
   border-radius: 50%;
   height: 7px;
   margin-right: 4px;

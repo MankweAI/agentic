@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { redirect } from "next/navigation";
 
 export const useSignInForm = () => {
   const { isLoaded, setActive, signIn } = useSignIn();
@@ -32,10 +33,15 @@ export const useSignInForm = () => {
             title: "Success",
             description: "Welcome back!",
           });
+
+          // setLoading(false);
+
           router.push("/conversation");
+          router.refresh();
+
         }
       } catch (error: any) {
-        console.log("ERRORERRORERRORERRORERRORERROR", error.errors[0].code);
+        console.log("ERRORERRORERRORERRORERRORERROR", error);
 
         setLoading(false);
         if (error.errors[0].code === "form_password_incorrect") {

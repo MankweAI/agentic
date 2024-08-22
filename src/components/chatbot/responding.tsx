@@ -1,16 +1,12 @@
 import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import ChatBotIcon from "./ChatBotIcon";
+import { Bot } from 'lucide-react';
 
 export const Responding = () => {
   return (
     <div className="self-start flex items-end gap-3">
-      <Avatar className="w-5 h-5">
-        <AvatarImage
-          src="https://github.com/shadcn.png"
-          alt="@shadcn"
-        />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
+      <Bot />
       <div className="chat-bubble">
         <div className="typing">
           <div className="dot"></div>
@@ -19,5 +15,5 @@ export const Responding = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }

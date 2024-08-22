@@ -58,10 +58,10 @@ export default async function Pricing() {
                   ))}
                 </div>
                 <Link
-                  href={`/`}
+                  href={`/conversation?plan=${card.title}`}
                   className="bg-[#ffd7ec] border-[#C60D69] border-2 p-2 w-full text-center font-bold rounded-md"
                 >
-                  Get In Touch
+                  Get Started
                 </Link>
               </CardFooter>
             </Card>

@@ -1,3 +1,4 @@
+"use client"
 import { ChatBotMessageProps } from "@/schemas/conversation.schema";
 import React, { forwardRef } from "react";
 import { UseFormRegister } from "react-hook-form";
@@ -19,7 +20,10 @@ import { Label } from "../ui/label";
 import { CardDescription, CardTitle } from "../ui/card";
 import Accordion from "../accordian";
 import UploadButton from "../upload-button";
-import ChatBotIcon from "./ChatBotIcon";
+
+import Lottie from "lottie-react";
+import chatbotAnimation from "../../chatbotAnimation.json";
+
 
 type Props = {
   errors: any;
@@ -84,6 +88,10 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
 
     const rgbaColor = toRgbaString(colorObject);
 
+
+    
+    
+
     return (
       <div className="h-[522px] w-[380px] flex flex-col justify-between bg-white rounded-xl border-[1px] overflow-hidden">
         <div
@@ -106,21 +114,33 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
               />
             ) : (
               <div
-                className={`relative cursor-pointer rounded-full shadow-md w-10 p-2 h-10 flex items-center justify-center`}
+                className={`relative cursor-pointer rounded-full shadow-md w-10 p-0 h-10 flex items-center justify-center`}
                 style={{
                   backgroundColor: rgbaColor,
                 }}
               >
-                <ChatBotIcon />
+                <Lottie
+                  animationData={chatbotAnimation}
+                  loop={true}
+                  autoplay={true}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                />
               </div>
             )}
             <div className="flex items-start flex-col">
-              <h3 className="text-lg font-bold leading-none pb-2">Agentic</h3>
+              <h3 className="text-lg font-bold leading-none pb-2">
+                {domainName}
+              </h3>
               {/* <p className="text-sm">{domainName.split(".com")[0]}</p> */}
 
               {realtimeMode ? (
                 <RealTimeMode setChats={setChat} chatRoomId={"chatroom"} />
-              ) : <OffLineMode />}
+              ) : (
+                <OffLineMode />
+              )}
             </div>
             <div></div>
           </div>
@@ -146,6 +166,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
                     message={chat}
                     bubbleColor={rgbaColor}
                     textColor={textColor}
+                    realtimeMode={realtimeMode}
                   />
                 ))}
                 {onResponding && <Responding />}
