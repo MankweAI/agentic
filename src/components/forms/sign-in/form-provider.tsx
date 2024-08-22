@@ -4,13 +4,21 @@ import { AuthContextProvider } from '@/context/use-auth-context'
 import { useSignInForm } from '@/hooks/sign-in/use-sign-in'
 import React from 'react'
 import { FormProvider } from 'react-hook-form'
+import { useEffect } from 'react'
+
 
 type Props = {
   children: React.ReactNode
 }
 
 const SignInFormProvider = ({ children }: Props) => {
+  
+
   const { methods, onHandleSubmit, loading } = useSignInForm()
+
+
+
+
 
   return (
     <AuthContextProvider>

@@ -1,9 +1,14 @@
+"use client"
 import Image from "next/image";
 import * as React from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 
 function NavBar() {
+  const router = useRouter();
+  const pathname = usePathname();
+
   return (
     <div className="flex gap-5 justify-between items-center px-7 py-1 font-bold border-b border-solid border-zinc-100 leading-[154.5%] max-md:flex-wrap max-md:px-5">
       <div className="flex  justify-center items-center self-stretch  tracking-tighter text-neutral-700">
@@ -23,7 +28,9 @@ function NavBar() {
         <li>
           <Link
             href="/"
-            className="hover:text-neutral-900 transition duration-300 ease-in-out"
+            className={`hover:text-neutral-900 transition duration-300 ease-in-out ${
+              pathname === "/" ? "active" : ""
+            }`}
           >
             Home
           </Link>
@@ -31,7 +38,9 @@ function NavBar() {
         <li>
           <Link
             href="/pricing"
-            className="hover:text-neutral-900 transition duration-300 ease-in-out"
+            className={`hover:text-neutral-900 transition duration-300 ease-in-out ${
+              pathname === "/pricing" ? "active" : ""
+            }`}
           >
             Pricing
           </Link>
@@ -39,7 +48,9 @@ function NavBar() {
         <li>
           <Link
             href="/terms"
-            className="hover:text-neutral-900 transition duration-300 ease-in-out"
+            className={`hover:text-neutral-900 transition duration-300 ease-in-out ${
+              pathname === "/terms" ? "active" : ""
+            }`}
           >
             Terms Of Use
           </Link>
@@ -47,18 +58,20 @@ function NavBar() {
         <li>
           <Link
             href="#"
-            className="hover:text-neutral-900 transition duration-300 ease-in-out"
+            className={`hover:text-neutral-900 transition duration-300 ease-in-out ${
+              pathname === "/documentation" ? "active" : ""
+            }`}
           >
             Documentation
           </Link>
         </li>
       </ul>
-      <Link
-        href="/dashboard"
+      <button
         className="bg-[#C60D69] px-4 py-2 rounded-sm text-white"
+        onClick={() => router.push(`/conversation?plan=${""}`)}
       >
         30 Days Free Trial
-      </Link>
+      </button>
     </div>
   );
 }
