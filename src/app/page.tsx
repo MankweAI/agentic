@@ -34,13 +34,13 @@ export default async function Home() {
   // console.log("BLOG POST ID: ", posts)
 
   return (
-    <main>
+    <div className="xl:container  w-full flex flex-col justify-center items-center">
       <NavBar />
-      <div className="container mx-auto max-w-6xl p-4 md:p-6 lg:p-8 xl:p-10 bg-white shadow-2xl border-2 border-b-2 border-r-2 border-l-2 border-t-0 flex flex-col justify-center items-center gap-4">
+      <div className="w-full p-2 sm:p-4 md:p-6 lg:p-8  shadow-2xl border-b-2 flex flex-col justify-center items-center gap-4">
         <section className="flex justify-center items-center flex-col gap-4 mt-8">
-          <h1 className="text-6xl font-black text-center w-3/4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-center w-full">
             Bring the traffic,
-            <br />
+            <br className="" />
             <span className="text-[#C60D69]">
               We&apos;ll bring the revenue!{" "}
             </span>
@@ -51,57 +51,58 @@ export default async function Home() {
               href={`/conversation?plan=${""}`}
               className="w-full flex justify-center"
             >
-              <Button className="bg-[#C60D69] hover:bg-[#C60D69] transition duration-300 hover:scale-105 font-extrabold text-xl text-white w-full">
+              <Button className="bg-[#C60D69] hover:bg-[#C60D69] transition duration-300 hover:scale-105 font-extrabold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl text-white w-full py-1 sm:py-2 md:py-3 lg:py-4 xl:py-5 2xl:py-6">
                 Get Started
               </Button>
             </Link>
           </div>
 
-          <div className="w-3/4 p-3 bg-gray-700 rounded-xl mt-4">
+          <div className="w-full sm:w-3/4 md:w-2/3 lg:w-3/4 xl:w-2/3 2xl:w-3/4 p-2 sm:p-3 md:p-4 lg:p-5 xl:p-6 bg-gray-700 rounded-xl mt-2 sm:mt-3 md:mt-4 lg:mt-5 xl:mt-6 2xl:mt-7">
             <VideoLoop />
           </div>
         </section>
-        <section className="flex flex-row justify-between items-center w-full gap-4 mt-10">
-          <div className="flex flex-col justify-between items-start w-1/2  gap-4 mt-10">
-            <h1 className="text-5xl text-start font-bold">
+        <section className="flex flex-col sm:flex-row justify-between items-center w-full gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 mt-5 sm:mt-7 md:mt-10 lg:mt-12">
+          <div className="flex flex-col justify-between items-start sm:w-full md:w-1/2 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-7 mt-5 sm:mt-7 md:mt-10 lg:mt-12 xl:mt-15">
+            <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl text-start font-bold">
               Sales Team Goes To Customer
             </h1>
-            <p className=" text-start">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-start">
               Put your sales team or front desk in front of your customers the
               moment they need you. Turn every interaction into an opportunity
               for real-time human connection and rapid sales growth.
             </p>
           </div>
-          <div className="flex justify-center items-start w-1/2 gap-4 mt-10">
+          <div className="flex justify-center items-start w-full md:w-1/2 gap-4 mt-10">
             <Image
               src="/images/agentic-homepage1.png"
               width={500}
               height={200}
               alt="Logo"
-              className="max-w-lg object-contain"
+              className="w-full object-contain"
             />
           </div>
         </section>
 
-        <section className="flex flex-row justify-between items-center w-full gap-4 mt-10">
-          <div className="flex justify-center items-start w-1/2 gap-4 mt-10">
+        <section className="flex flex-col sm:flex-row justify-between items-center w-full gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 mt-5 sm:mt-7 md:mt-10 lg:mt-12">
+          <div className="flex flex-col justify-between items-start sm:w-full md:w-1/2 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-7 mt-5 sm:mt-7 md:mt-10 lg:mt-12 xl:mt-15">
+            <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl text-start font-bold">
+              Unlock 10X revenue growth.
+            </h1>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-start">
+              0nly 28% of your qualified leads will reach out on their own.
+              Capture the other 72% by proactively engaging them and secure more
+              sales.
+            </p>
+          </div>
+
+          <div className="flex justify-center items-start w-full md:w-1/2 gap-4 mt-10">
             <Image
               src="/images/agentic-homepage2.png"
               width={500}
               height={200}
               alt="Logo"
-              className="max-w-lg object-contain"
+              className="w-full object-contain"
             />
-          </div>
-          <div className="flex flex-col justify-between items-start w-1/2  gap-4 mt-10">
-            <h1 className="text-5xl text-start font-bold">
-              Unlock 10X revenue growth.
-            </h1>
-            <p className=" text-start">
-              0nly 28% of your qualified leads will reach out on their own.
-              Capture the other 72% by proactively engaging them and secure more
-              sales.
-            </p>
           </div>
         </section>
         <section className="md:grid-cols-3 grid-cols-1 grid gap-5 container mt-8">
@@ -131,6 +132,6 @@ export default async function Home() {
       </div>
 
       <ChatbotFrame />
-    </main>
+    </div>
   );
 }

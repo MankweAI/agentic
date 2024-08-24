@@ -21,7 +21,6 @@ const ChatPopup = ({ icon }: ChatPopupProps) => {
           className="absolute w-3 h-3 bg-muted rounded-full border-2.5 "
           style={{ bottom: "2px", right: "2px" }}
         >
-          {" "}
           <div
             className="absolute w-4 h-4 bg-green-500 rounded-full border-2.5 border-white animate-ping "
             style={{ bottom: "2px", right: "2px" }}
