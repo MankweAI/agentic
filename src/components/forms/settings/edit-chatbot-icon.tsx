@@ -23,8 +23,8 @@ const EditChatbotIcon = ({ register, errors, chatBot }: Props) => {
   return (
     <div className="py-5 flex flex-col gap-5 items-start">
       <Section
-        label="Agent's picture"
-        message="Visitors can see who they are talking to"
+        label="Agent's Picture Or Company Logo"
+        message=""
       />
       <UploadButton
         label="Edit Image"

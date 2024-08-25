@@ -19,6 +19,7 @@ import { getMonthName } from "@/lib/utils";
 import ChatbotFrame from "@/components/iframe-react-code";
 import VideoLoop from "@/components/VideoLoop";
 
+
 // import { getMonthName } from '@/lib/utils'
 
 export default async function Home() {
@@ -33,11 +34,12 @@ export default async function Home() {
     | undefined = await onGetBlogPosts();
   // console.log("BLOG POST ID: ", posts)
 
+
   return (
     <div className="xl:container  w-full flex flex-col justify-center items-center">
       <NavBar />
-      <div className="w-full p-2 sm:p-4 md:p-6 lg:p-8  shadow-2xl border-b-2 flex flex-col justify-center items-center gap-4">
-        <section className="flex justify-center items-center flex-col gap-4 mt-8">
+      <div className="w-full h-auto shadow-2xl border-b-2 flex flex-col justify-center items-center gap-0">
+        <section className="flex justify-center items-center flex-col gap-4 mt-8 p-2 sm:p-4 md:p-6 lg:p-8">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-center w-full">
             Bring the traffic,
             <br className="" />
@@ -61,9 +63,9 @@ export default async function Home() {
             <VideoLoop />
           </div>
         </section>
-        <section className="flex flex-col sm:flex-row justify-between items-center w-full gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 mt-5 sm:mt-7 md:mt-10 lg:mt-12">
+        <section className="flex flex-col sm:flex-row justify-between bg-gradient-to-b from-[#EDEAFF] to-[#EDEAFF] p-2 sm:p-4 md:p-6 lg:p-8 items-center w-full gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 mt-5 sm:mt-7 md:mt-10 lg:mt-12">
           <div className="flex flex-col justify-between items-start sm:w-full md:w-1/2 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-7 mt-5 sm:mt-7 md:mt-10 lg:mt-12 xl:mt-15">
-            <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl text-start font-bold">
+            <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl text-start font-bold">
               Sales Team Goes To Customer
             </h1>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-start">
@@ -83,18 +85,7 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="flex flex-col sm:flex-row justify-between items-center w-full gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 mt-5 sm:mt-7 md:mt-10 lg:mt-12">
-          <div className="flex flex-col justify-between items-start sm:w-full md:w-1/2 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-7 mt-5 sm:mt-7 md:mt-10 lg:mt-12 xl:mt-15">
-            <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl text-start font-bold">
-              Unlock 10X revenue growth.
-            </h1>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-start">
-              0nly 28% of your qualified leads will reach out on their own.
-              Capture the other 72% by proactively engaging them and secure more
-              sales.
-            </p>
-          </div>
-
+        <section className="flex  flex-col-reverse sm:flex-row justify-between bg-gradient-to-b from-[#EDEAFF] to-[#FFFFFF] p-2 sm:p-4 md:p-6 lg:p-8 items-center w-full gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 pt-5 sm:pt-7 md:pt-10 lg:pt-12">
           <div className="flex justify-center items-start w-full md:w-1/2 gap-4 mt-10">
             <Image
               src="/images/agentic-homepage2.png"
@@ -103,6 +94,16 @@ export default async function Home() {
               alt="Logo"
               className="w-full object-contain"
             />
+          </div>
+          <div className="flex flex-col justify-between items-start sm:w-full md:w-1/2 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-7 mt-5 sm:mt-7 md:mt-10 lg:mt-12 xl:mt-15">
+            <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl text-start font-bold">
+              Unlock 10X revenue growth.
+            </h1>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-start">
+              0nly 28% of your qualified leads will reach out on their own.
+              Capture the other 72% by proactively engaging them and secure more
+              sales.
+            </p>
           </div>
         </section>
         <section className="md:grid-cols-3 grid-cols-1 grid gap-5 container mt-8">
@@ -128,6 +129,39 @@ export default async function Home() {
                 </Card>
               </Link>
             ))}
+        </section>
+
+        <section className="flex flex-col sm:flex-row justify-between bg-gradient-to-b p-2 sm:p-4 md:p-6 lg:p-8 items-center w-full gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 mt-5 sm:mt-7 md:mt-10 lg:mt-12">
+          <div className="flex flex-col justify-between items-start sm:w-full md:w-1/2 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-7 mt-5 sm:mt-7 md:mt-10 lg:mt-12 xl:mt-15">
+            <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl text-start font-bold">
+              Team No Sleep
+            </h1>
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-start">
+              Maintain 24/7 availability with our AI bot, which takes over
+              call-back requests and support when your team goes offline
+            </p>
+          </div>
+          <div className="flex justify-center items-start w-full md:w-1/2 gap-4 mt-10">
+            <Image
+              src="/images/chatbot-homepage.png"
+              width={500}
+              height={200}
+              alt="Logo"
+              className="w-full object-contain"
+            />
+          </div>
+        </section>
+        <div className="h-8"></div>
+        <section className="flex justify-center bg-gradient-to-b items-center w-full mt-5 sm:mt-7 md:mt-10 lg:mt-16 bg-[#C60D69]">
+          <div className="flex justify-center items-center w-full">
+            <Image
+              src="/images/agentic-homepage-bottom.png"
+              width={500}
+              height={100}
+              alt="Logo"
+              className="w-full h-auto object-contain"
+            />
+          </div>
         </section>
       </div>
 

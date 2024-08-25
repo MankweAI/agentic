@@ -17,8 +17,8 @@ const GreetingsMessage = ({
   return (
     <div className="flex flex-col gap-2">
       <Section
-        label="Greeting message 2"
-        message="The welcome message seen inside the chatbot"
+        label="Welcome message"
+        message=""
       />
       <div className="lg:w-[500px]">
         <FormGenerator

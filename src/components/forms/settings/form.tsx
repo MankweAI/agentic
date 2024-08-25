@@ -108,7 +108,7 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
 
   return (
     <form className="flex flex-col gap-8 pb-10" onSubmit={onUpdateSettings}>
-      <div className="flex flex-col gap-3 mt-5">
+      <div className="flex flex-col gap-3 mt-5 justify-center">
         <div className="flex gap-4 items-center">
           <h2 className="font-bold text-2xl">Chatbot Settings</h2>
           {/* <div className="flex gap-1 bg-black rounded-full px-3 py-1 text-xs items-center font-bold">
@@ -127,11 +127,6 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
               errors={errors}
             />
 
-            <WelcomeMessageOutside
-              message={chatBot?.welcomeMessageOutside!}
-              register={register}
-              errors={errors}
-            />
 
             <WelcomeMessage
               message={chatBot?.welcomeMessage!}
@@ -156,11 +151,11 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
           </div>
           <div className="col-span-1 relative ">
             <Image
-              src="/images/bot-ui.png"
+              src="/images/agentic-phone-screenshot.png"
               className="sticky top-0"
               alt="bot-ui"
               width={530}
-              height={769}
+              height={730}
             />
           </div>
         </div>
