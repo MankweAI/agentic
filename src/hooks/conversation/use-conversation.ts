@@ -31,8 +31,18 @@ import {
 } from "firebase/database";
 import { database } from "../../lib/firebaseConfig";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
+import React from "react";
+
+
 
 export const useConversation = () => {
+  const router = useRouter();
+
+    React.useEffect(() => {
+      router.prefetch("/settings");
+    }, [router]);
+
   const { register, watch } = useForm({
     resolver: zodResolver(ConversationSearchSchema),
     mode: "onChange",
@@ -48,9 +58,6 @@ export const useConversation = () => {
 
   const addChatroomId = (id: string) => {
     setChatroomIds((prevIds) => [...prevIds, id]);
-  };
-  const isChatroomIdAlreadyInList = (id: string) => {
-    return chatroomIds.includes(id);
   };
 
   // const [loading, setLoading] = useState<boolean>(false);
