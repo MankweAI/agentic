@@ -16,7 +16,6 @@ const BreadCrumb = (props: Props) => {
     page,
     onSignOut,
     realtime,
-    onActivateRealtimeForAllChatRooms
   } = useSideBar()
 
   // console.log("chatRoom data in bread-crumb", chatRoom);

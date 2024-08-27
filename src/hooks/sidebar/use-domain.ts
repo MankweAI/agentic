@@ -30,7 +30,7 @@ export const useDomain = () => {
   const router = useRouter()
 
   useEffect(() => {
-    setIsDomain(pathname.split('/').pop())
+    setIsDomain(pathname?.split('/').pop())
   }, [pathname])
 
   const onAddDomain = handleSubmit(async (values: FieldValues) => {

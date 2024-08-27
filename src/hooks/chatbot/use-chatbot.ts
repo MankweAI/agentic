@@ -33,7 +33,7 @@ export const useChatBot = () => {
   const [currentBot, setCurrentBot] = useState<
     | {
         name: string;
-        live: boolean;
+        // live: boolean;
         chatBot: {
           id: string;
           icon: string | null;

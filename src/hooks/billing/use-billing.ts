@@ -77,10 +77,10 @@ export const useCompleteCustomerPayment = (onNext: () => void) => {
       const { error, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: 'http://localhost:3000/settings',
+          return_url: "https://www.agentic.co.za/settings",
         },
-        redirect: 'if_required',
-      })
+        redirect: "if_required",
+      });
 
       if (error) {
         console.log(error)
@@ -182,10 +182,10 @@ export const useCompletePayment = (
       const { error, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: 'http://localhost:3000/settings',
+          return_url: "https://www.agentic.co.za/settings",
         },
-        redirect: 'if_required',
-      })
+        redirect: "if_required",
+      });
 
       if (error) {
         console.log(error)
