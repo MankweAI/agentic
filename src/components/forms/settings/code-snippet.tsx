@@ -9,10 +9,11 @@ type Props = {
 }
 
 const CodeSnippet = ({ id }: Props) => {
+    console.log("---------------------1", id); 
+
   const { toast } = useToast()
   let snippet = `
     const iframe = document.createElement("iframe");
-    
     const iframeStyles = (styleString) => {
     const style = document.createElement('style');
     style.textContent = styleString;
@@ -28,16 +29,16 @@ const CodeSnippet = ({ id }: Props) => {
         }
     ')
     
-    iframe.src = "https://www.agentic.co.za/chatbot"
+    iframe.src = "https://www.agentic.co.za/chatbot/chatbot"
     iframe.classList.add('chat-frame')
     document.body.appendChild(iframe)
     
     window.addEventListener("message", (e) => {
-        if(e.origin !== "https://www.agentic.co.za") return null
+        if(e.origin !== "https://www.agentic.co.za/chatbot") return null
         let dimensions = JSON.parse(e.data)
         iframe.width = dimensions.width
         iframe.height = dimensions.height
-        iframe.contentWindow.postMessage("${id}", "https://www.agentic.co.za/")
+        iframe.contentWindow.postMessage("${id}", "https://www.agentic.co.za/chatbot")
     })
         `;
 

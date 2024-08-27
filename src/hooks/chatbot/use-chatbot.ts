@@ -104,7 +104,10 @@ export const useChatBot = () => {
 
   let limitRequest = 0;
 
+
+
   const onGetDomainChatBot = async (id: string) => {
+
     setCurrentBotId(id);
     const chatbot = await onGetCurrentChatBot(id);
     if (chatbot) {
@@ -116,6 +119,8 @@ export const useChatBot = () => {
         },
       ]);
 
+
+
       setCurrentBot(chatbot);
       setLoading(false);
     }
@@ -123,6 +128,7 @@ export const useChatBot = () => {
 
   useEffect(() => {
     window.addEventListener("message", (e) => {
+
       console.log(e.data);
       const botid = e.data;
       if (limitRequest < 1 && typeof botid == "string") {

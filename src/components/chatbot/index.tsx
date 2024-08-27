@@ -68,13 +68,12 @@ const toRgbaString = (color: any) => {
   useEffect(() => {
 
     if (rgbaColor && rgbaColor !== "rgba(255, 255, 255, 1)") {
-      console.log("---------------------124", rgbaColor);
+      // console.log("---------------------124", rgbaColor);
 
       setBgColor(rgbaColor);
     }
   }, [rgbaColor]);
 
-    console.log("---------------------12333", bgColor); 
 
 
   
