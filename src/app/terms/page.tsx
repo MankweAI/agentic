@@ -49,8 +49,8 @@ export default async function Terms() {
 
           <p>
             Our premium services are offered at a competitive price of R2800 per
-            month inclusive of Value Added Tax (VAT). To ensure uninterrupted access to our
-            platform, please note the following payment terms:
+            month inclusive of Value Added Tax (VAT). To ensure uninterrupted
+            access to our platform, please note the following payment terms:
           </p>
 
           <ul className="m-3">
@@ -75,8 +75,8 @@ export default async function Terms() {
           <p>
             To maintain access to our premium features and support, please
             ensure that your payments are made on or before the due date. If you
-            have any questions or concerns about our payment terms, please don't
-            hesitate to reach out to us.
+            have any questions or concerns about our payment terms, please
+            don&apos;t hesitate to reach out to us.
           </p>
         </div>
 
@@ -87,7 +87,7 @@ export default async function Terms() {
           <hr className="border-1 border-[#C60D69]" />
 
           <p className="mt-4">
-            We take the security of your information and your clients' data
+            We take the security of your information and your clients&apos; data
             seriously. Our platform is hosted on secure servers provided by our
             trusted third-party partners, who implement robust measures to
             protect your data.
@@ -100,9 +100,9 @@ export default async function Terms() {
               access the platform.
             </li>
             <li>
-              <strong>Data Security</strong>: Your clients' data and your own
-              user information are stored securely on our servers, protected by
-              industry-standard encryption and access controls.
+              <strong>Data Security</strong>: Your client&apos;s data and your
+              own user information are stored securely on our servers, protected
+              by industry-standard encryption and access controls.
             </li>
             <li>
               <strong>Data Deletion</strong>: For added peace of mind, your
@@ -136,8 +136,8 @@ export default async function Terms() {
 
           <p className="mt-4">
             <strong>Notice of Cancellation</strong>: To cancel your
-            subscription, simply notify us via email or through our platform's
-            live support channel.
+            subscription, simply notify us via email or through our
+            platform&apos;s live support channel.
           </p>
 
           <p>
@@ -158,7 +158,8 @@ export default async function Terms() {
         </div>
 
         <p className="mt-4 text-center">
-          Note that a copy of this 'Terms Of Use' will be emailed to you prior to offering our services.
+          Note that a copy of this &apos;Terms Of Use&apos; will be emailed to
+          you prior to offering our services.
         </p>
 
         <footer className="mt-12 text-center">END</footer>
