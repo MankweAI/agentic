@@ -157,7 +157,7 @@ export const onGetCurrentDomainInfo = async (domain: string) => {
   const user = await currentUser();
   if (!user) return;
   try {
-  console.log("------------DOMAIN 0", user);
+  // console.log("------------DOMAIN 0", user);
 
     const userDomain = await client.user.findUnique({
       where: {
@@ -195,12 +195,12 @@ export const onGetCurrentDomainInfo = async (domain: string) => {
       },
     });
     if (userDomain) {
-  console.log("------------DOMAIN 1", userDomain);
+  // console.log("------------DOMAIN 1", userDomain);
 
       return userDomain;
     }
   } catch (error) {
-  console.log("------------DOMAIN 2", error);
+  // console.log("------------DOMAIN 2", error);
 
     console.log(error);
   }
