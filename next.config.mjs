@@ -14,8 +14,14 @@ const nextConfig = {
       },
     ],
   },
+  rewrites: async () => {
+    return [
+      {
+        source: "/settings/agentic",
+        destination: "/settings/agentic", // or '/pages/settings/agentic.js' if you have a page component
+      },
+    ];
+  },
 };
-
-
 
 export default nextConfig;

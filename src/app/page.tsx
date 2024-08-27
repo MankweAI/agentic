@@ -66,12 +66,10 @@ export default async function Home() {
         <section className="flex flex-col sm:flex-row justify-between bg-gradient-to-b from-[#EDEAFF] to-[#EDEAFF] p-2 sm:p-4 md:p-6 lg:p-8 items-center w-full gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 mt-5 sm:mt-7 md:mt-10 lg:mt-12">
           <div className="flex flex-col justify-between items-start sm:w-full md:w-1/2 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-7 mt-5 sm:mt-7 md:mt-10 lg:mt-12 xl:mt-15">
             <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl text-start font-bold">
-              Sales Team Goes To Customer
+              Leads Slipping Away?
             </h1>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-start">
-              Put your sales team or front desk in front of your customers the
-              moment they need you. Turn every interaction into an opportunity
-              for real-time human connection and rapid sales growth.
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-start">
+              Empower your sales team to engage your website visitors in real-time, and never let leads slip away again
             </p>
           </div>
           <div className="flex justify-center items-start w-full md:w-1/2 gap-4 mt-10">
@@ -97,12 +95,10 @@ export default async function Home() {
           </div>
           <div className="flex flex-col justify-between items-start sm:w-full md:w-1/2 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-7 mt-5 sm:mt-7 md:mt-10 lg:mt-12 xl:mt-15">
             <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl text-start font-bold">
-              Unlock 10X revenue growth.
+              Unlock 10X Revenue Growth.
             </h1>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-start">
-              0nly 28% of your qualified leads will reach out on their own.
-              Capture the other 72% by proactively engaging them and secure more
-              sales.
+              Just a handful of your leads will reach out on their own. But you can go to them and 10X your revenue
             </p>
           </div>
         </section>
