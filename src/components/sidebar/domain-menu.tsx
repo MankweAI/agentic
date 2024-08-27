@@ -67,7 +67,7 @@ const DomainMenu = ({ domains, min }: Props) => {
         {domains &&
           domains.map((domain) => (
             <Link
-              href={`/conversation`}
+              href={`/settings/domain`}
               key={domain.id}
               className={cn(
                 "flex gap-3 hover:bg-white rounded-full transition duration-100 ease-in-out cursor-pointer ",
