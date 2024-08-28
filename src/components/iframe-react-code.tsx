@@ -24,17 +24,16 @@ const ChatbotFrame = () => {
   }
 `);
 
-    iframe.src = "https://www.agentic.co.za/chatbot";
+    iframe.src = "http://localhost:3000/chatbot";
     iframe.classList.add("chat-frame");
     document.body.appendChild(iframe);
 
     iframe.onload = () => {
-      console.log("---------------------202", iframe.src);
 
       const handleMessage = (e: any) => {
-        // if (e.origin !== "https://www.agentic.co.za/chatbot") return;
+        // if (e.origin !== "http://localhost:3000/chatbot") return;
 
-        if (e.origin !== "https://www.agentic.co.za") return;
+        if (e.origin !== "http://localhost:3000") return;
 
         let dimensions;
         if (typeof e.data === "string") {
@@ -57,7 +56,7 @@ const ChatbotFrame = () => {
         if (iframe.contentWindow) {
           iframe.contentWindow.postMessage(
             "dca5da04-3c5b-4b37-a531-aed53430da2a",
-            "https://www.agentic.co.za/chatbot/"
+            "http://localhost:3000/chatbot/"
           );
         }
       };

@@ -1,3 +1,6 @@
+
+"use client"
+
 import { onGetBlogPosts } from "@/actions/landing";
 import NavBar from "@/components/navbar";
 import { Button } from "@/components/ui/button";
@@ -18,21 +21,44 @@ import parse from "html-react-parser";
 import { getMonthName } from "@/lib/utils";
 import ChatbotFrame from "@/components/iframe-react-code";
 import VideoLoop from "@/components/VideoLoop";
+import { useState, useEffect } from "react";
 
 
 // import { getMonthName } from '@/lib/utils'
 
-export default async function Home() {
-  const posts:
-    | {
-        id: string;
-        title: string;
-        image: string;
-        content: string;
-        createdAt: Date;
-      }[]
-    | undefined = await onGetBlogPosts();
+export default  function Home() {
+  // const posts:
+  //   | {
+  //       id: string;
+  //       title: string;
+  //       image: string;
+  //       content: string;
+  //       createdAt: Date;
+  //     }[]
+  //   | undefined = await onGetBlogPosts();
   // console.log("BLOG POST ID: ", posts)
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
+
+    useEffect(() => {
+      // Listen for the window load event
+      const handleLoad = () => {
+        console.log("****** LOADED");
+
+        setIsPageLoaded(true);
+      };
+
+      // Check if the page is already loaded
+      if (document.readyState === "complete") {
+        handleLoad();
+      } else {
+        window.addEventListener("load", handleLoad);
+      }
+
+      // Clean up the event listener on component unmount
+      return () => {
+        window.removeEventListener("load", handleLoad);
+      };
+    }, []);
 
 
   return (
@@ -43,9 +69,7 @@ export default async function Home() {
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-center w-full">
             SEO generates traffic,
             <br className="" />
-            <span className="text-[#C60D69]">
-              We generate revenue
-            </span>
+            <span className="text-[#C60D69]">We generate revenue</span>
           </h1>
 
           <div className="w-1/4 mt-8 ">
@@ -104,7 +128,7 @@ export default async function Home() {
             </p>
           </div>
         </section>
-        <section className="md:grid-cols-3 grid-cols-1 grid gap-5 container mt-8">
+        {/* <section className="md:grid-cols-3 grid-cols-1 grid gap-5 container mt-8">
           {posts &&
             posts.map((post) => (
               <Link href={`/blogs/${post.id}`} key={post.id}>
@@ -127,7 +151,7 @@ export default async function Home() {
                 </Card>
               </Link>
             ))}
-        </section>
+        </section> */}
 
         <section className="flex flex-col sm:flex-row justify-between bg-gradient-to-b p-2 sm:p-4 md:p-6 lg:p-8 items-center w-full gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 mt-5 sm:mt-7 md:mt-10 lg:mt-12">
           <div className="flex flex-col justify-between items-start sm:w-full md:w-1/2 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-7 mt-5 sm:mt-7 md:mt-10 lg:mt-12 xl:mt-15">
@@ -135,7 +159,8 @@ export default async function Home() {
               24/7 Availability
             </h1>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-start">
-              Maintain 24/7 availability with our AI bot, which gives support on your services and also makes bookings for call-back requests.
+              Maintain 24/7 availability with our AI bot, which gives support on
+              your services and also makes bookings for call-back requests.
             </p>
           </div>
           <div className="flex justify-center items-start w-full md:w-1/2 gap-4 mt-10">
@@ -162,7 +187,7 @@ export default async function Home() {
         </section>
       </div>
 
-      <ChatbotFrame />
+      {isPageLoaded && <ChatbotFrame />}
     </div>
   );
 }
