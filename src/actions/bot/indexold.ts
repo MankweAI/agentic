@@ -58,6 +58,9 @@ export const onGetCurrentChatBot = async (id: string) => {
       },
     });
 
+      // console.log("-------CHATBOT id ", chatbot);
+
+
     if (chatbot) {
       return chatbot;
     }

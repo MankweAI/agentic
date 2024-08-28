@@ -117,7 +117,6 @@ export const useChatBot = () => {
         },
       ]);
 
-      console.log("-------CHATBOT NAME ", currentBot?.name);
 
         setCurrentBot(chatbot);
         setLoading(false);

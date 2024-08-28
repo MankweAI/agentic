@@ -36,7 +36,6 @@ const AiChatBot = (props: Props) => {
   const [botClicked, setBotClicked] = useState<boolean>(false);
   const [bgColor, setBgColor] = useState<string>();
 
-  const theme: Theme = currentBot?.chatBot?.background;
 
   useEffect(() => {
     if (botOpened) {
@@ -44,29 +43,6 @@ const AiChatBot = (props: Props) => {
     }
   }, [botOpened]);
 
-  const colorObject = theme ? JSON.parse(theme) : null;
-  const toRgbaString = (color: any) => {
-    if (!color) return "rgba(255, 255, 255, 1)"; // Default to white if color is null or undefined
-    if (typeof color === "string") {
-      // Check if color is a string
-      if (color === "white") return "rgba(255, 255, 255, 1)"; // Return white
-      if (color === "black") return "rgba(0, 0, 0, 1)"; // Return black
-    } else if (typeof color === "object" && color !== null) {
-      // Check if color is an object
-      return `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`;
-    }
-    return "rgba(255, 255, 255, 1)"; // Default to white if color is invalid
-  };
-
-  const rgbaColor = toRgbaString(colorObject);
-
-  useEffect(() => {
-    if (rgbaColor && rgbaColor !== "rgba(255, 255, 255, 1)") {
-      // console.log("---------------------124", rgbaColor);
-
-      setBgColor(rgbaColor);
-    }
-  }, [rgbaColor]);
 
   return (
     <div className="fixed bottom-2 right-2 flex flex-col justify-end items-end gap-4 z-auto">

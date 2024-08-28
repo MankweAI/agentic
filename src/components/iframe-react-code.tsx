@@ -38,7 +38,10 @@ iframeStyles(`
     
 
         // if (e.origin !== "http://localhost:3000/chatbot") return;
-        if (e.origin !== "https://www.agentic.co.za") return;
+
+    console.log("---------------------1", e.origin); 
+
+        if (e.origin === null || e.origin === undefined) return;
 
 
         let dimensions;

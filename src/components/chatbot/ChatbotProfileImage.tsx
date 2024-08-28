@@ -3,8 +3,7 @@ import Image from "next/image";
 
 
 type ChatPopupProps = {
-
-  theme: string | null;
+  theme: string | null | undefined;
 };
 
 interface GradientBorderImageProps extends ChatPopupProps {

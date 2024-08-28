@@ -9,7 +9,6 @@ type Props = {
 }
 
 const CodeSnippet = ({ id }: Props) => {
-    console.log("---------------------1", id); 
 
   const { toast } = useToast()
   let snippet = `

@@ -35,7 +35,7 @@ const VideoLoop = () => {
     getDownloadURL(storageRef)
       .then((url) => {
         // The `url` is the publicly accessible URL
-        console.log("Public URL: ", url);
+        // console.log("Public URL: ", url);
       })
       .catch((error) => {
         // Handle any errors
