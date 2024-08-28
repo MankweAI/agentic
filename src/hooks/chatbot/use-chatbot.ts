@@ -41,6 +41,7 @@ export const useChatBot = () => {
           background: string | null;
           textColor: string | null;
           helpdesk: boolean;
+          agentName: string;
         } | null;
         helpdesk: {
           id: string;

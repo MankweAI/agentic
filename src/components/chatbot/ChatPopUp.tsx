@@ -3,10 +3,10 @@ import Image from "next/image";
 
 type ChatPopupProps = {
   icon: string | null | undefined;
-  name: string;
+  agentName: string;
 };
 
-const ChatPopup = ({ icon, name }: ChatPopupProps) => {
+const ChatPopup = ({ icon, agentName}: ChatPopupProps) => {
   return (
     <div className="flex items-center min-w-[200px] w-auto h-auto bg-white rounded-full shadow-md px-3 py-1 border-2 border-[#C60D69]">
       {/* Child A: Profile Picture */}
@@ -34,7 +34,7 @@ const ChatPopup = ({ icon, name }: ChatPopupProps) => {
       {/* Child B: Text Section */}
       <div className="ml-3">
         <div>
-          <h2 className="text-md font-semibold">Ask {name}</h2>
+          <h2 className="text-md font-semibold">Ask {agentName}</h2>
         </div>
         <p className="text-xs text-gray-500">online</p>
       </div>

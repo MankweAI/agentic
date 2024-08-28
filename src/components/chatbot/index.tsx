@@ -13,10 +13,8 @@ import ChatBotIcon from "./ChatBotIcon";
 import Lottie from "lottie-react";
 import chatbotAnimation from "../../chatbotAnimation.json";
 
-
 type Props = {};
 type Theme = string | undefined | null;
-
 
 const AiChatBot = (props: Props) => {
   const {
@@ -35,13 +33,10 @@ const AiChatBot = (props: Props) => {
     firebaseRealTimeMode,
   } = useChatBot();
 
-  
-
   const [botClicked, setBotClicked] = useState<boolean>(false);
-    const [bgColor, setBgColor] = useState<string>();
+  const [bgColor, setBgColor] = useState<string>();
 
-const theme: Theme = currentBot?.chatBot?.background;
-
+  const theme: Theme = currentBot?.chatBot?.background;
 
   useEffect(() => {
     if (botOpened) {
@@ -49,35 +44,29 @@ const theme: Theme = currentBot?.chatBot?.background;
     }
   }, [botOpened]);
 
+  const colorObject = theme ? JSON.parse(theme) : null;
+  const toRgbaString = (color: any) => {
+    if (!color) return "rgba(255, 255, 255, 1)"; // Default to white if color is null or undefined
+    if (typeof color === "string") {
+      // Check if color is a string
+      if (color === "white") return "rgba(255, 255, 255, 1)"; // Return white
+      if (color === "black") return "rgba(0, 0, 0, 1)"; // Return black
+    } else if (typeof color === "object" && color !== null) {
+      // Check if color is an object
+      return `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`;
+    }
+    return "rgba(255, 255, 255, 1)"; // Default to white if color is invalid
+  };
 
-const colorObject = theme ? JSON.parse(theme) : null;
-const toRgbaString = (color: any) => {
-  if (!color) return "rgba(255, 255, 255, 1)"; // Default to white if color is null or undefined
-  if (typeof color === "string") {
-    // Check if color is a string
-    if (color === "white") return "rgba(255, 255, 255, 1)"; // Return white
-    if (color === "black") return "rgba(0, 0, 0, 1)"; // Return black
-  } else if (typeof color === "object" && color !== null) {
-    // Check if color is an object
-    return `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`;
-  }
-  return "rgba(255, 255, 255, 1)"; // Default to white if color is invalid
-};
-
-    const rgbaColor = toRgbaString(colorObject);
-  
+  const rgbaColor = toRgbaString(colorObject);
 
   useEffect(() => {
-
     if (rgbaColor && rgbaColor !== "rgba(255, 255, 255, 1)") {
       // console.log("---------------------124", rgbaColor);
 
       setBgColor(rgbaColor);
     }
   }, [rgbaColor]);
-
-
-
 
   return (
     <div className="fixed bottom-2 right-2 flex flex-col justify-end items-end gap-4 z-auto">
@@ -110,7 +99,10 @@ const toRgbaString = (color: any) => {
       >
         {currentBot?.chatBot?.icon && !botOpened && firebaseRealTimeMode ? (
           !botClicked ? (
-            <ChatPopup icon={currentBot?.chatBot?.icon}  name= {currentBot?.name} />
+            <ChatPopup
+              icon={currentBot?.chatBot?.icon}
+              agentName={currentBot?.chatBot?.agentName}
+            />
           ) : (
             <ChatbotProfileImage
               src={`https://ucarecdn.com/${currentBot?.chatBot?.icon}/`}
@@ -118,7 +110,9 @@ const toRgbaString = (color: any) => {
           )
         ) : (
           <div
-            className={`relative cursor-pointer rounded-full shadow-md w-[50px] h-[50px] flex items-center justify-center bg-gray-800 ${bgColor !== undefined ? `bg-[${bgColor}]` : ''}`}
+            className={`relative cursor-pointer rounded-full shadow-md w-[50px] h-[50px] flex items-center justify-center bg-gray-800 ${
+              bgColor !== undefined ? `bg-[${currentBot?.chatBot?.background}]` : ""
+            }`}
           >
             {!firebaseRealTimeMode && !botOpened ? (
               <Lottie

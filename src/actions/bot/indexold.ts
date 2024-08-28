@@ -48,6 +48,7 @@ export const onGetCurrentChatBot = async (id: string) => {
           select: {
             id: true,
             welcomeMessage: true,
+            agentName: true,
             icon: true,
             textColor: true,
             background: true,
