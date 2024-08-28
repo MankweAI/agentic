@@ -3,10 +3,8 @@
 import { useEffect } from "react";
 
 const ChatbotFrame = () => {
-
   useEffect(() => {
     const iframe = document.createElement("iframe");
-
 
     const iframeStyles = (styleString: any) => {
       const style = document.createElement("style");
@@ -14,7 +12,7 @@ const ChatbotFrame = () => {
       document.head.append(style);
     };
 
-iframeStyles(`
+    iframeStyles(`
   .chat-frame {
     position: fixed;
     bottom: 10px;
@@ -26,23 +24,17 @@ iframeStyles(`
   }
 `);
 
-    
-
     iframe.src = "https://www.agentic.co.za/chatbot";
     iframe.classList.add("chat-frame");
     document.body.appendChild(iframe);
 
     iframe.onload = () => {
+      console.log("---------------------202", iframe.src);
 
       const handleMessage = (e: any) => {
-    
+        // if (e.origin !== "https://www.agentic.co.za/chatbot") return;
 
-        // if (e.origin !== "http://localhost:3000/chatbot") return;
-
-    console.log("---------------------1", e.origin); 
-
-        if (e.origin === null || e.origin === undefined) return;
-
+        if (e.origin !== "https://www.agentic.co.za") return;
 
         let dimensions;
         if (typeof e.data === "string") {
