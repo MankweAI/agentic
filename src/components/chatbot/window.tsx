@@ -93,7 +93,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
     
 
     return (
-      <div className="h-[522px] w-[380px] flex flex-col justify-between bg-white rounded-xl border-[1px] overflow-hidden">
+      <div className="h-[522px] sm:h-[600px] md:h-[700px] lg:h-[800px] xl:h-[900px] w-full sm:w-[420px] md:w-[500px] lg:w-[600px] xl:w-[700px] flex flex-col justify-between bg-white rounded-xl border-[1px] overflow-hidden mx-2">
         <div
           className="flex justify-center items-start p-2 "
           style={{
