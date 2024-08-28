@@ -41,10 +41,10 @@ export default async function Home() {
       <div className="w-full h-auto shadow-2xl border-b-2 flex flex-col justify-center items-center gap-0">
         <section className="flex justify-center items-center flex-col gap-4 mt-8 p-2 sm:p-4 md:p-6 lg:p-8">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-center w-full">
-            Bring the traffic,
+            SEO generates traffic,
             <br className="" />
             <span className="text-[#C60D69]">
-              We&apos;ll bring the revenue!{" "}
+              We generate revenue
             </span>
           </h1>
 
@@ -69,7 +69,8 @@ export default async function Home() {
               Leads Slipping Away?
             </h1>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-start">
-              Empower your sales team to engage your website visitors in real-time, and never let leads slip away again
+              Empower your sales team to engage your website visitors in
+              real-time, and never let leads slip away again
             </p>
           </div>
           <div className="flex justify-center items-start w-full md:w-1/2 gap-4 mt-10">
@@ -98,7 +99,8 @@ export default async function Home() {
               Unlock 10X Revenue Growth.
             </h1>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-start">
-              Just a handful of your leads will reach out on their own. But you can go to them and 10X your revenue
+              Just a handful of your leads will reach out on their own. But you
+              can go to them and 10X your revenue
             </p>
           </div>
         </section>
@@ -130,11 +132,10 @@ export default async function Home() {
         <section className="flex flex-col sm:flex-row justify-between bg-gradient-to-b p-2 sm:p-4 md:p-6 lg:p-8 items-center w-full gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 mt-5 sm:mt-7 md:mt-10 lg:mt-12">
           <div className="flex flex-col justify-between items-start sm:w-full md:w-1/2 gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-7 mt-5 sm:mt-7 md:mt-10 lg:mt-12 xl:mt-15">
             <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-6xl text-start font-bold">
-              Team No Sleep
+              24/7 Availability
             </h1>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl text-start">
-              Maintain 24/7 availability with our AI bot, which takes over
-              call-back requests and support when your team goes offline
+              Maintain 24/7 availability with our AI bot, which gives support on your services and also makes bookings for call-back requests.
             </p>
           </div>
           <div className="flex justify-center items-start w-full md:w-1/2 gap-4 mt-10">

@@ -11,7 +11,6 @@ export default async function Terms() {
           <h1 className="text-2xl w-full flex justify-center font-bold text-[#C60D69]">
             Terms Of Use
           </h1>
-          <header className="w-auto text-xs mr-4">Updated: 2024/08/20</header>
         </div>
 
         <div className="m-8">
@@ -48,9 +47,11 @@ export default async function Terms() {
           </p>
 
           <p>
-            Our premium services are offered at a competitive price of R2800 per
-            month inclusive of Value Added Tax (VAT). To ensure uninterrupted
-            access to our platform, please note the following payment terms:
+            Our premium services are available at a competitive price of R2800
+            per month (excluding VAT, which will be added at the prevailing
+            South African rate). To ensure seamless access to our platform,
+            please note the following payment terms, which apply to all
+            subscribers within South Africa:
           </p>
 
           <ul className="m-3">
@@ -157,15 +158,11 @@ export default async function Terms() {
           </p>
         </div>
 
-        <p className="mt-4 text-center">
-          Note that a copy of this &apos;Terms Of Use&apos; will be emailed to
-          you prior to offering our services.
-        </p>
-
-        <footer className="mt-12 text-center">END</footer>
+        <footer className="mt-12 text-center text-sm text-gray-500">
+          Copyright 2024 Agentic. All rights reserved. By using our platform,
+          you agree to our Terms of Use.
+        </footer>
       </div>
-
-      {/* <footer className="w-full flex justify-center"> this is a footer</footer> */}
     </>
   );
 }
