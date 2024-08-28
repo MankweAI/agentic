@@ -35,6 +35,8 @@ const AiChatBot = (props: Props) => {
     firebaseRealTimeMode,
   } = useChatBot();
 
+  
+
   const [botClicked, setBotClicked] = useState<boolean>(false);
     const [bgColor, setBgColor] = useState<string>();
 
@@ -76,9 +78,6 @@ const toRgbaString = (color: any) => {
 
 
 
-  
-
- 
 
   return (
     <div className="fixed bottom-2 right-2 flex flex-col justify-end items-end gap-4 z-auto">
@@ -111,7 +110,7 @@ const toRgbaString = (color: any) => {
       >
         {currentBot?.chatBot?.icon && !botOpened && firebaseRealTimeMode ? (
           !botClicked ? (
-            <ChatPopup icon={currentBot?.chatBot?.icon} />
+            <ChatPopup icon={currentBot?.chatBot?.icon}  name= {currentBot?.name} />
           ) : (
             <ChatbotProfileImage
               src={`https://ucarecdn.com/${currentBot?.chatBot?.icon}/`}

@@ -30,11 +30,10 @@ const Layout = async ({ children }: Props) => {
       </div>
       <div className="hidden lg:flex flex-1 w-full max-h-full max-w-4000px overflow-hidden relative bg-cream  flex-col pt-10 pl-24 gap-3">
         <h2 className="text-gravel md:text-4xl font-bold">
-          Touch your customers with Agentic!
+          Be available. It works!
         </h2>
         <p className="text-muted-foreground max-w-lg">
-          Agentic is a customer relationship management system that helps you
-          reach out to your customers with ease.
+Agentic is a lead conversion system that takes you to where your leads are and also automates your website support
         </p>
         <Image
           src="/images/app-ui.png"

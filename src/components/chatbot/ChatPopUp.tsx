@@ -1,9 +1,12 @@
 import React from "react";
 import Image from "next/image";
 
-type ChatPopupProps = Record<"icon", string | null | undefined>;
+type ChatPopupProps = {
+  icon: string | null | undefined;
+  name: string;
+};
 
-const ChatPopup = ({ icon }: ChatPopupProps) => {
+const ChatPopup = ({ icon, name }: ChatPopupProps) => {
   return (
     <div className="flex items-center min-w-[200px] w-auto h-auto bg-white rounded-full shadow-md px-3 py-1 border-2 border-[#C60D69]">
       {/* Child A: Profile Picture */}
@@ -30,7 +33,9 @@ const ChatPopup = ({ icon }: ChatPopupProps) => {
 
       {/* Child B: Text Section */}
       <div className="ml-3">
-        <h2 className="text-md font-semibold">Ask Mankwe </h2>
+        <div>
+          <h2 className="text-md font-semibold">Ask {name}</h2>
+        </div>
         <p className="text-xs text-gray-500">online</p>
       </div>
     </div>

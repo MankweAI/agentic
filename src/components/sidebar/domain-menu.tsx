@@ -24,7 +24,7 @@ type Props = {
 
 const DomainMenu = ({ domains, min }: Props) => {
   const { register, onAddDomain, loading, errors, isDomain } = useDomain();
-    console.log("........................ Values", domains);
+    // console.log("........................ Values", domains);
 
   
 
