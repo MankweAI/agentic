@@ -102,16 +102,20 @@ const AiChatBot = (props: Props) => {
             <ChatPopup
               icon={currentBot?.chatBot?.icon}
               agentName={currentBot?.chatBot?.agentName}
+              theme={currentBot?.chatBot?.background}
             />
           ) : (
             <ChatbotProfileImage
               src={`https://ucarecdn.com/${currentBot?.chatBot?.icon}/`}
+              theme={currentBot?.chatBot?.background}
             />
           )
         ) : (
           <div
             className={`relative cursor-pointer rounded-full shadow-md w-[50px] h-[50px] flex items-center justify-center bg-gray-800 ${
-              bgColor !== undefined ? `bg-[${currentBot?.chatBot?.background}]` : ""
+              bgColor !== undefined
+                ? `bg-[${currentBot?.chatBot?.background}]`
+                : ""
             }`}
           >
             {!firebaseRealTimeMode && !botOpened ? (

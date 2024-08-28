@@ -4,11 +4,26 @@ import Image from "next/image";
 type ChatPopupProps = {
   icon: string | null | undefined;
   agentName: string | null;
+  theme: string | null;
 };
 
-const ChatPopup = ({ icon, agentName}: ChatPopupProps) => {
+const ChatPopup = ({ icon, agentName, theme }: ChatPopupProps) => {
+  
+    const colorObject = theme ? JSON.parse(theme) : null;
+    const toRgbaString = (color: any) => {
+      if (!color) return "rgba(255, 255, 255, 1)"; // Default to white if color is null or undefined
+      if (color === "white") return "rgba(255, 255, 255, 1)"; // Return white
+      if (color === "black") return "rgba(0, 0, 0, 1)"; // Return black
+      return `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`;
+    };
+
+  const borderColor = toRgbaString(colorObject);
+  
+
   return (
-    <div className="flex items-center min-w-[200px] w-auto h-auto bg-white rounded-full shadow-md px-3 py-1 border-2 border-[#C60D69]">
+    <div
+      className={`flex items-center min-w-[200px] w-auto h-auto bg-white rounded-full shadow-md px-3 py-1 border-2 border-[${borderColor}]`}
+    >
       {/* Child A: Profile Picture */}
       <div className="relative flex items-center justify-center w-15 h-14 rounded-full border-2  shadow-md">
         <Image
