@@ -41,7 +41,7 @@ export const useChatBot = () => {
           background: string | null;
           textColor: string | null;
           helpdesk: boolean;
-          agentName: string;
+          agentName: string | null;
         } | null;
         helpdesk: {
           id: string;
@@ -105,10 +105,7 @@ export const useChatBot = () => {
 
   let limitRequest = 0;
 
-
-
   const onGetDomainChatBot = async (id: string) => {
-
     setCurrentBotId(id);
     const chatbot = await onGetCurrentChatBot(id);
     if (chatbot) {
@@ -120,18 +117,15 @@ export const useChatBot = () => {
         },
       ]);
 
+      console.log("-------CHATBOT NAME ", currentBot?.name);
 
-  console.log("-------CHATBOT NAME ", currentBot?.name);
-
-
-      setCurrentBot(chatbot);
-      setLoading(false);
+        setCurrentBot(chatbot);
+        setLoading(false);
     }
   };
 
   useEffect(() => {
     window.addEventListener("message", (e) => {
-
       console.log(e.data);
       const botid = e.data;
       if (limitRequest < 1 && typeof botid == "string") {
@@ -161,8 +155,7 @@ export const useChatBot = () => {
         currentBotId!,
         onChats,
         "user",
-        values.content,
-        
+        values.content
       );
 
       if (response) {
@@ -171,8 +164,6 @@ export const useChatBot = () => {
         setOnChats((prev: any) => [...prev, response.response]);
       }
     } else if (values.content && firebaseRealTimeMode) {
-
-
       const response = await fetch("/api/chatbot/sendMessage", {
         method: "POST",
         headers: {

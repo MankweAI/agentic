@@ -3,7 +3,7 @@ import Image from "next/image";
 
 type ChatPopupProps = {
   icon: string | null | undefined;
-  agentName: string;
+  agentName: string | null;
 };
 
 const ChatPopup = ({ icon, agentName}: ChatPopupProps) => {
