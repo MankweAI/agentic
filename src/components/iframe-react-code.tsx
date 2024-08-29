@@ -25,13 +25,15 @@ const ChatbotFrame = () => {
         }
       `);
 
-      iframe.src = "http://localhost:3000/chatbot";
+      //www.agentic.co.za
+
+      https: iframe.src = `https://www.agentic.co.za/chatbot?cacheBuster=${Date.now()}`;
       iframe.classList.add("chat-frame");
       document.body.appendChild(iframe);
 
       iframe.onload = () => {
         const handleMessage = (e: any) => {
-          if (e.origin !== "http://localhost:3000") return;
+          if (e.origin !== "https://www.agentic.co.za") return;
 
           let dimensions;
           if (typeof e.data === "string") {
@@ -54,7 +56,7 @@ const ChatbotFrame = () => {
           if (iframe.contentWindow) {
             iframe.contentWindow.postMessage(
               "dca5da04-3c5b-4b37-a531-aed53430da2a",
-              "http://localhost:3000/chatbot/"
+              "https://www.agentic.co.za/chatbot/"
             );
           }
         };
@@ -91,6 +93,5 @@ const ChatbotFrame = () => {
 
   return null; // This component doesn't render anything directly
 };
-
 
 export default ChatbotFrame;
