@@ -160,7 +160,7 @@ export const onAiChatBotAssistant = async (
                   role: "assistant",
                   content: `
 
-              At this point, the customer has made a clear intention of wanting our agents to call them back and they want to proceed to request a call. Send them this link https://www.agentic.co.za/portal/${id}/appointment/${newCustomerId}, ask them to proceed to make a call request, thank them for stopping by and ask if there is still anything else you can help them with.
+              At this point, the customer has made a clear intention of wanting our agents to call them back and they want to proceed to request a call. Send them this link http://localhost:3000/portal/${id}/appointment/${newCustomerId}, ask them to proceed to make a call request, thank them for stopping by and ask if there is still anything else you can help them with.
 
               Always maintain character and stay respectfull.
 
