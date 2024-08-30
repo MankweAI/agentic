@@ -34,6 +34,7 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -101,6 +102,7 @@ const config = {
         "open-sidebar": "open-sidebar 0.2s ease-out",
         "close-sidebar": "close-sidebar 0.2s ease-out",
         "fade-in": "fade-in 0.2s ease-out",
+        "ping-slow": "ping 5s cubic-bezier(0, 0, 0.2, 1) infinite",
       },
     },
   },

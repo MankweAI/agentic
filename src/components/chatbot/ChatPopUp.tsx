@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
+
 type ChatPopupProps = {
   icon: string | null | undefined;
   agentName: string | null;
@@ -22,7 +23,10 @@ const ChatPopup = ({ icon, agentName, theme }: ChatPopupProps) => {
 
   return (
     <div
-      className={`flex items-center min-w-[200px] w-auto h-auto bg-white rounded-full shadow-md px-3 py-1 border-2 border-[${borderColor}]`}
+      className={`flex items-center min-w-[200px] w-auto h-auto bg-white rounded-full shadow-md px-3 py-1 border-1`}
+      style={{
+        border: `0.2px solid ${borderColor}`,
+      }}
     >
       {/* Child A: Profile Picture */}
       <div className="relative flex items-center justify-center w-15 h-14 rounded-full border-2  shadow-md">
@@ -34,13 +38,12 @@ const ChatPopup = ({ icon, agentName, theme }: ChatPopupProps) => {
           className="rounded-full"
         />
         {/* Green Dot */}
-
         <div
           className="absolute w-3 h-3 bg-muted rounded-full border-2.5 "
           style={{ bottom: "2px", right: "2px" }}
         >
           <div
-            className="absolute w-4 h-4 bg-green-500 rounded-full border-2.5 border-white animate-ping "
+            className="absolute w-4 h-4 bg-green-500 rounded-full border-2.5 border-white animate-ping-slow"
             style={{ bottom: "2px", right: "2px" }}
           ></div>
         </div>

@@ -29,8 +29,7 @@ const ChatbotProfileImage: React.FC<GradientBorderImageProps> = ({
     <div
       className="relative inline-block rounded-full p-0.5 bg-clip-border"
       style={{
-        backgroundImage: borderColor,
-        borderRadius: "50%",
+        border: `0.2px solid ${borderColor}`,
       }}
     >
       <Image

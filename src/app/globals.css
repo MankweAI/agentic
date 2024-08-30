@@ -134,6 +134,39 @@ body {
 .typing .dot:last-child {
   margin-right: 0;
 }
+.chat-popup-container {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  width: fit-content;
+  height: fit-content;
+}
+.chat-popup-container {
+  display: inline-block;
+}
+
+.close-button {
+  position: absolute;
+  top: -20px;
+  left: 0px;
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.close-button:hover {
+  color: #666;
+}
+
+.close-button:focus {
+  outline: none;
+}
 
 @keyframes mercuryTypingAnimation {
   0% {

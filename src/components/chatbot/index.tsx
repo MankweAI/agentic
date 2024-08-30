@@ -36,6 +36,13 @@ const AiChatBot = (props: Props) => {
   const [botClicked, setBotClicked] = useState<boolean>(false);
   const [bgColor, setBgColor] = useState<string>();
 
+  const handleClose = () => {
+    // Add logic to hide the popup here
+    console.log("Close button clicked!");
+    // For example, you can set a state variable to false to hide the popup
+    setBotClicked(true);
+  };
+
 
   useEffect(() => {
     if (botOpened) {
@@ -75,11 +82,14 @@ const AiChatBot = (props: Props) => {
       >
         {currentBot?.chatBot?.icon && !botOpened && firebaseRealTimeMode ? (
           !botClicked ? (
-            <ChatPopup
-              icon={currentBot?.chatBot?.icon}
-              agentName={currentBot?.chatBot?.agentName}
-              theme={currentBot?.chatBot?.background}
-            />
+            <div className="chat-popup-container">
+              <button className="close-button">×</button>
+              <ChatPopup
+                icon={currentBot?.chatBot?.icon}
+                agentName={currentBot?.chatBot?.agentName}
+                theme={currentBot?.chatBot?.background}
+              />
+            </div>
           ) : (
             <ChatbotProfileImage
               src={`https://ucarecdn.com/${currentBot?.chatBot?.icon}/`}
