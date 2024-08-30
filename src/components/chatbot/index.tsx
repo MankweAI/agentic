@@ -33,6 +33,20 @@ const AiChatBot = (props: Props) => {
     firebaseRealTimeMode,
   } = useChatBot();
 
+         
+  const textColor =  currentBot?.chatBot?.textColor
+
+  const theme = currentBot?.chatBot?.background;
+      const colorObject = theme ? JSON.parse(theme) : null;
+      const toRgbaString = (color: any) => {
+        if (!color) return "rgba(255, 255, 255, 1)"; // Default to white if color is null or undefined
+        if (color === "white") return "rgba(255, 255, 255, 1)"; // Return white
+        if (color === "black") return "rgba(0, 0, 0, 1)"; // Return black
+        return `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`;
+      };
+
+      const borderColor = toRgbaString(colorObject);
+
   const [botClicked, setBotClicked] = useState<boolean>(false);
   const [bgColor, setBgColor] = useState<string>();
 
@@ -49,6 +63,7 @@ const AiChatBot = (props: Props) => {
       setBotClicked(true);
     }
   }, [botOpened]);
+  
 
 
   return (
@@ -98,11 +113,11 @@ const AiChatBot = (props: Props) => {
           )
         ) : (
           <div
-            className={`relative cursor-pointer rounded-full shadow-md w-[50px] h-[50px] flex items-center justify-center bg-gray-800 ${
-              bgColor !== undefined
-                ? `bg-[${currentBot?.chatBot?.background}]`
-                : ""
-            }`}
+            className={`relative cursor-pointer rounded-full shadow-md w-[50px] h-[50px] flex items-center justify-center bg-gray-800`}
+            style={{
+              border: `0.2px solid ${borderColor}`,
+              backgroundColor: `${borderColor}`,
+            }}
           >
             {!firebaseRealTimeMode && !botOpened ? (
               <Lottie
@@ -115,7 +130,14 @@ const AiChatBot = (props: Props) => {
                 }}
               />
             ) : (
-              <X className="text-white rounded-full" />
+              <>
+                
+                {textColor ? (
+                  <X className="rounded-full" style={{ color: textColor }} />
+                ) : (
+                  <X className="rounded-full" style={{ color: "black" }} />
+                )}
+              </>
             )}
           </div>
         )}

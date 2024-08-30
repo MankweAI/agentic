@@ -88,19 +88,15 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
 
     const rgbaColor = toRgbaString(colorObject);
 
-
-    
-    
-
     return (
-      <div className="h-[522px] sm:h-[600px] md:h-[700px] lg:h-[900px] bg-white w-full sm:w-[420px] md:w-[600px] lg:w-[450px] flex flex-col justify-start rounded-xl border-[1px] overflow-hidden">
+      <div className="h-[522px] sm:h-[600px] md:h-[700px] lg:h-[900px] bg-gray-50 w-full sm:w-[420px] md:w-[600px] lg:w-[450px] flex flex-col justify-start rounded-xl shadow-xl overflow-hidden">
         <div
           className="flex justify-center items-start p-2"
           style={{
-            backgroundColor: rgbaColor,
-            backgroundImage: `url(https://ucarecdn.com/bff986e9-01c9-4e73-b290-f8ed6e6abed5/titlebarbackroundagentic.png)`,
-            backgroundSize: "cover",
+            backgroundImage: `linear-gradient(to left, white 0%, ${rgbaColor} 15%, ${rgbaColor} 85%)`,
             backgroundPosition: "center",
+            backgroundSize: "100%",
+            backgroundRepeat: "no-repeat",
           }}
         >
           <div className="flex gap-4 items-center justify-start  w-3/4">
@@ -131,9 +127,22 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
               </div>
             )}
             <div className="flex items-start flex-col">
-              <h3 className="text-lg font-bold leading-none pb-2">
-                {domainName}
-              </h3>
+              {textColor ? (
+                <h3
+                  className="text-xl font-bold leading-none pb-2"
+                  style={{ color: textColor }}
+                >
+                  {domainName}
+                </h3>
+              ) : (
+                <h3
+                  className="text-lg font-bold leading-none pb-2"
+                  style={{ color: "black" }}
+                >
+                  {domainName}
+                </h3>
+              )}
+
               {/* <p className="text-sm">{domainName.split(".com")[0]}</p> */}
 
               {realtimeMode ? (
@@ -147,7 +156,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
         </div>
         <TabsMenu
           triggers={BOT_TABS_MENU}
-          className="  border-[1px] border-border m-0 flex justify-center bg-white"
+          className="  border-[1px] border-border m-0 flex justify-center bg-gray-50"
         >
           <TabsContent value="chat">
             {/* <Separator orientation="horizontal" /> */}
@@ -157,7 +166,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
                   background: theme || "",
                   color: "black",
                 }}
-                className="px-3 flex h-[295px] w-full flex-col py-0 gap-2 chat-window overflow-y-auto bg-white"
+                className="px-3 flex h-[295px] w-full flex-col py-0 gap-2 chat-window overflow-y-auto bg-gray-50"
                 ref={ref}
               >
                 {chats.map((chat, key) => (
