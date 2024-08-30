@@ -45,7 +45,7 @@ const AiChatBot = (props: Props) => {
 
 
   return (
-    <div className="fixed bottom-2 right-2 flex flex-col justify-end items-end gap-4 z-auto">
+    <div className="fixed bottom-2  flex flex-col justify-end items-end gap-1 z-auto h-[522px] sm:h-[600px] md:h-[700px] lg:h-[900px] w-full sm:w-[420px] md:w-[600px] lg:w-[450px]">
       {botOpened && (
         <BotWindow
           errors={errors}

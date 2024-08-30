@@ -93,9 +93,9 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
     
 
     return (
-      <div className="h-[522px] sm:h-[600px] md:h-[700px] lg:h-[800px] xl:h-[900px] w-full sm:w-[420px] md:w-[500px] lg:w-[600px] xl:w-[700px] flex flex-col justify-between bg-white rounded-xl border-[1px] overflow-hidden mx-2">
+      <div className="h-[522px] sm:h-[600px] md:h-[700px] lg:h-[900px] bg-white w-full sm:w-[420px] md:w-[600px] lg:w-[450px] flex flex-col justify-start rounded-xl border-[1px] overflow-hidden">
         <div
-          className="flex justify-center items-start p-2 "
+          className="flex justify-center items-start p-2"
           style={{
             backgroundColor: rgbaColor,
             backgroundImage: `url(https://ucarecdn.com/bff986e9-01c9-4e73-b290-f8ed6e6abed5/titlebarbackroundagentic.png)`,
@@ -147,17 +147,17 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
         </div>
         <TabsMenu
           triggers={BOT_TABS_MENU}
-          className=" bg-transparent border-[1px] border-border m-2 flex justify-center"
+          className="  border-[1px] border-border m-0 flex justify-center bg-white"
         >
           <TabsContent value="chat">
-            <Separator orientation="horizontal" />
-            <div className="flex flex-col h-full">
+            {/* <Separator orientation="horizontal" /> */}
+            <div className="flex flex-col">
               <div
                 style={{
                   background: theme || "",
                   color: "black",
                 }}
-                className="px-3 flex h-[340px] w-full flex-col py-5 gap-3 chat-window overflow-y-auto"
+                className="px-3 flex h-[295px] w-full flex-col py-0 gap-2 chat-window overflow-y-auto bg-white"
                 ref={ref}
               >
                 {chats.map((chat, key) => (
@@ -173,7 +173,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
               </div>
               <form
                 onSubmit={onChat}
-                className="flex px-3  flex-col flex-1 bg-porcelain"
+                className="flex px-3 w-full h-30px flex-col flex-1 bg-porcelain"
               >
                 <div className="flex justify-between items-center">
                   <Input

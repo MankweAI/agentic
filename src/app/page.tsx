@@ -185,9 +185,9 @@ export default  function Home() {
             />
           </div>
         </section>
-      </div>
 
-      {isPageLoaded && <ChatbotFrame />}
+        {isPageLoaded && <ChatbotFrame />}
+      </div>
     </div>
   );
 }
