@@ -1,5 +1,4 @@
-
-"use client"
+"use client";
 
 import { onGetBlogPosts } from "@/actions/landing";
 import NavBar from "@/components/navbar";
@@ -22,11 +21,12 @@ import { getMonthName } from "@/lib/utils";
 import ChatbotFrame from "@/components/iframe-react-code";
 import VideoLoop from "@/components/VideoLoop";
 import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 
 
 // import { getMonthName } from '@/lib/utils'
 
-export default  function Home() {
+export default function Home() {
   // const posts:
   //   | {
   //       id: string;
@@ -39,27 +39,29 @@ export default  function Home() {
   // console.log("BLOG POST ID: ", posts)
   const [isPageLoaded, setIsPageLoaded] = useState(false);
 
-    useEffect(() => {
-      // Listen for the window load event
-      const handleLoad = () => {
-        console.log("****** LOADED");
+  useEffect(() => {
+    // Listen for the window load event
+    const handleLoad = () => {
+      console.log("****** LOADED");
 
-        setIsPageLoaded(true);
-      };
+      setIsPageLoaded(true);
+    };
 
-      // Check if the page is already loaded
-      if (document.readyState === "complete") {
-        handleLoad();
-      } else {
-        window.addEventListener("load", handleLoad);
-      }
+    // Check if the page is already loaded
+    if (document.readyState === "complete") {
+      handleLoad();
+    } else {
+      window.addEventListener("load", handleLoad);
+    }
 
-      // Clean up the event listener on component unmount
-      return () => {
-        window.removeEventListener("load", handleLoad);
-      };
-    }, []);
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("load", handleLoad);
+    };
+  }, []);
 
+    const router = useRouter();
+    const pathname = usePathname();
 
   return (
     <div className="xl:container  w-full flex flex-col justify-center items-center">
@@ -72,7 +74,7 @@ export default  function Home() {
             <span className="text-[#C60D69]">We generate revenue</span>
           </h1>
 
-          <div className="w-1/4 mt-8 ">
+          <div className="sm:w-1/2 lg:w-1/4 w-3/4 mt-8">
             <Link
               href={`/conversation?plan=${""}`}
               className="w-full flex justify-center"
@@ -173,16 +175,86 @@ export default  function Home() {
             />
           </div>
         </section>
-        <div className="h-8"></div>
-        <section className="flex justify-center bg-gradient-to-b items-center w-full mt-5 sm:mt-7 md:mt-10 lg:mt-16 bg-[#C60D69]">
-          <div className="flex justify-center items-center w-full">
-            <Image
-              src="/images/agentic-homepage-bottom.png"
-              width={500}
-              height={100}
-              alt="Logo"
-              className="w-full h-auto object-contain"
-            />
+
+        <section className="flex justify-center items-center w-full h-[16rem] sm:h-[20rem] md:h-[24rem] lg:h-[28rem] mt-8 sm:mt-10 md:mt-13 lg:mt-[8rem]">
+          <div className="relative flex flex-col w-full items-center justify-center">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center font-bold">
+              Ready to give us try?
+            </h1>
+            <div className="sm:w-1/2 lg:w-1/4 w-3/4 mt-8">
+              <Link
+                href={`/conversation?plan=${""}`}
+                className="w-full flex justify-center"
+              >
+                <Button className="bg-[#C60D69] hover:bg-[#C60D69] transition duration-300 hover:scale-105 font-extrabold text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl text-white w-full py-1 sm:py-2 md:py-3 lg:py-4 xl:py-5 2xl:py-6">
+                  Get Free Trial
+                </Button>
+              </Link>
+            </div>
+            <div className="absolute inset-0 z-[-1] ">
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[250px] h-[150px] sm:w-[300px] sm:h-[200px] md:w-[700px] md:h-[250px] lg:w-[800px] lg:h-[300px] bg-sky-100  from-white to-transparent rounded-full blur-2xl"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[150px] h-[100px] sm:w-[200px] sm:h-[150px] md:w-[250px] md:h-[200px] lg:w-[300px] lg:h-[250px] bg-gradient-conic from-sky-200 via-blue-200 to-transparent blur-xl"></div>
+            </div>
+          </div>
+        </section>
+        <section className="grid grid-cols-2 bg-sky-100 justify-center items-center w-full h-[16rem] sm:h-[20rem] md:h-[24rem] lg:h-[28rem] mt-8 sm:mt-10 md:mt-13 lg:mt-[8rem]">
+          <div className="w-full h-full  flex justify-center items-center">
+            <div className="flex justify-center items-center tracking-tighter text-neutral-700">
+              <Image
+                src="/images/agentic-ai-logo.svg"
+                alt="LOGO"
+                width={30} // This width and height are required for the Image component but will be overridden by the className styles.
+                height={30}
+                className="w-10 h-10 sm:w-12 sm:h-12 lg:w-15 lg:h-15"
+              />
+              <h1 className="text-xl md:text-2xl lg:text-3xl text-center font-bold">
+                Agentic
+              </h1>
+            </div>
+          </div>
+          <div className="w-full h-full  flex justify-start items-center">
+            <ul className="flex flex-col gap-5 justify-between text-sm leading-5 text-neutral-700 font-normal">
+              <li>
+                <Link
+                  href="/"
+                  className={`hover:text-neutral-900 transition duration-300 ease-in-out ${
+                    pathname === "/" ? "active" : ""
+                  }`}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pricing"
+                  className={`hover:text-neutral-900 transition duration-300 ease-in-out ${
+                    pathname === "/pricing" ? "active" : ""
+                  }`}
+                >
+                  Pricing
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className={`hover:text-neutral-900 transition duration-300 ease-in-out ${
+                    pathname === "/terms" ? "active" : ""
+                  }`}
+                >
+                  Terms Of Use
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="#"
+                  className={`hover:text-neutral-900 transition duration-300 ease-in-out ${
+                    pathname === "/documentation" ? "active" : ""
+                  }`}
+                >
+                  Documentation
+                </Link>
+              </li>
+            </ul>
           </div>
         </section>
 
