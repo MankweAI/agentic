@@ -1,11 +1,11 @@
-import React from 'react'
-import { cn, extractUUIDFromString, getMonthName } from '@/lib/utils'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import React from "react";
+import { cn, extractUUIDFromString, getMonthName } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { User, Headset } from "lucide-react";
-import Image from 'next/image'
-import Link from 'next/link'
-import { useState, useEffect } from 'react';
-import { Bot } from 'lucide-react';
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { Bot } from "lucide-react";
 
 type Props = {
   message: {
@@ -115,4 +115,4 @@ const Bubble = ({
   );
 };
 
-export default Bubble
+export default Bubble;
