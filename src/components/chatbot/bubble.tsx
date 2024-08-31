@@ -72,7 +72,7 @@ const Bubble = ({
         )}
         style={{
           backgroundColor:
-            message.role !== "assistant" ? bubbleColor : "#E9EDE6",
+            message.role !== "assistant" ? bubbleColor : "#E7E7E7",
           color:
             message.role !== "assistant" &&
             textColor !== undefined &&

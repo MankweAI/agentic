@@ -93,13 +93,16 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
         <div
           className="flex justify-center items-start p-2"
           style={{
-            backgroundImage: `linear-gradient(to left, white 0%, ${rgbaColor} 15%, ${rgbaColor} 85%)`,
-            backgroundPosition: "center",
-            backgroundSize: "100%",
+            backgroundImage: `url(https://ucarecdn.com/d650ac4c-f3d6-4441-adf6-87493c80181a/titlebarbackroundagentic.png)`,
+            backgroundSize: "95% 94%",
+            backgroundPosition: "2px center",
+            backgroundColor: rgbaColor,
             backgroundRepeat: "no-repeat",
+            backgroundOrigin: "padding-box",
+            paddingLeft: "20px", // adjust the value to your liking
           }}
         >
-          <div className="flex gap-4 items-center justify-start  w-3/4">
+          <div className="flex gap-4 items-center justify-start  w-full">
             {realtimeMode ? (
               <Image
                 src={`https://ucarecdn.com/${chatbotIcon}/`}
@@ -130,7 +133,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
               {textColor ? (
                 <h3
                   className="text-xl font-bold leading-none pb-2"
-                  style={{ color: textColor }}
+                  style={{ color: "#272727" }}
                 >
                   {domainName}
                 </h3>

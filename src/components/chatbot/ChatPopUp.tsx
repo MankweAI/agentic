@@ -38,9 +38,9 @@ const ChatPopup = ({ icon, agentName, theme }: ChatPopupProps) => {
           className="rounded-full"
         />
         {/* Green Dot */}
-        
+
         <div
-          className="absolute w-3 h-3 bg-green-500 rounded-full border-2.5 "
+          className="absolute w-3 h-3 bg-green-500 rounded-full border-2.5"
           style={{ bottom: "2px", right: "2px" }}
         >
           <div
