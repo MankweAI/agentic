@@ -22,6 +22,7 @@ import ChatbotFrame from "@/components/iframe-react-code";
 import VideoLoop from "@/components/VideoLoop";
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import GA from "../components/ga";
 
 
 // import { getMonthName } from '@/lib/utils'
@@ -65,6 +66,7 @@ export default function Home() {
 
   return (
     <div className="xl:container  w-full flex flex-col justify-center items-center">
+      <GA />
       <NavBar />
       <div className="w-full h-auto shadow-2xl border-b-2 flex flex-col justify-center items-center gap-0">
         <section className="flex justify-center items-center flex-col gap-4 mt-8 p-2 sm:p-4 md:p-6 lg:p-8">

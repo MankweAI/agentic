@@ -1,8 +1,10 @@
 import NavBar from "@/components/navbar";
+import GA from "../../components/ga";
 
 export default async function Terms() {
   return (
     <>
+      <GA />
       <NavBar />
       <div className="container mx-auto max-w-4xl p-4 md:p-6 lg:p-8 xl:p-10 bg-white rounded-lg shadow-lg">
         <div className="m-8 w-full flex justify-between">

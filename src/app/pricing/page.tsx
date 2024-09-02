@@ -12,10 +12,13 @@ import {
 import { pricingCards } from "@/constants/landing-page";
 import clsx from "clsx";
 import { ArrowRightCircleIcon, Check } from "lucide-react";
+import GA from "../../components/ga";
+
 
 export default async function Pricing() {
   return (
     <div className="h-auto w-full">
+      <GA />
       <NavBar />
       <div className="mx-auto max-w-4xl sm:max-w-2xl md:max-w-5xl p-4 md:p-6 lg:p-8 xl:p-10 bg-white rounded-lg shadow-lg">
         <div className="m-0 w-full flex flex-col items-center justify-center ">
