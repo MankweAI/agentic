@@ -1,11 +1,26 @@
 import NavBar from "@/components/navbar";
-import GoogleAnalytics from "../../components/GoogleAnalytics";
+import Head from "next/head";
+import Script from "next/script";
 
 
 export default async function Terms() {
   return (
     <>
-      {/* <GoogleAnalytics /> */}
+      <Head>
+        <title>Agentic</title>
+      </Head>
+      <Script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-QVDL7L6CR7"
+      ></Script>
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-QVDL7L6CR7');
+        `}
+      </Script>
       <NavBar />
       <div className="container mx-auto max-w-4xl p-4 md:p-6 lg:p-8 xl:p-10 bg-white rounded-lg shadow-lg">
         <div className="m-8 w-full flex justify-between">

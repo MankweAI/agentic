@@ -22,7 +22,6 @@ import ChatbotFrame from "@/components/iframe-react-code";
 import VideoLoop from "@/components/VideoLoop";
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import GA from "../components/GoogleAnalytics";
 import Head from "next/head";
 import Script from "next/script";
 
