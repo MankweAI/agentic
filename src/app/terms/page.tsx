@@ -47,7 +47,7 @@ export default async function Terms() {
           </p>
 
           <p>
-            Our premium services are available at a competitive price of R2800
+            Our premium services are available at a competitive price of R1800
             per month (excluding VAT, which will be added at the prevailing
             South African rate). To ensure seamless access to our platform,
             please note the following payment terms, which apply to all

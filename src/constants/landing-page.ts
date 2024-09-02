@@ -16,7 +16,7 @@ export const pricingCards = [
   {
     title: "Ultimate",
     description: "The ultimate sales growth kit",
-    price: "R2800*",
+    price: "R1800*",
     duration: "month",
     highlight: "Key features",
     features: [
