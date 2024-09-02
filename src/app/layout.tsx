@@ -5,6 +5,8 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/context/them-provider";
 import { ChatProvider } from "@/context/user-chat-context";
+import GoogleAnalytics from "../components/GoogleAnalytics";
+
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
@@ -30,6 +32,7 @@ export default function RootLayout({
             >
               {children}
               <Toaster />
+              <GoogleAnalytics />
             </ThemeProvider>
           </body>
         </html>
