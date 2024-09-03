@@ -46,18 +46,18 @@ const ChatbotFrame = () => {
           }
     `);
 
-    iframe.src = "http://localhost:3000/chatbot";
+    iframe.src = "https://www.agentic.co.za/chatbot";
     iframe.classList.add("chat-frame");
     document.body.appendChild(iframe);
 
     window.addEventListener("message", (e) => {
-      if (e.origin !== "http://localhost:3000") return null;
+      if (e.origin !== "https://www.agentic.co.za") return null;
       let dimensions = JSON.parse(e.data);
       iframe.width = dimensions.width;
       iframe.height = dimensions.height;
       iframe.contentWindow?.postMessage(
         "dca5da04-3c5b-4b37-a531-aed53430da2a",
-        "http://localhost:3000/"
+        "https://www.agentic.co.za/"
       );
     });
 
