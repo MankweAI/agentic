@@ -15,6 +15,8 @@ import { Check } from "lucide-react";
 import Head from "next/head";
 import Script from "next/script";
 
+
+
 export default async function Pricing() {
   return (
     <>
